@@ -22,28 +22,28 @@ module SRAM_8K(
     inout [7:0] data,
     input [12:0] addr,
     input clk,
-    input we,
-	 input cs,
-    input oe
+    input rw,
+	 input en
     );
 
 	reg[7:0] RAM[8191:0];
-	reg[7:0] temp_data;
+	reg[7:0] data_out;
+	
+	initial begin
+		data_out = 8'bz;
+	end
 
 	always @(posedge clk)
 	begin
-		if(cs & oe) begin
-			if(we) begin
-				RAM[addr] <= data;
-				temp_data <= 8'bz;
+		if(en) begin
+			if(rw) begin
+				data_out <= RAM[addr];		//read
 			end else begin
-				temp_data <= RAM[addr];
+				RAM[addr] <= data;			//write
 			end
-		end else begin
-			temp_data <= 8'bz;
 		end
 	end
 	
-	assign data = temp_data;
+	assign data = (en & rw) ? data_out : 8'bz;
 
 endmodule

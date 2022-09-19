@@ -27,38 +27,67 @@ module ram_test;
 	// Inputs
 	reg [12:0] addr;
 	reg clk;
-	reg we;
-	reg cs;
-	reg oe;
+	reg rw;
+	reg en;
 
 	// Bidirs
 	wire [7:0] data;
 
-	reg [7:0] temp_data;
+	reg [7:0] write_data;
 
 	// Instantiate the Unit Under Test (UUT)
 	SRAM_8K uut (
 		.data(data), 
 		.addr(addr), 
 		.clk(clk), 
-		.we(we), 
-		.cs(cs), 
-		.oe(oe)
+		.rw(rw), 
+		.en(en)
 	);
+
+	assign data = (en & !rw) ? write_data : 8'bz;		//set data when write
 
 	initial begin
 		// Initialize Inputs
 		addr = 0;
 		clk = 0;
-		we = 0;
-		cs = 0;
-		oe = 0;
+		rw = 0;
+		en = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-		//TODO: TEST
+		
+		en = 0;
+		rw = 0;
+		write_data = 8'hFF;		//write
+		#20;
+		
+		en = 1;
+		rw = 0;
+		write_data = 8'hFF;		//write
+		
+		#20;
+		rw = 1;						//read
+		
+		#20;	
+		addr = 1;
+		rw = 0;
+		write_data = 8'hAA;		//write
+		
+		#20;
+		addr = 0;
+		rw = 1;
+
+		#20;
+		addr = 1;
+		rw = 1;
+		
+		#20;
+		en = 0;
+		
+		#20;
+		en = 1;
 		
 	end
 		
