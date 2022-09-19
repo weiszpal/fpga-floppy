@@ -1,0 +1,2 @@
+xst -intstyle ise -ifn "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ROM_23256.xst" -ofn "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ROM_23256.syr" 
+netgen -intstyle ise -insert_glbl true -w -dir netgen/synthesis -ofmt verilog -sim ROM_23256.ngc ROM_23256_synthesis.v 

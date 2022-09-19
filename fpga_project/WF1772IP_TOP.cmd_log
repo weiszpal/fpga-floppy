@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/WF1772IP_TOP.xst" -ofn "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/WF1772IP_TOP.syr" 

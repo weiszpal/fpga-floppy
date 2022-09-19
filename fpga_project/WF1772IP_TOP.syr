@@ -1,0 +1,963 @@
+Release 14.3 - xst P.40xd (lin64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.02 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.02 secs
+ 
+--> 
+Reading design: WF1772IP_TOP.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "WF1772IP_TOP.prj"
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "WF1772IP_TOP"
+Output Format                      : NGC
+Target Device                      : xc6slx9-2-tqg144
+
+---- Source Options
+Top Module Name                    : WF1772IP_TOP
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Shift Register Extraction          : YES
+ROM Style                          : Auto
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Shift Register Minimum Size        : 2
+Use DSP Block                      : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+LUT Combining                      : Auto
+Reduce Control Sets                : Auto
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Auto
+Use Synchronous Set                : Auto
+Use Synchronous Reset              : Auto
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Power Reduction                    : NO
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+DSP48 Utilization Ratio            : 100
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_transceiver.vhd" into library work
+Parsing entity <WF1772IP_TRANSCEIVER>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_transceiver>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_registers.vhd" into library work
+Parsing entity <WF1772IP_REGISTERS>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_registers>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_pkg.vhd" into library work
+Parsing package <WF1772IP_PKG>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_digital_pll.vhd" into library work
+Parsing entity <WF1772IP_DIGITAL_PLL>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_digital_pll>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_crc_logic.vhd" into library work
+Parsing entity <WF1772IP_CRC_LOGIC>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_crc_logic>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd" into library work
+Parsing entity <WF1772IP_CONTROL>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_control>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_am_detector.vhd" into library work
+Parsing entity <WF1772IP_AM_DETECTOR>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_am_detector>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top_soc.vhd" into library work
+Parsing entity <WF1772IP_TOP_SOC>.
+Parsing architecture <STRUCTURE> of entity <wf1772ip_top_soc>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top.vhd" into library work
+Parsing entity <WF1772IP_TOP>.
+Parsing architecture <STRUCTURE> of entity <wf1772ip_top>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating entity <WF1772IP_TOP> (architecture <STRUCTURE>) from library <work>.
+
+Elaborating entity <WF1772IP_TOP_SOC> (architecture <STRUCTURE>) from library <work>.
+
+Elaborating entity <WF1772IP_CONTROL> (architecture <BEHAVIOR>) from library <work>.
+INFO:HDLCompiler:679 - "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd" Line 276. Case statement is complete. others clause is never selected
+INFO:HDLCompiler:679 - "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd" Line 278. Case statement is complete. others clause is never selected
+INFO:HDLCompiler:679 - "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd" Line 1345. Case statement is complete. others clause is never selected
+
+Elaborating entity <WF1772IP_REGISTERS> (architecture <BEHAVIOR>) from library <work>.
+
+Elaborating entity <WF1772IP_DIGITAL_PLL> (architecture <BEHAVIOR>) with generics from library <work>.
+
+Elaborating entity <WF1772IP_AM_DETECTOR> (architecture <BEHAVIOR>) from library <work>.
+
+Elaborating entity <WF1772IP_CRC_LOGIC> (architecture <BEHAVIOR>) from library <work>.
+
+Elaborating entity <WF1772IP_TRANSCEIVER> (architecture <BEHAVIOR>) from library <work>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <WF1772IP_TOP>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top.vhd".
+    Found 1-bit tristate buffer for signal <DATA<7>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<6>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<5>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<4>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<3>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<2>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<1>> created at line 130
+    Found 1-bit tristate buffer for signal <DATA<0>> created at line 130
+    Summary:
+	inferred   8 Tristate(s).
+Unit <WF1772IP_TOP> synthesized.
+
+Synthesizing Unit <WF1772IP_TOP_SOC>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top_soc.vhd".
+    Summary:
+	inferred   1 Multiplexer(s).
+Unit <WF1772IP_TOP_SOC> synthesized.
+
+Synthesizing Unit <WF1772IP_CONTROL>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd".
+    Found 1-bit register for signal <INDEX_COUNTER.LOCK>.
+    Found 1-bit register for signal <DIR>.
+    Found 1-bit register for signal <DRQ_I>.
+    Found 1-bit register for signal <BUSY_I>.
+    Found 1-bit register for signal <SEEK_RNF>.
+    Found 1-bit register for signal <INTRQ>.
+    Found 1-bit register for signal <LOST_DATA_TR00>.
+    Found 1-bit register for signal <MO_I>.
+    Found 1-bit register for signal <MOTORSWITCH.LOCK>.
+    Found 1-bit register for signal <WR_PR>.
+    Found 1-bit register for signal <SPINUP_RECTYPE>.
+    Found 1-bit register for signal <WG>.
+    Found 1-bit register for signal <CRC_ERRFLAG>.
+    Found 1-bit register for signal <CRC_PRES>.
+    Found 1-bit register for signal <P_CRC_PRES.LOCK>.
+    Found 20-bit register for signal <P_DELAY.DELCNT>.
+    Found 4-bit register for signal <INDEX_COUNTER.CNT>.
+    Found 4-bit register for signal <BYTEASMBLY.CNT>.
+    Found 4-bit register for signal <MOTORSWITCH.INDEXCNT>.
+    Found 28-bit register for signal <INDEX_COUNTER.TIMEOUT>.
+    Found 8-bit register for signal <T3_DATATYPE>.
+    Found 8-bit register for signal <RESTORE_TRAP.STEP_CNT>.
+    Found 8-bit register for signal <STEPPULSE.CNT>.
+    Found 8-bit register for signal <TRACKMEM>.
+    Found 3-bit register for signal <CNT_T3BYTES.CNT>.
+    Found 11-bit register for signal <SECT_LEN>.
+    Found 7-bit register for signal <CMD_STATE>.
+    Found 1-bit register for signal <INDEX_MARK>.
+    Found 1-bit register for signal <P_INDEX_MARK.LOCK>.
+    Found 1-bit register for signal <STEP>.
+    Found finite state machine <FSM_0> for signal <CMD_STATE>.
+    -----------------------------------------------------------------------
+    | States             | 73                                             |
+    | Transitions        | 322                                            |
+    | Inputs             | 32                                             |
+    | Outputs            | 63                                             |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESETn (negative)                              |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | idle                                           |
+    | Power Up State     | idle                                           |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 20-bit adder for signal <P_DELAY.DELCNT[19]_GND_16_o_add_92_OUT> created at line 748.
+    Found 4-bit adder for signal <INDEX_COUNTER.CNT[3]_GND_16_o_add_132_OUT> created at line 897.
+    Found 28-bit adder for signal <INDEX_COUNTER.TIMEOUT[27]_GND_16_o_add_135_OUT> created at line 904.
+    Found 3-bit adder for signal <CNT_T3BYTES.CNT[2]_GND_16_o_add_172_OUT> created at line 975.
+    Found 4-bit adder for signal <BYTEASMBLY.CNT[3]_GND_16_o_add_179_OUT> created at line 998.
+    Found 8-bit adder for signal <RESTORE_TRAP.STEP_CNT[7]_GND_16_o_add_275_OUT> created at line 1274.
+    Found 4-bit subtractor for signal <GND_16_o_GND_16_o_sub_250_OUT<3:0>> created at line 1194.
+    Found 8-bit subtractor for signal <GND_16_o_GND_16_o_sub_286_OUT<7:0>> created at line 1298.
+    Found 11-bit subtractor for signal <GND_16_o_GND_16_o_sub_298_OUT<10:0>> created at line 1348.
+    Found 8x1-bit Read Only RAM for signal <T3_TRADR>
+    Found 8-bit comparator equal for signal <DSR[7]_TR[7]_equal_39_o> created at line 411
+    Found 8-bit comparator equal for signal <DSR[7]_SR[7]_equal_42_o> created at line 422
+    Found 20-bit comparator lessequal for signal <n0119> created at line 779
+    Found 20-bit comparator lessequal for signal <n0123> created at line 781
+    Found 20-bit comparator lessequal for signal <n0127> created at line 783
+    Found 20-bit comparator lessequal for signal <n0131> created at line 785
+    Found 20-bit comparator lessequal for signal <n0143> created at line 810
+    Found 20-bit comparator lessequal for signal <n0146> created at line 812
+    Found 28-bit comparator lessequal for signal <INDEX_COUNTER.TIMEOUT[27]_GND_16_o_LessThan_135_o> created at line 903
+    Found 8-bit comparator greater for signal <TR[7]_DSR[7]_LessThan_193_o> created at line 1020
+    Found 8-bit comparator greater for signal <DSR[7]_TR[7]_LessThan_195_o> created at line 1022
+    Found 4-bit comparator greater for signal <GND_16_o_MOTORSWITCH.INDEXCNT[3]_LessThan_249_o> created at line 1193
+    Found 8-bit comparator greater for signal <RESTORE_TRAP.STEP_CNT[7]_PWR_8_o_LessThan_275_o> created at line 1273
+    Summary:
+	inferred   1 RAM(s).
+	inferred   9 Adder/Subtractor(s).
+	inferred 124 D-type flip-flop(s).
+	inferred  13 Comparator(s).
+	inferred  79 Multiplexer(s).
+	inferred   1 Finite State Machine(s).
+Unit <WF1772IP_CONTROL> synthesized.
+
+Synthesizing Unit <WF1772IP_REGISTERS>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_registers.vhd".
+    Found 8-bit register for signal <DATA_REG>.
+    Found 8-bit register for signal <SECTOR_REG>.
+    Found 8-bit register for signal <TRACK_REG>.
+    Found 8-bit register for signal <COMMAND_REG>.
+    Found 8-bit register for signal <STATUS_REG>.
+    Found 8-bit register for signal <SHIFT_REG>.
+    Found 8-bit adder for signal <SECTOR_REG[7]_GND_17_o_add_18_OUT> created at line 192.
+    Found 8-bit adder for signal <TRACK_REG[7]_GND_17_o_add_25_OUT> created at line 210.
+    Found 8-bit subtractor for signal <GND_17_o_GND_17_o_sub_27_OUT<7:0>> created at line 212.
+    Found 8-bit 4-to-1 multiplexer for signal <DATA_OUT> created at line 259.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  48 D-type flip-flop(s).
+	inferred  11 Multiplexer(s).
+Unit <WF1772IP_REGISTERS> synthesized.
+
+Synthesizing Unit <WF1772IP_DIGITAL_PLL>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_digital_pll.vhd".
+        TOP = 152
+        BOTTOM = 104
+        PHASE_CORR = 75
+    Found 1-bit register for signal <RD_PULSE>.
+    Found 1-bit register for signal <EDGEDETECT.LOCK>.
+    Found 1-bit register for signal <ROLL_OVER>.
+    Found 1-bit register for signal <ROLLOVER.LOCK>.
+    Found 1-bit register for signal <PLL_D>.
+    Found 13-bit register for signal <ADDER.ADDER_DATA>.
+    Found 2-bit register for signal <HISTORY_REG>.
+    Found 4-bit register for signal <FREQUENCY_DECODER.FREQ_AMOUNT>.
+    Found 6-bit register for signal <PHASE_DECODER.PHASE_AMOUNT>.
+    Found 8-bit register for signal <PER_CNT>.
+    Found 1-bit register for signal <RD_In>.
+    Found 8-bit adder for signal <PER_CNT[7]_GND_18_o_add_0_OUT> created at line 177.
+    Found 8-bit adder for signal <PER_CNT[7]_GND_18_o_add_9_OUT> created at line 191.
+    Found 13-bit adder for signal <ADDER.ADDER_DATA[12]_GND_18_o_add_12_OUT> created at line 213.
+    Found 8-bit subtractor for signal <GND_18_o_GND_18_o_sub_2_OUT<7:0>> created at line 179.
+    Found 8-bit subtractor for signal <GND_18_o_GND_18_o_sub_8_OUT<7:0>> created at line 192.
+    Found 4-bit subtractor for signal <GND_18_o_GND_18_o_sub_41_OUT<3:0>> created at line 337.
+    Found 6-bit subtractor for signal <GND_18_o_GND_18_o_sub_52_OUT<5:0>> created at line 413.
+    Found 3-bit 4-to-1 multiplexer for signal <ADDER_MSBs> created at line 216.
+    Found 4-bit 4-to-1 multiplexer for signal <ERROR_HISTORY[1]_GND_18_o_wide_mux_38_OUT> created at line 310.
+    Found 8-bit comparator greater for signal <HI_STOP_INV_201_o> created at line 184
+    Found 8-bit comparator greater for signal <LOW_STOP_INV_202_o> created at line 185
+    Found 5-bit comparator greater for signal <GND_18_o_PHASE_DECODER.PHASE_AMOUNT[5]_LessThan_60_o> created at line 422
+    Summary:
+	inferred   5 Adder/Subtractor(s).
+	inferred  39 D-type flip-flop(s).
+	inferred   3 Comparator(s).
+	inferred  26 Multiplexer(s).
+Unit <WF1772IP_DIGITAL_PLL> synthesized.
+
+Synthesizing Unit <WF1772IP_AM_DETECTOR>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_am_detector.vhd".
+    Found 1-bit register for signal <ADRMARK_STROBES.ID_AM_LOCK>.
+    Found 1-bit register for signal <ADRMARK_STROBES.DATA_AM_LOCK>.
+    Found 1-bit register for signal <ID_AM>.
+    Found 1-bit register for signal <DATA_AM>.
+    Found 5-bit register for signal <MFM_SYNCLOCK.TMP>.
+    Found 16-bit register for signal <SHIFT>.
+    Found 1-bit register for signal <DDATA_AM>.
+    Found 1-bit register for signal <ADRMARK_STROBES.DDATA_AM_LOCK>.
+    Found 5-bit subtractor for signal <GND_20_o_GND_20_o_sub_7_OUT<4:0>> created at line 189.
+    Found 5-bit comparator greater for signal <GND_20_o_MFM_SYNCLOCK.TMP[4]_LessThan_6_o> created at line 188
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  27 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+	inferred   5 Multiplexer(s).
+Unit <WF1772IP_AM_DETECTOR> synthesized.
+
+Synthesizing Unit <WF1772IP_CRC_LOGIC>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_crc_logic.vhd".
+WARNING:Xst:647 - Input <DISK_RWn> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 16-bit register for signal <CRC_SHIFT>.
+    Summary:
+	inferred  16 D-type flip-flop(s).
+	inferred   8 Multiplexer(s).
+Unit <WF1772IP_CRC_LOGIC> synthesized.
+
+Synthesizing Unit <WF1772IP_TRANSCEIVER>.
+    Related source file is "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_transceiver.vhd".
+    Found 1-bit register for signal <FM_In>.
+    Found 1-bit register for signal <DEC_STATE>.
+    Found 4-bit register for signal <WR_CNT>.
+    Found 8-bit register for signal <FM_ENCODER.CNT>.
+    Found 2-bit register for signal <MFM_STATE>.
+    Found 2-bit register for signal <PRECOMP>.
+    Found 4-bit register for signal <MFM_PRECOMPENSATION.WRITEPATTERN>.
+    Found 6-bit register for signal <MFM_STROBES.CNT>.
+    Found 32-bit register for signal <AM_SHFT>.
+    Found 24-bit register for signal <CLK_MASK.MASK_SHFT>.
+    Found 1-bit register for signal <CLK_MASK.LOCK>.
+    Found 1-bit register for signal <MFM_10_STRB>.
+    Found 1-bit register for signal <MFM_01_STRB>.
+    Found 1-bit register for signal <MFM_WR_TIMING.CLKMASK_MFM>.
+    Found 1-bit register for signal <MFM_In>.
+    Found finite state machine <FSM_1> for signal <MFM_STATE>.
+    -----------------------------------------------------------------------
+    | States             | 3                                              |
+    | Transitions        | 9                                              |
+    | Inputs             | 2                                              |
+    | Outputs            | 2                                              |
+    | Clock              | CLK (rising_edge)                              |
+    | Reset              | RESETn (negative)                              |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | a_00                                           |
+    | Power Up State     | a_00                                           |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 8-bit adder for signal <FM_ENCODER.CNT[7]_GND_22_o_add_27_OUT> created at line 237.
+    Found 6-bit adder for signal <MFM_STROBES.CNT[5]_GND_22_o_add_51_OUT> created at line 365.
+    Found 4-bit adder for signal <WR_CNT[3]_GND_22_o_add_63_OUT> created at line 420.
+    Found 8-bit comparator greater for signal <GND_22_o_FM_ENCODER.CNT[7]_LessThan_30_o> created at line 245
+    Found 8-bit comparator lessequal for signal <n0066> created at line 245
+    Found 8-bit comparator greater for signal <GND_22_o_FM_ENCODER.CNT[7]_LessThan_32_o> created at line 247
+    Found 8-bit comparator lessequal for signal <n0070> created at line 247
+    Found 8-bit comparator greater for signal <GND_22_o_FM_ENCODER.CNT[7]_LessThan_34_o> created at line 253
+    Found 8-bit comparator lessequal for signal <n0076> created at line 253
+    Found 8-bit comparator greater for signal <GND_22_o_FM_ENCODER.CNT[7]_LessThan_36_o> created at line 255
+    Found 8-bit comparator lessequal for signal <n0081> created at line 255
+    Found 4-bit comparator lessequal for signal <WR_CNT[3]_PWR_18_o_LessThan_63_o> created at line 419
+    Found 4-bit comparator lessequal for signal <n0134> created at line 435
+    Found 4-bit comparator lessequal for signal <n0137> created at line 437
+    Found 4-bit comparator lessequal for signal <n0144> created at line 443
+    Found 4-bit comparator lessequal for signal <n0149> created at line 445
+    Found 4-bit comparator greater for signal <GND_22_o_WR_CNT[3]_LessThan_85_o> created at line 447
+    Found 4-bit comparator lessequal for signal <n0155> created at line 447
+    Summary:
+	inferred   3 Adder/Subtractor(s).
+	inferred  87 D-type flip-flop(s).
+	inferred  15 Comparator(s).
+	inferred  32 Multiplexer(s).
+	inferred   1 Finite State Machine(s).
+Unit <WF1772IP_TRANSCEIVER> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 8x1-bit single-port Read Only RAM                     : 1
+# Adders/Subtractors                                   : 20
+ 11-bit subtractor                                     : 1
+ 13-bit adder                                          : 1
+ 20-bit adder                                          : 1
+ 28-bit adder                                          : 1
+ 3-bit adder                                           : 1
+ 4-bit adder                                           : 3
+ 4-bit subtractor                                      : 2
+ 5-bit subtractor                                      : 1
+ 6-bit adder                                           : 1
+ 6-bit subtractor                                      : 1
+ 8-bit adder                                           : 3
+ 8-bit addsub                                          : 3
+ 8-bit subtractor                                      : 1
+# Registers                                            : 69
+ 1-bit register                                        : 37
+ 11-bit register                                       : 1
+ 13-bit register                                       : 1
+ 16-bit register                                       : 2
+ 2-bit register                                        : 2
+ 20-bit register                                       : 1
+ 24-bit register                                       : 1
+ 28-bit register                                       : 1
+ 3-bit register                                        : 1
+ 32-bit register                                       : 1
+ 4-bit register                                        : 6
+ 5-bit register                                        : 1
+ 6-bit register                                        : 2
+ 8-bit register                                        : 12
+# Comparators                                          : 32
+ 20-bit comparator lessequal                           : 6
+ 28-bit comparator lessequal                           : 1
+ 4-bit comparator greater                              : 2
+ 4-bit comparator lessequal                            : 6
+ 5-bit comparator greater                              : 2
+ 8-bit comparator equal                                : 2
+ 8-bit comparator greater                              : 9
+ 8-bit comparator lessequal                            : 4
+# Multiplexers                                         : 162
+ 1-bit 2-to-1 multiplexer                              : 88
+ 16-bit 2-to-1 multiplexer                             : 9
+ 2-bit 2-to-1 multiplexer                              : 2
+ 20-bit 2-to-1 multiplexer                             : 5
+ 24-bit 2-to-1 multiplexer                             : 4
+ 28-bit 2-to-1 multiplexer                             : 1
+ 3-bit 4-to-1 multiplexer                              : 1
+ 32-bit 2-to-1 multiplexer                             : 3
+ 4-bit 2-to-1 multiplexer                              : 7
+ 4-bit 4-to-1 multiplexer                              : 1
+ 5-bit 2-to-1 multiplexer                              : 1
+ 6-bit 2-to-1 multiplexer                              : 5
+ 7-bit 2-to-1 multiplexer                              : 16
+ 8-bit 2-to-1 multiplexer                              : 18
+ 8-bit 4-to-1 multiplexer                              : 1
+# Tristates                                            : 8
+ 1-bit tristate buffer                                 : 8
+# FSMs                                                 : 2
+# Xors                                                 : 5
+ 1-bit xor2                                            : 5
+
+=========================================================================
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+Synthesizing (advanced) Unit <WF1772IP_AM_DETECTOR>.
+The following registers are absorbed into counter <MFM_SYNCLOCK.TMP>: 1 register on signal <MFM_SYNCLOCK.TMP>.
+Unit <WF1772IP_AM_DETECTOR> synthesized (advanced).
+
+Synthesizing (advanced) Unit <WF1772IP_CONTROL>.
+The following registers are absorbed into counter <INDEX_COUNTER.CNT>: 1 register on signal <INDEX_COUNTER.CNT>.
+The following registers are absorbed into counter <INDEX_COUNTER.TIMEOUT>: 1 register on signal <INDEX_COUNTER.TIMEOUT>.
+INFO:Xst:3218 - HDL ADVISOR - The RAM <Mram_T3_TRADR> will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 8-word x 1-bit                      |          |
+    |     weA            | connected to signal <GND>           | high     |
+    |     addrA          | connected to signal <CNT_T3BYTES.CNT> |          |
+    |     diA            | connected to signal <GND>           |          |
+    |     doA            | connected to signal <T3_TRADR>      |          |
+    -----------------------------------------------------------------------
+Unit <WF1772IP_CONTROL> synthesized (advanced).
+
+Synthesizing (advanced) Unit <WF1772IP_DIGITAL_PLL>.
+The following registers are absorbed into accumulator <ADDER.ADDER_DATA>: 1 register on signal <ADDER.ADDER_DATA>.
+The following registers are absorbed into counter <FREQUENCY_DECODER.FREQ_AMOUNT>: 1 register on signal <FREQUENCY_DECODER.FREQ_AMOUNT>.
+The following registers are absorbed into counter <PER_CNT>: 1 register on signal <PER_CNT>.
+Unit <WF1772IP_DIGITAL_PLL> synthesized (advanced).
+
+Synthesizing (advanced) Unit <WF1772IP_TRANSCEIVER>.
+The following registers are absorbed into counter <FM_ENCODER.CNT>: 1 register on signal <FM_ENCODER.CNT>.
+The following registers are absorbed into counter <MFM_STROBES.CNT>: 1 register on signal <MFM_STROBES.CNT>.
+Unit <WF1772IP_TRANSCEIVER> synthesized (advanced).
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 1
+ 8x1-bit single-port distributed Read Only RAM         : 1
+# Adders/Subtractors                                   : 14
+ 11-bit subtractor                                     : 1
+ 20-bit adder                                          : 1
+ 3-bit adder                                           : 1
+ 4-bit adder                                           : 2
+ 4-bit subtractor                                      : 1
+ 6-bit adder                                           : 1
+ 6-bit subtractor                                      : 1
+ 8-bit adder                                           : 3
+ 8-bit addsub                                          : 2
+ 8-bit subtractor                                      : 1
+# Counters                                             : 7
+ 28-bit up counter                                     : 1
+ 4-bit down counter                                    : 1
+ 4-bit up counter                                      : 1
+ 5-bit down counter                                    : 1
+ 6-bit up counter                                      : 1
+ 8-bit up counter                                      : 1
+ 8-bit updown counter                                  : 1
+# Accumulators                                         : 1
+ 13-bit up accumulator                                 : 1
+# Registers                                            : 265
+ Flip-Flops                                            : 265
+# Comparators                                          : 32
+ 20-bit comparator lessequal                           : 6
+ 28-bit comparator lessequal                           : 1
+ 4-bit comparator greater                              : 2
+ 4-bit comparator lessequal                            : 6
+ 5-bit comparator greater                              : 2
+ 8-bit comparator equal                                : 2
+ 8-bit comparator greater                              : 9
+ 8-bit comparator lessequal                            : 4
+# Multiplexers                                         : 157
+ 1-bit 2-to-1 multiplexer                              : 87
+ 16-bit 2-to-1 multiplexer                             : 9
+ 2-bit 2-to-1 multiplexer                              : 2
+ 20-bit 2-to-1 multiplexer                             : 5
+ 24-bit 2-to-1 multiplexer                             : 4
+ 3-bit 4-to-1 multiplexer                              : 1
+ 32-bit 2-to-1 multiplexer                             : 3
+ 4-bit 2-to-1 multiplexer                              : 5
+ 4-bit 4-to-1 multiplexer                              : 1
+ 6-bit 2-to-1 multiplexer                              : 5
+ 7-bit 2-to-1 multiplexer                              : 16
+ 8-bit 2-to-1 multiplexer                              : 18
+ 8-bit 4-to-1 multiplexer                              : 1
+# FSMs                                                 : 2
+# Xors                                                 : 5
+ 1-bit xor2                                            : 5
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <I_1772/I_CONTROL/FSM_0> on signal <CMD_STATE[1:73]> with one-hot encoding.
+-----------------------------------------------------------------------------------------------
+ State            | Encoding
+-----------------------------------------------------------------------------------------------
+ idle             | 0000000000000000000000000000000000000000000000000000000000000000000000001
+ init             | 0000000000000000000000000000000000000000000000000000000000000000000000010
+ spinup           | 0000000000000000000000000000000000000000000000000000000000000000000001000
+ delay_15ms       | 0000000000000000000000000000000000000000000000000000000000000000000000100
+ decode           | 0000000000000000000000000000000000000000000000000000000000000000000010000
+ t1_seek_restore  | 0000000000000000000000000000000000000000000000000000000000000000000100000
+ t1_stepping      | 0000000000000000000000000000000000000000000000000000000000000000001000000
+ t1_load_shft     | 0000000000000000000000000000000000000000000000000000000000000100000000000
+ t1_comp_tr_dsr   | 0000000000000000000000000000000000000000000000000000000000100000000000000
+ t1_check_dir     | 0000000000000000000000000000000000000000000000000000000000010000000000000
+ t1_head_ctrl     | 0000000000000000000000000000000000000000000000000000000000001000000000000
+ t1_step          | 0000000000000000000000000000000000000000000000000000000010000000000000000
+ t1_trap          | 0000000000000000000000000000000000000000000000000000000100000000000000000
+ t1_step_delay    | 0000000000000000000000000000000000000000000000000000001000000000000000000
+ t1_spindown      | 0000000000000000000000000000000000000000000000000000010000000000000000000
+ t1_scan_track    | 0000000000000000000000000000000000000000000000000000100000000000000000000
+ t1_scan_crc      | 0000000000000000000000000000000000000000000000000001000000000000000000000
+ t1_verify_delay  | 0000000000000000000000000000000000000000000000000000000001000000000000000
+ t1_verify_crc    | 0000000000000000000000000000000000000000000000000010000000000000000000000
+ t2_rd_wr_sect    | 0000000000000000000000000000000000000000000000000000000000000000010000000
+ t2_init          | 0000000000000000000000000000000000000000000000000100000000000000000000000
+ t2_scan_track    | 0000000000000000000000000000000000000000000000001000000000000000000000000
+ t2_scan_sect     | 0000000000000000000000000000000000000000000000010000000000000000000000000
+ t2_scan_len      | 0000000000000000000000000000000000000000000000100000000000000000000000000
+ t2_verify_crc_1  | 0000000000000000000000000000000000000000000001000000000000000000000000000
+ t2_verify_am     | 0000000000000000000000000000000000000000000010000000000000000000000000000
+ t2_firstbyte     | 0000000000000000000000000000000000000000001000000000000000000000000000000
+ t2_load_data     | 0000000000000000000000000000000000000000010000000000000000000000000000000
+ t2_nextbyte      | 0000000000000000000000000000000000000000100000000000000000000000000000000
+ t2_verify_drq_1  | 0000000000000000000000000000000000000001000000000000000000000000000000000
+ t2_rdstat        | 0000000000000000000000000000000000000010000000000000000000000000000000000
+ t2_verify_crc_2  | 0000000000000000000000000000000000000100000000000000000000000000000000000
+ t2_multisect     | 0000000000000000000000000000000000001000000000000000000000000000000000000
+ t2_delay_b2      | 0000000000000000000000000000000000000000000100000000000000000000000000000
+ t2_set_drq       | 0000000000000000000000000000000000010000000000000000000000000000000000000
+ t2_delay_b8      | 0000000000000000000000000000000000100000000000000000000000000000000000000
+ t2_verify_drq_2  | 0000000000000000000000000000000001000000000000000000000000000000000000000
+ t2_delay_b1      | 0000000000000000000000000000000010000000000000000000000000000000000000000
+ t2_check_mode    | 0000000000000000000000000000000100000000000000000000000000000000000000000
+ t2_delay_b11     | 0000000000000000000000000000001000000000000000000000000000000000000000000
+ t2_wr_leadin     | 0000000000000000000000000000010000000000000000000000000000000000000000000
+ t2_wr_am         | 0000000000000000000000000000100000000000000000000000000000000000000000000
+ t2_load_shft     | 0000000000000000000000000001000000000000000000000000000000000000000000000
+ t2_wr_byte       | 0000000000000000000000000010000000000000000000000000000000000000000000000
+ t2_verify_drq_3  | 0000000000000000000000000100000000000000000000000000000000000000000000000
+ t2_datalost      | 0000000000000000000000001000000000000000000000000000000000000000000000000
+ t2_wrstat        | 0000000000000000000000010000000000000000000000000000000000000000000000000
+ t2_wr_crc        | 0000000000000000000000100000000000000000000000000000000000000000000000000
+ t2_wr_ff         | 0000000000000000000001000000000000000000000000000000000000000000000000000
+ t3_wr            | 0000000000000000000000000000000000000000000000000000000000000001000000000
+ t3_delay_b3      | 0000000000000000000010000000000000000000000000000000000000000000000000000
+ t3_verify_drq    | 0000000000000000000100000000000000000000000000000000000000000000000000000
+ t3_check_index_1 | 0000000000000000001000000000000000000000000000000000000000000000000000000
+ t3_load_shft     | 0000000000000000010000000000000000000000000000000000000000000000000000000
+ t3_wr_data       | 0000000000000000100000000000000000000000000000000000000000000000000000000
+ t3_check_index_2 | 0000000000000001000000000000000000000000000000000000000000000000000000000
+ t3_datalost      | 0000000000000010000000000000000000000000000000000000000000000000000000000
+ t3_rd_track      | 0000000000000000000000000000000000000000000000000000000000000010000000000
+ t3_shift         | 0000000000000100000000000000000000000000000000000000000000000000000000000
+ t3_check_index_3 | 0000000000001000000000000000000000000000000000000000000000000000000000000
+ t3_detect_am     | 0000000000010000000000000000000000000000000000000000000000000000000000000
+ t3_check_byte    | 0000000000100000000000000000000000000000000000000000000000000000000000000
+ t3_check_dr      | 0000000001000000000000000000000000000000000000000000000000000000000000000
+ t3_load_data_1   | 0000000010000000000000000000000000000000000000000000000000000000000000000
+ t3_set_drq_1     | 0000000100000000000000000000000000000000000000000000000000000000000000000
+ t3_rd_adr        | 0000000000000000000000000000000000000000000000000000000000000000100000000
+ t3_verify_am     | 0000001000000000000000000000000000000000000000000000000000000000000000000
+ t3_shift_adr     | 0000010000000000000000000000000000000000000000000000000000000000000000000
+ t3_load_data_2   | 0000100000000000000000000000000000000000000000000000000000000000000000000
+ t3_set_drq_2     | 0001000000000000000000000000000000000000000000000000000000000000000000000
+ t3_check_rd      | 0010000000000000000000000000000000000000000000000000000000000000000000000
+ t3_load_sr       | 0100000000000000000000000000000000000000000000000000000000000000000000000
+ t3_verify_crc    | 1000000000000000000000000000000000000000000000000000000000000000000000000
+-----------------------------------------------------------------------------------------------
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <I_1772/I_TRANSCEIVER/FSM_1> on signal <MFM_STATE[1:2]> with user encoding.
+-------------------
+ State | Encoding
+-------------------
+ a_00  | 00
+ b_01  | 01
+ c_10  | 10
+-------------------
+WARNING:Xst:3002 - This design contains one or more registers/latches that are directly
+   incompatible with the Spartan6 architecture. The two primary causes of this is
+   either a register or latch described with both an asynchronous set and
+   asynchronous reset, or a register or latch described with an asynchronous
+   set or reset which however has an initialization value of the opposite 
+   polarity (i.e. asynchronous reset with an initialization value of 1).
+    While this circuit can be built, it creates a sub-optimal implementation
+   in terms of area, power and performance. For a more optimal implementation
+   Xilinx highly recommends one of the following:
+
+          1) Remove either the set or reset from all registers and latches
+             if not needed for required functionality
+          2) Modify the code in order to produce a synchronous set
+             and/or reset (both is preferred)
+          3) Ensure all registers have the same initialization value as the
+             described asynchronous set or reset polarity
+          4) Use the -async_to_sync option to transform the asynchronous
+             set/reset to synchronous operation
+             (timing simulation highly recommended when using this option)
+
+  Please refer to http://www.xilinx.com search string "Spartan6 asynchronous set/reset" for more details.
+
+  List of register instances with asynchronous set or reset and opposite initialization value:
+    PRECOMP_0 in unit <WF1772IP_TRANSCEIVER>
+
+
+Optimizing unit <WF1772IP_TOP> ...
+
+Optimizing unit <WF1772IP_TOP_SOC> ...
+
+Optimizing unit <WF1772IP_REGISTERS> ...
+
+Optimizing unit <WF1772IP_CONTROL> ...
+
+Optimizing unit <WF1772IP_DIGITAL_PLL> ...
+
+Optimizing unit <WF1772IP_AM_DETECTOR> ...
+
+Optimizing unit <WF1772IP_CRC_LOGIC> ...
+
+Optimizing unit <WF1772IP_TRANSCEIVER> ...
+WARNING:Xst:1710 - FF/Latch <I_1772/I_CONTROL/INDEX_COUNTER.TIMEOUT_27> (without init value) has a constant value of 0 in block <WF1772IP_TOP>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <I_1772/I_CONTROL/INDEX_COUNTER.TIMEOUT_26> (without init value) has a constant value of 0 in block <WF1772IP_TOP>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <I_1772/I_CONTROL/INDEX_COUNTER.TIMEOUT_25> (without init value) has a constant value of 0 in block <WF1772IP_TOP>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <I_1772/I_DIGITAL_PLL/PHASE_DECODER.PHASE_AMOUNT_5> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_DIGITAL_PLL/HISTORY_REG_1> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_DIGITAL_PLL/PER_CNT_5> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_DIGITAL_PLL/PER_CNT_6> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_0> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_0> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_1> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_1> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_2> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_2> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_3> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_3> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_4> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_4> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/FM_ENCODER.CNT_5> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_STROBES.CNT_5> 
+INFO:Xst:2261 - The FF/Latch <I_1772/I_TRANSCEIVER/MFM_STATE_FSM_FFd2> in Unit <WF1772IP_TOP> is equivalent to the following FF/Latch, which will be removed : <I_1772/I_TRANSCEIVER/MFM_PRECOMPENSATION.WRITEPATTERN_0> 
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block WF1772IP_TOP, actual ratio is 17.
+WARNING:Xst:1426 - The value init of the FF/Latch I_1772/I_TRANSCEIVER/PRECOMP_0_LD hinder the constant cleaning in the block WF1772IP_TOP.
+   You should achieve better results by setting this init to 1.
+FlipFlop I_1772/I_CONTROL/CMD_STATE_FSM_FFd29 has been replicated 1 time(s)
+FlipFlop I_1772/I_CONTROL/CMD_STATE_FSM_FFd60 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 407
+ Flip-Flops                                            : 407
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : WF1772IP_TOP.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 1037
+#      GND                         : 1
+#      INV                         : 5
+#      LUT1                        : 48
+#      LUT2                        : 88
+#      LUT3                        : 118
+#      LUT4                        : 91
+#      LUT5                        : 129
+#      LUT6                        : 383
+#      MUXCY                       : 82
+#      MUXF7                       : 10
+#      VCC                         : 1
+#      XORCY                       : 81
+# FlipFlops/Latches                : 408
+#      FD                          : 1
+#      FD_1                        : 1
+#      FDC                         : 176
+#      FDCE                        : 171
+#      FDE                         : 5
+#      FDP                         : 3
+#      FDPE                        : 5
+#      FDR                         : 5
+#      FDSE                        : 40
+#      LD                          : 1
+# Clock Buffers                    : 2
+#      BUFG                        : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 26
+#      IBUF                        : 11
+#      IOBUF                       : 8
+#      OBUF                        : 7
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 6slx9tqg144-2 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:             408  out of  11440     3%  
+ Number of Slice LUTs:                  862  out of   5720    15%  
+    Number used as Logic:               862  out of   5720    15%  
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:    887
+   Number with an unused Flip Flop:     479  out of    887    54%  
+   Number with an unused LUT:            25  out of    887     2%  
+   Number of fully used LUT-FF pairs:   383  out of    887    43%  
+   Number of unique control sets:        44
+
+IO Utilization: 
+ Number of IOs:                          27
+ Number of bonded IOBs:                  27  out of    102    26%  
+
+Specific Feature Utilization:
+ Number of BUFG/BUFGCTRLs:                2  out of     16    12%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+CLK                                | BUFGP                  | 407   |
+MRn                                | IBUF+BUFG              | 1     |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 8.506ns (Maximum Frequency: 117.564MHz)
+   Minimum input arrival time before clock: 10.496ns
+   Maximum output required time after clock: 5.982ns
+   Maximum combinational path delay: 7.546ns
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK'
+  Clock period: 8.506ns (frequency: 117.564MHz)
+  Total number of paths / destination ports: 57862 / 617
+-------------------------------------------------------------------------
+Delay:               8.506ns (Levels of Logic = 5)
+  Source:            I_1772/I_CONTROL/P_DELAY.DELCNT_18 (FF)
+  Destination:       I_1772/I_REGISTERS/DATA_REG_7 (FF)
+  Source Clock:      CLK rising
+  Destination Clock: CLK rising
+
+  Data Path: I_1772/I_CONTROL/P_DELAY.DELCNT_18 to I_1772/I_REGISTERS/DATA_REG_7
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              8   0.525   1.399  I_1772/I_CONTROL/P_DELAY.DELCNT_18 (I_1772/I_CONTROL/P_DELAY.DELCNT_18)
+     LUT6:I0->O            6   0.254   0.984  I_1772/I_CONTROL/DDEn_CMD_STATE[6]_AND_20_o1_SW0 (N36)
+     LUT6:I4->O            3   0.250   0.766  I_1772/I_CONTROL/DDEn_CMD_STATE[6]_AND_20_o1 (I_1772/I_CONTROL/DDEn_CMD_STATE[6]_AND_20_o1)
+     LUT6:I5->O           12   0.254   1.345  I_1772/I_CONTROL/CMD_STATE_DELAY37 (I_1772/I_CONTROL/CMD_STATE_DELAY37)
+     LUT6:I2->O            9   0.254   0.976  I_1772/I_CONTROL/CMD_STATE_DR_LOAD1111111111111111111111111111111111111111111111112 (I_1772/I_CONTROL/CMD_STATE_DR_LOAD1111111111111111111111111111111111111111111111111)
+     LUT6:I5->O            8   0.254   0.943  I_1772/I_REGISTERS/_n0128_inv1 (I_1772/I_REGISTERS/_n0128_inv)
+     FDCE:CE                   0.302          I_1772/I_REGISTERS/DATA_REG_0
+    ----------------------------------------
+    Total                      8.506ns (2.093ns logic, 6.413ns route)
+                                       (24.6% logic, 75.4% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
+  Total number of paths / destination ports: 2083 / 692
+-------------------------------------------------------------------------
+Offset:              10.496ns (Levels of Logic = 6)
+  Source:            DDEn (PAD)
+  Destination:       I_1772/I_REGISTERS/DATA_REG_7 (FF)
+  Destination Clock: CLK rising
+
+  Data Path: DDEn to I_1772/I_REGISTERS/DATA_REG_7
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O            94   1.328   2.617  DDEn_IBUF (DDEn_IBUF)
+     LUT6:I0->O            1   0.254   0.910  I_1772/I_CONTROL/CMD_STATE_DELAY26_SW0 (N177)
+     LUT6:I3->O            1   0.235   0.910  I_1772/I_CONTROL/CMD_STATE_DELAY26 (I_1772/I_CONTROL/CMD_STATE_DELAY26)
+     LUT6:I3->O           12   0.235   1.297  I_1772/I_CONTROL/CMD_STATE_DELAY32 (I_1772/I_CONTROL/CMD_STATE_DELAY32)
+     LUT6:I3->O            9   0.235   0.976  I_1772/I_CONTROL/CMD_STATE_DR_LOAD1111111111111111111111111111111111111111111111112 (I_1772/I_CONTROL/CMD_STATE_DR_LOAD1111111111111111111111111111111111111111111111111)
+     LUT6:I5->O            8   0.254   0.943  I_1772/I_REGISTERS/_n0128_inv1 (I_1772/I_REGISTERS/_n0128_inv)
+     FDCE:CE                   0.302          I_1772/I_REGISTERS/DATA_REG_0
+    ----------------------------------------
+    Total                     10.496ns (2.843ns logic, 7.653ns route)
+                                       (27.1% logic, 72.9% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
+  Total number of paths / destination ports: 40 / 15
+-------------------------------------------------------------------------
+Offset:              5.982ns (Levels of Logic = 2)
+  Source:            I_1772/I_REGISTERS/TRACK_REG_3 (FF)
+  Destination:       DATA<3> (PAD)
+  Source Clock:      CLK rising
+
+  Data Path: I_1772/I_REGISTERS/TRACK_REG_3 to DATA<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q            22   0.525   1.610  I_1772/I_REGISTERS/TRACK_REG_3 (I_1772/I_REGISTERS/TRACK_REG_3)
+     LUT6:I2->O            1   0.254   0.681  I_1772/I_REGISTERS/Mmux_DATA_OUT41 (DATA_OUT<3>)
+     IOBUF:I->IO               2.912          DATA_3_IOBUF (DATA<3>)
+    ----------------------------------------
+    Total                      5.982ns (3.691ns logic, 2.291ns route)
+                                       (61.7% logic, 38.3% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 33 / 9
+-------------------------------------------------------------------------
+Delay:               7.546ns (Levels of Logic = 3)
+  Source:            DDEn (PAD)
+  Destination:       WD (PAD)
+
+  Data Path: DDEn to WD
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O            94   1.328   2.390  DDEn_IBUF (DDEn_IBUF)
+     LUT3:I0->O            1   0.235   0.681  I_1772/WD1 (WD_OBUF)
+     OBUF:I->O                 2.912          WD_OBUF (WD)
+    ----------------------------------------
+    Total                      7.546ns (4.475ns logic, 3.071ns route)
+                                       (59.3% logic, 40.7% route)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+Clock to Setup on destination clock CLK
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK            |    8.506|    2.528|         |         |
+MRn            |    4.408|         |         |         |
+---------------+---------+---------+---------+---------+
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 8.00 secs
+Total CPU time to Xst completion: 7.86 secs
+ 
+--> 
+
+
+Total memory usage is 395552 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    6 (   0 filtered)
+Number of infos    :   11 (   0 filtered)
+

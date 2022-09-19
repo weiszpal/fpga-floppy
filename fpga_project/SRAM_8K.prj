@@ -1,0 +1,2 @@
+verilog work "SRAM_8K.v"
+vhdl work "wf1772ip_pkg.vhd"
