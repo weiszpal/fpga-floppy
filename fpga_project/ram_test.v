@@ -30,22 +30,19 @@ module ram_test;
 	reg rw;
 	reg en;
 
-	// Bidirs
-	wire [7:0] data;
-
-	reg [7:0] write_data;
+	wire [7:0] data_read;
+	reg [7:0] data_write;
 
 	// Instantiate the Unit Under Test (UUT)
 	SRAM_8K uut (
-		.data(data), 
+		.data_in(data_write), 
+		.data_out(data_read), 
 		.addr(addr), 
 		.clk(clk), 
 		.rw(rw), 
 		.en(en)
 	);
-
-	assign data = (en & !rw) ? write_data : 8'bz;		//set data when write
-
+	
 	initial begin
 		// Initialize Inputs
 		addr = 0;
@@ -60,12 +57,12 @@ module ram_test;
 		
 		en = 0;
 		rw = 0;
-		write_data = 8'hFF;		//write
+		data_write = 8'hFF;		//write
 		#20;
 		
 		en = 1;
 		rw = 0;
-		write_data = 8'hFF;		//write
+		data_write = 8'hFF;		//write
 		
 		#20;
 		rw = 1;						//read
@@ -73,7 +70,7 @@ module ram_test;
 		#20;	
 		addr = 1;
 		rw = 0;
-		write_data = 8'hAA;		//write
+		data_write = 8'hAA;		//write
 		
 		#20;
 		addr = 0;
@@ -88,6 +85,9 @@ module ram_test;
 		
 		#20;
 		en = 1;
+		
+		#20;
+		en = 0;
 		
 	end
 		

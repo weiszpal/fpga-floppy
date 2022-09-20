@@ -1,0 +1,84 @@
+Release 14.3 - xst P.40xd (lin64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.02 secs
+ 
+--> 
+Parameter xsthdpdir set to /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.02 secs
+ 
+--> 
+Reading design: WF1772IP_TOP.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_transceiver.vhd" into library work
+Parsing entity <WF1772IP_TRANSCEIVER>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_transceiver>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_registers.vhd" into library work
+Parsing entity <WF1772IP_REGISTERS>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_registers>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_pkg.vhd" into library work
+Parsing package <WF1772IP_PKG>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_digital_pll.vhd" into library work
+Parsing entity <WF1772IP_DIGITAL_PLL>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_digital_pll>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_crc_logic.vhd" into library work
+Parsing entity <WF1772IP_CRC_LOGIC>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_crc_logic>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_control.vhd" into library work
+Parsing entity <WF1772IP_CONTROL>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_control>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_am_detector.vhd" into library work
+Parsing entity <WF1772IP_AM_DETECTOR>.
+Parsing architecture <BEHAVIOR> of entity <wf1772ip_am_detector>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top_soc.vhd" into library work
+Parsing entity <WF1772IP_TOP_SOC>.
+Parsing architecture <STRUCTURE> of entity <wf1772ip_top_soc>.
+Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_top.vhd" into library work
+Parsing entity <WF1772IP_TOP>.
+Parsing architecture <STRUCTURE> of entity <wf1772ip_top>.
+
+
+Total REAL time to Xst completion: 1.00 secs
+Total CPU time to Xst completion: 1.37 secs
+ 
+--> 
+
+
+Total memory usage is 295992 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :    0 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
+

@@ -1,0 +1,29 @@
+Command line:
+   SRAM_8K_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  41735
+
+Tue Sep 20 17:04:18 2022
+
+
+ Elaboration Time: 0 sec
+
+ Current Memory Usage: 171.143 Meg
+
+ Total Signals          : 18
+ Total Nets             : 45
+ Total Signal Drivers   : 6
+ Total Blocks           : 2
+ Total Primitive Blocks : 2
+ Total Processes        : 8
+ Total Traceable Variables  : 20
+ Total Scalar Nets and Variables : 65669
+Total Line Count : 21
+
+ Total Simulation Time: 0.01 sec
+
+ Current Memory Usage: 246.645 Meg
+
+Tue Sep 20 17:04:20 2022
+

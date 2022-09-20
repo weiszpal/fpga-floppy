@@ -5,14 +5,14 @@ Parameter TMPDIR set to /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-fl
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.02 secs
+Total CPU time to Xst completion: 0.03 secs
  
 --> 
 Parameter xsthdpdir set to /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.02 secs
+Total CPU time to Xst completion: 0.03 secs
  
 --> 
 Reading design: SRAM_8K.prj
@@ -44,17 +44,15 @@ TABLE OF CONTENTS
 =========================================================================
 Analyzing Verilog file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/SRAM_8K.v" into library work
 Parsing module <SRAM_8K>.
-Parsing VHDL file "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/wf1772ip_pkg.vhd" into library work
-Parsing package <WF1772IP_PKG>.
 
 
 Total REAL time to Xst completion: 2.00 secs
-Total CPU time to Xst completion: 1.36 secs
+Total CPU time to Xst completion: 1.42 secs
  
 --> 
 
 
-Total memory usage is 293980 kilobytes
+Total memory usage is 293148 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    0 (   0 filtered)

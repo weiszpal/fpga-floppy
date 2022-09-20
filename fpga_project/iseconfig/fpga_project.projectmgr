@@ -7,15 +7,20 @@
    <ItemView engineview="SynthesisOnly" guiview="Source" compilemode="AutoCompile" >
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
+         <ClosedNode>/ROM_23256 |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|ROM_23256.v</ClosedNode>
+         <ClosedNode>/WF1772IP_TOP - STRUCTURE |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|wf1772ip_top.vhd</ClosedNode>
+         <ClosedNode>/WF1772IP_TOP - STRUCTURE |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|wf1772ip_top.vhd/I_1772 - WF1772IP_TOP_SOC - STRUCTURE</ClosedNode>
+         <ClosedNode>/chip_6502 |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|chip_6502.v</ClosedNode>
+         <ClosedNode>/chip_6502 |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|chip_6502.v/logic_00 - LOGIC</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>ROM_23256 (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ROM_23256.v)</SelectedItem>
+         <SelectedItem>SRAM_8K (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/SRAM_8K.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000382000000020000000000000000000000000200000064ffffffff000000810000000300000002000003820000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000203000000020000000000000000000000000200000064ffffffff000000810000000300000002000002030000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>ROM_23256 (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ROM_23256.v)</CurrentItem>
+      <CurrentItem>SRAM_8K (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/SRAM_8K.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -30,7 +35,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001aa000000010000000100000000000000000000000064ffffffff000000810000000000000001000001aa0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000166000000010000000100000000000000000000000064ffffffff000000810000000000000001000001660000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>Design Utilities</CurrentItem>
    </ItemView>
@@ -43,7 +48,7 @@
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000004dc000000040101000100000000000000000000000064ffffffff0000008100000000000000040000005e00000001000000000000003d0000000100000000000000af0000000100000000000003920000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000000000000000100000000000000000000000000000000000004cc000000040101000100000000000000000000000064ffffffff0000008100000000000000040000005e00000001000000000000003d0000000100000000000000af0000000100000000000003820000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>clock_test.v</CurrentItem>
    </ItemView>
@@ -62,15 +67,16 @@
       <ClosedNodes>
          <ClosedNodesVersion>2</ClosedNodesVersion>
          <ClosedNode>/WF1772IP_TOP - STRUCTURE |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|wf1772ip_top.vhd</ClosedNode>
+         <ClosedNode>/chip_6502 |home|pali|Documents|BME|MSC|masodik_felev|Onlab|fpga-floppy|fpga_project|chip_6502.v/logic_00 - LOGIC</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>ram_test (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ram_test.v)</SelectedItem>
+         <SelectedItem>iecdrv_mos8520 (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/iecdrv_mos8520.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000203000000020000000000000000000000000200000064ffffffff000000810000000300000002000002030000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>ram_test (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ram_test.v)</CurrentItem>
+      <CurrentItem>iecdrv_mos8520 (/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/iecdrv_mos8520.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -78,13 +84,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem/>
+         <SelectedItem></SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001aa000000010000000100000000000000000000000064ffffffff000000810000000000000001000001aa0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000166000000010000000100000000000000000000000064ffffffff000000810000000000000001000001660000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem/>
+      <CurrentItem></CurrentItem>
    </ItemView>
    <SourceProcessView>000000ff0000000000000002000002980000013501000000060100000002</SourceProcessView>
    <CurrentView>Behavioral Simulation</CurrentView>
@@ -92,17 +98,16 @@
       <ClosedNodes>
          <ClosedNodesVersion>1</ClosedNodesVersion>
          <ClosedNode>Configure Target Device</ClosedNode>
-         <ClosedNode>Design Utilities/Compile HDL Simulation Libraries</ClosedNode>
          <ClosedNode>Implement Design</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Post-Synthesis Simulation Model</SelectedItem>
+         <SelectedItem>Check Syntax</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >8</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000019a000000010000000100000000000000000000000064ffffffff0000008100000000000000010000019a0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000166000000010000000100000000000000000000000064ffffffff000000810000000000000001000001660000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Post-Synthesis Simulation Model</CurrentItem>
+      <CurrentItem>Check Syntax</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="DESUT_VERILOG" guiview="Process" >
       <ClosedNodes>
@@ -126,13 +131,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Synthesize - XST</SelectedItem>
+         <SelectedItem>Check Syntax</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff0000000000000001000000010000000000000000000000000000000000000000000000019a000000010000000100000000000000000000000064ffffffff0000008100000000000000010000019a0000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000166000000010000000100000000000000000000000064ffffffff000000810000000000000001000001660000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Synthesize - XST</CurrentItem>
+      <CurrentItem>Check Syntax</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="DESUT_VHDL_ARCHITECTURE" guiview="Process" >
       <ClosedNodes>
@@ -145,6 +150,19 @@
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001aa000000010000000100000000000000000000000064ffffffff000000810000000000000001000001aa0000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem/>
+   </ItemView>
+   <ItemView engineview="SynthesisOnly" sourcetype="DESUT_MEM" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems>
+         <SelectedItem/>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000166000000010000000100000000000000000000000064ffffffff000000810000000000000001000001660000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>

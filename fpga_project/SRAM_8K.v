@@ -19,31 +19,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module SRAM_8K(
-    inout [7:0] data,
+	 input clk,
     input [12:0] addr,
-    input clk,
+    input [7:0] data_in,
+	 output reg [7:0] data_out,
     input rw,
 	 input en
     );
 
 	reg[7:0] RAM[8191:0];
-	reg[7:0] data_out;
-	
-	initial begin
-		data_out = 8'bz;
-	end
 
 	always @(posedge clk)
 	begin
 		if(en) begin
 			if(rw) begin
-				data_out <= RAM[addr];		//read
+				data_out <= RAM[addr];
 			end else begin
-				RAM[addr] <= data;			//write
+				RAM[addr] <= data_in;
+				data_out <= data_in;
 			end
+		end else begin
+			data_out <= 8'bz;
 		end
 	end
 	
-	assign data = (en & rw) ? data_out : 8'bz;
+	//assign data_out = RAM[addr];
 
 endmodule
