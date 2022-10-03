@@ -82,26 +82,9 @@
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="MUX.v"/>
-      <outfile xil_pn:name="ROM_23256.v"/>
-      <outfile xil_pn:name="SRAM_8K.v"/>
-      <outfile xil_pn:name="chip_6502.v"/>
-      <outfile xil_pn:name="chip_6502_nodes.inc"/>
-      <outfile xil_pn:name="clock_gen.v"/>
-      <outfile xil_pn:name="clock_test.v"/>
-      <outfile xil_pn:name="logic.inc"/>
-      <outfile xil_pn:name="ram_test.v"/>
-      <outfile xil_pn:name="rom_test.v"/>
-      <outfile xil_pn:name="wf1772ip_am_detector.vhd"/>
-      <outfile xil_pn:name="wf1772ip_control.vhd"/>
-      <outfile xil_pn:name="wf1772ip_crc_logic.vhd"/>
-      <outfile xil_pn:name="wf1772ip_digital_pll.vhd"/>
-      <outfile xil_pn:name="wf1772ip_pkg.vhd"/>
-      <outfile xil_pn:name="wf1772ip_registers.vhd"/>
-      <outfile xil_pn:name="wf1772ip_top.vhd"/>
-      <outfile xil_pn:name="wf1772ip_top_soc.vhd"/>
-      <outfile xil_pn:name="wf1772ip_transceiver.vhd"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1663686262" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="1494077371173672054" xil_pn:start_ts="1663686262">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -123,26 +106,9 @@
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="MUX.v"/>
-      <outfile xil_pn:name="ROM_23256.v"/>
-      <outfile xil_pn:name="SRAM_8K.v"/>
-      <outfile xil_pn:name="chip_6502.v"/>
-      <outfile xil_pn:name="chip_6502_nodes.inc"/>
-      <outfile xil_pn:name="clock_gen.v"/>
-      <outfile xil_pn:name="clock_test.v"/>
-      <outfile xil_pn:name="logic.inc"/>
-      <outfile xil_pn:name="ram_test.v"/>
-      <outfile xil_pn:name="rom_test.v"/>
-      <outfile xil_pn:name="wf1772ip_am_detector.vhd"/>
-      <outfile xil_pn:name="wf1772ip_control.vhd"/>
-      <outfile xil_pn:name="wf1772ip_crc_logic.vhd"/>
-      <outfile xil_pn:name="wf1772ip_digital_pll.vhd"/>
-      <outfile xil_pn:name="wf1772ip_pkg.vhd"/>
-      <outfile xil_pn:name="wf1772ip_registers.vhd"/>
-      <outfile xil_pn:name="wf1772ip_top.vhd"/>
-      <outfile xil_pn:name="wf1772ip_top_soc.vhd"/>
-      <outfile xil_pn:name="wf1772ip_transceiver.vhd"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1663686263" xil_pn:in_ck="-2642357569219973550" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-4548175718252921269" xil_pn:start_ts="1663686262">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -152,24 +118,20 @@
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="fuse.log"/>
-      <outfile xil_pn:name="isim"/>
-      <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="ram_test_beh.prj"/>
-      <outfile xil_pn:name="ram_test_isim_beh.exe"/>
-      <outfile xil_pn:name="xilinxsim.ini"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1663686263" xil_pn:in_ck="3045271155275778508" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-2099979621218797650" xil_pn:start_ts="1663686263">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForProperties"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="isim.cmd"/>
-      <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="ram_test_isim_beh.wdb"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1663600156" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="-6571885318922209884" xil_pn:start_ts="1663600156">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -203,15 +165,9 @@
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="ROM_23256.lso"/>
-      <outfile xil_pn:name="ROM_23256.prj"/>
-      <outfile xil_pn:name="ROM_23256.syr"/>
-      <outfile xil_pn:name="ROM_23256.xst"/>
-      <outfile xil_pn:name="ROM_23256_xst.xrpt"/>
-      <outfile xil_pn:name="_xmsgs/xst.xmsgs"/>
-      <outfile xil_pn:name="webtalk_pn.xml"/>
-      <outfile xil_pn:name="xst"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1663600159" xil_pn:name="TRAN_compileBCD2" xil_pn:prop_ck="-8119236222380350575" xil_pn:start_ts="1663600159">
       <status xil_pn:value="SuccessfullyRun"/>
