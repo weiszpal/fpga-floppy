@@ -49,6 +49,7 @@ module ram_test;
 		clk = 0;
 		rw = 0;
 		en = 0;
+		data_write = 8'h00;
 
 		// Wait 100 ns for global reset to finish
 		#100;

@@ -29,18 +29,19 @@ module SRAM_8K(
 
 	reg[7:0] RAM[8191:0];
 
+	initial data_out <= 8'bz;
+
 	always @(posedge clk)
 	begin
-		if(en) begin
-			if(rw) begin
+		if(en)
+			if(rw) 
 				data_out <= RAM[addr];
-			end else begin
+			else begin
 				RAM[addr] <= data_in;
-				data_out <= data_in;
+				data_out <= 8'bz;
 			end
-		end else begin
+		else
 			data_out <= 8'bz;
-		end
 	end
 	
 	//assign data_out = RAM[addr];

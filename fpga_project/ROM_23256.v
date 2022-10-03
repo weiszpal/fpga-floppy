@@ -34,11 +34,9 @@ module ROM_23256(
 	always @(posedge clk)
 	begin
 		if(oe)
-		begin
 			data <= ROM[addr];
-		end else begin
+		else
 			data <= 8'bz;
-		end
 	end
 
 endmodule
