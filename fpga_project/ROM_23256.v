@@ -29,6 +29,7 @@ module ROM_23256(
 
 	initial begin
 		$readmemh("1581-rom.318045-02.mem", ROM);
+		data <= 8'bz;
 	end
 
 	always @(posedge clk)

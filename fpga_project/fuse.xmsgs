@@ -5,5 +5,8 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/bus_test.v" Line 54: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">addr</arg>&gt;. Formal port size is <arg fmt="%d" index="2">15</arg>-bit while actual signal size is <arg fmt="%d" index="1">16</arg>-bit.
+</msg>
+
 </messages>
 

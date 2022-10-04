@@ -52,6 +52,9 @@ module clock_test;
 		rst = 1;
 		#200;
 		rst = 0;
+		
+		#200;
+		rst = 1;
 	end
 	
 	always #5

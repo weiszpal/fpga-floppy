@@ -27,6 +27,8 @@ module clock_gen(
 
 	reg[2:0] Q;
 
+	initial Q <= 3'b000;
+
 	always @(posedge clk)
 	begin
 			if(rst)
