@@ -99,6 +99,9 @@ module bus_test;
 		#80;
 		data_in_mem = 8'h55;
 		addr = 16'h1FFF;
+		
+		#100;
+		addr = 16'h4000;
 	end
       
 endmodule
