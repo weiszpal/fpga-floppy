@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2022-10-04T18:29:58</DateModified>
+  <DateModified>2022-10-04T18:37:35</DateModified>
   <ModuleName>WF1772IP_TOP</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
-  <SavedFilePath>/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/iseconfig/WF1772IP_TOP.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/</ImplementationReportsDirectory>
+  <SavedFilePath>/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/iseconfig/WF1772IP_TOP.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/</ImplementationReportsDirectory>
   <DateInitialized>2022-10-04T18:21:48</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

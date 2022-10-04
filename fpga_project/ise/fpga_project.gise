@@ -21,10 +21,7 @@
 
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="fpga_project.xise"/>
 
-  <files xmlns="http://www.xilinx.com/XMLSchema">
-    <file xil_pn:fileType="FILE_SYMBOL" xil_pn:name="clock_gen.sym" xil_pn:origination="imported"/>
-    <file xil_pn:fileType="FILE_NCD" xil_pn:name="clock_gen_guide.ncd" xil_pn:origination="imported"/>
-  </files>
+  <files xmlns="http://www.xilinx.com/XMLSchema"/>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema"/>
 
