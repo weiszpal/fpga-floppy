@@ -21,6 +21,7 @@
 module top_module(
     output PWR_LED,
     output ACTION_LED,
+	 
     input RESET_IN,		//wired to ~rst
     input ATN_IN,
     input CLK_IN,
@@ -29,6 +30,7 @@ module top_module(
     output DATA_OUT,
     input SRQ_IN,
     output SRQ_OUT,
+	 
     output SIDE1,
     output WGATE,
     output WDATE,
@@ -44,7 +46,9 @@ module top_module(
     output DRVSA,
     output DRVSB,
     output MOTEA,
-    output REDWC_OUT
+    output REDWC_OUT,
+	 
+	 input SW[1:0]
     );
 	 
 	// Clock signals
@@ -67,10 +71,41 @@ module top_module(
 	initial vcc <= 1'b1;
 	initial gnd <= 1'b0;
 
+	iecdrv_mos8520 CIA (
+	  .clk(clk),
+	  .phi2_p(phi_2), // Phi 2 positive edge
+	  .phi2_n(~phi_2), // Phi 2 negative edge
+	  .res_n(rst),
+	  .cs_n(addr[15:13]==3'b010),		//address range: $4000 (U6)
+	  .rw(rw),
+	  .rs(addr[3:0]),
+	  .db_in(data_out_cpu),
+	  .db_out(data_in_cpu),
+	  
+	  //!!! Checking needed & design incomplete:
+	  
+	  //SIDE0 ~RDY ~MOTOR ~SW[0] ~SW[1] POWER ACTION ~DISK_CHG
+	  .pa_in({1'b1, DSKCHG, 1'b1, SW[0], SW[1], 1'b1, 1'b1, DSKCHG}),
+	  .pa_out({SIDE1, 1'bz, MOTEB, 1'bz, 1'bz, PWR_LED, ACTION_LED, 1'bz}),
+	  
+	  //DATA_IN DATA_OUT CLK_IN CLK_OUT ATN_ACK FAST_SER_DIR ~WRPT ATN_IN
+	  .pb_in({DATA_IN, 1'1b, CLK_IN, 1'1b, }),
+	  .pb_out({1'bz, DATA_OUT, 1'bz, CLK_OUT, }),
+	  
+	  .flag_n(~ATN_IN),
+	  .pc_n(),	//not connected
+	  .tod(vcc),
+	  .sp_in(),
+	  .sp_out(),
+	  .cnt_in(),
+	  .cnt_out(),
+	  .irq_n(irq)
+	);
+
 	//***Wiring completed from here:
 
 	// Disk driver
-	WF1772IP_TOP Driver (
+	WF1772IP_TOP FDC (
 		.CLK(clk),
 		.MRn(rst),
 		.CSn(phi_2 && (addr[15:13]==3'b011)),

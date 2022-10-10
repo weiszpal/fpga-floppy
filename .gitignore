@@ -2,4 +2,4 @@ tutorial/
 fpga_project/*.wdb
 fpga_project/ise/iseconfig
 fpga_project/ise/_xmsgs
-
+interface_board/interface_board-backups/
