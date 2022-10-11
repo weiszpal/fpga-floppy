@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module clock_gen(
     input clk,				// 16 MHZ input
-    input rst,	
+    input rstn,			// active low reset
     output phi_0,			// 2 MHz system clk
     output fdc_clk		// 8 MHz for FDC chip
     );
@@ -31,7 +31,7 @@ module clock_gen(
 
 	always @(posedge clk)
 	begin
-			if(rst)
+			if(!rstn)
 				Q <= 0;
 			else
 				Q <= Q + 1'b1;
