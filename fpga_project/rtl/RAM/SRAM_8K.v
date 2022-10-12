@@ -33,7 +33,7 @@ module SRAM_8K(
 
 	always @(posedge clk)
 	begin
-		if(en)
+		if(!en)
 			if(rw) 
 				data_out <= RAM[addr];
 			else begin

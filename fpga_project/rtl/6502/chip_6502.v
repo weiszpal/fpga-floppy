@@ -19,7 +19,6 @@ module chip_6502 (
     input     [7:0] dbi,
     output    [7:0] dbo,
     output          rw,
-	 output			  phi2,
     output          sync,
     output   [15:0] ab);
 
@@ -64,6 +63,5 @@ module chip_6502 (
 
     assign rw   = no[`NODE_rw];
     assign sync = no[`NODE_sync];
-	 assign phi2 = no[`NODE_clk2out];
 
 endmodule

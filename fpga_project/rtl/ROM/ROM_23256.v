@@ -22,7 +22,7 @@ module ROM_23256(
 	 input clk,
     input [14:0] addr,
     output reg [7:0] data,
-    input oe
+    input oen
     );
 
 	reg[7:0] ROM[32767:0];
@@ -34,7 +34,7 @@ module ROM_23256(
 
 	always @(posedge clk)
 	begin
-		if(oe)
+		if(!oen)
 			data <= ROM[addr];
 		else
 			data <= 8'bz;

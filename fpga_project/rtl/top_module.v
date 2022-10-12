@@ -71,11 +71,7 @@
 	wire rw;
 	wire [15:0] addr;
 	wire [7:0] data_out_cpu;
-	wire [7:0] data_in_cpu;
-
-	// Constants
-	`define vcc 1'b1
-	`define gnd 1'b0
+	reg [7:0] data_in_cpu;
 
 	// Other auxiliary signals
 	reg RDY;
@@ -92,6 +88,32 @@
 			endcase
 		end
 	end
+	
+	// Chip select signals and data_out lines
+	wire CSn_RAM;
+	wire CSn_ROM;
+	wire CSn_CIA;
+	wire CSn_FDC;
+	
+	wire [7:0] DO_RAM;
+	wire [7:0] DO_ROM;
+	wire [7:0] DO_CIA;
+	wire [7:0] DO_FDC;
+	
+	always @(CSn_RAM or CSn_ROM or CSn_CIA or CSn_FDC or DO_RAM or DO_ROM or DO_CIA or DO_FDC) begin
+      case ({CSn_RAM, CSn_ROM, CSn_CIA, CSn_FDC})
+         4'b0111 : data_in_cpu <= DO_RAM;
+         4'b1011 : data_in_cpu <= DO_ROM;
+         4'b1101 : data_in_cpu <= DO_CIA;
+         4'b1110 : data_in_cpu <= DO_FDC;
+			default data_in_cpu <= 8'bz;
+      endcase
+   end
+	
+	assign CSn_RAM = addr[15:13]!=3'b000;						//address range: $0000-$1FFF (U6)
+	assign CSn_ROM = !(rw && addr[15]);							//address range: $8000-$FFFF (U7)
+	assign CSn_CIA = addr[15:13]!=3'b010;						//address range: $4000 (U6)
+	assign CSn_FDC = !(phi_2 && (addr[15:13]==3'b011));	//address range: $6000 (U6)
 
 	wire DATA_OUT_AUX;
 	wire ATN_ACK;
@@ -122,19 +144,20 @@
 	//pa_out[5] = PWR_LED;
 	//pa_out[6] = ACTION_LED;
 	//pa_in[7] = ~DSKCHG;
-	  
+	
+	// FUNCTIONAL MODULES
 	iecdrv_mos8520 CIA (
 		.clk(clk),
 		.phi2_p(phi_2), // Phi 2 positive edge
 		.phi2_n(~phi_2), // Phi 2 negative edge
 		.res_n(rstn),
-		.cs_n(addr[15:13]!=3'b010),		//address range: $4000 (U6)
+		.cs_n(CSn_CIA),
 		.rw(rw),
 		.rs(addr[3:0]),
 		.db_in(data_out_cpu),
-		.db_out(data_in_cpu),
+		.db_out(DO_CIA),
 		.irq_n(irq),
-		.tod(vcc),
+		.tod(1'b1),
 
 		.pa_in(pa_in),
 		.pa_out(pa_out),
@@ -156,7 +179,6 @@
 	assign pb_in[2] = CLK_IN;
 	assign CLK_OUT = pb_out[3];
 	assign ATN_ACK = pb_out[4];
-	//pb_out[5] unused (fast_ser_dir)
 	assign pb_in[6] = ~WPT;
 	assign pb_in[7] = ATN_IN; 
 	
@@ -173,24 +195,29 @@
 	assign SRQ_OUT = ~CNT_OUT;
 	assign SIDE1 = ~SIDE0;
 	assign MOTEB = ~MOTOR;
-	assign DRVSB = gnd;
+	assign DRVSB = 1'b1;
+	
+	// Unused pins:
+	assign MOTEA = 1'b0;
+	assign DRVSA = 1'b0;
+	assign REDWC_OUT = 1'b0;
 
 	// Disk driver
 	WF1772IP_TOP FDC (
 		.CLK(clk),
 		.MRn(rstn),
-		.CSn(!(phi_2 && (addr[15:13]==3'b011))),
+		.CSn(CSn_FDC),
 		.RWn(rw),
 		.A1(addr[1]),
 		.A0(addr[0]),
 		.DATA_IN(data_out_cpu),
-		.DATA_OUT(data_in_cpu),
+		.DATA_OUT(DO_FDC),
 		.RDn(~RDATA),
 		.TR00n(~TRK00),
 		.IPn(~INDEX),
 		.WPRTn(~WPT),
-		.DDEn(gnd),
-		.HDTYPE(vcc),	//MFM, double density (see wf1772ip_digital_pll)
+		.DDEn(1'b0),
+		.HDTYPE(1'b1),	//MFM, double density (see wf1772ip_digital_pll)
 		.MO(),			//not connected
 		.WG(WGATE),
 		.WD(WDATE),
@@ -200,39 +227,40 @@
 		.INTRQ()			//not connected
 	);
 
-	// Processor
+// Processor
 	chip_6502 CPU (
 		.clk(clk),    	// FPGA clock
 		.phi(phi_0),   // 6502 clock
 		.res(rstn),
-		.so(vcc),
-		.rdy(vcc),
-		.nmi(vcc),
+		.so(1'b1),
+		.rdy(1'b1),
+		.nmi(1'b1),
 		.irq(irq),
 		.dbi(data_in_cpu),
 		.dbo(data_out_cpu),
 		.rw(rw),
-		.phi2(phi_2),
 		.sync(),			//not connected
 		.ab(addr)
 	);
 
+	assign phi_2 = phi_0;
+	
 	// RAM module
 	SRAM_8K SRAM (
 		.clk(clk), 
 		.addr(addr[12:0]), 
 		.data_in(data_out_cpu), 
-		.data_out(data_in_cpu), 
+		.data_out(DO_RAM), 
 		.rw(rw && phi_0), 				//WE signal sync (U6)
-		.en(addr[15:13]==3'b000)		//address range: $0000-$1FFF (U6)
+		.en(CSn_RAM)
 	);
 
 	// ROM module
 	ROM_23256 ROM (
 		.clk(clk), 
 		.addr(addr[14:0]), 
-		.data(data_in_cpu), 
-		.oe(rw && addr[15])				//address range: $8000-$FFFF (U7)
+		.data(DO_ROM), 
+		.oen(CSn_ROM)
 	);
 
 	// Clock generator
