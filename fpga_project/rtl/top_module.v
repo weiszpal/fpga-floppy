@@ -74,10 +74,8 @@
 	wire [7:0] data_in_cpu;
 
 	// Constants
-	reg vcc;
-	reg gnd;
-	initial vcc <= 1'b1;
-	initial gnd <= 1'b0;
+	`define vcc 1'b1
+	`define gnd 1'b0
 
 	// Other auxiliary signals
 	reg RDY;
@@ -102,10 +100,10 @@
 	wire SIDE0;
 	wire MOTOR;
 
-	reg [7:0] pa_in;
-	reg [7:0] pa_out;
-	reg [7:0] pb_in;
-	reg [7:0] pb_out;
+	wire [7:0] pa_in;
+	wire [7:0] pa_out;
+	wire [7:0] pb_in;
+	wire [7:0] pb_out;
 	
 	//pb_in[0] = DATA_IN;
 	//pb_out[1] = DATA_OUT_AUX;
@@ -130,7 +128,7 @@
 		.phi2_p(phi_2), // Phi 2 positive edge
 		.phi2_n(~phi_2), // Phi 2 negative edge
 		.res_n(rstn),
-		.cs_n(addr[15:13]==3'b010),		//address range: $4000 (U6)
+		.cs_n(addr[15:13]!=3'b010),		//address range: $4000 (U6)
 		.rw(rw),
 		.rs(addr[3:0]),
 		.db_in(data_out_cpu),
@@ -153,6 +151,24 @@
 		.cnt_out(CNT_OUT)
 	);
 
+	assign pb_in[0] = DATA_IN;
+	assign DATA_OUT_AUX = pb_out[1];
+	assign pb_in[2] = CLK_IN;
+	assign CLK_OUT = pb_out[3];
+	assign ATN_ACK = pb_out[4];
+	//pb_out[5] unused (fast_ser_dir)
+	assign pb_in[6] = ~WPT;
+	assign pb_in[7] = ATN_IN; 
+	
+	assign SIDE0 = pa_out[0];
+	assign pa_in[1] = RDY;
+	assign MOTOR = pa_out[2];
+	assign pa_in[3] = SW0;
+	assign pa_in[4] = SW1;
+	assign PWR_LED = pa_out[5];
+	assign ACTION_LED = pa_out[6];
+	assign pa_in[7] = ~DSKCHG;
+
 	assign DATA_OUT = (~SP_OUT) || DATA_OUT_AUX || (ATN_IN && ATN_ACK);
 	assign SRQ_OUT = ~CNT_OUT;
 	assign SIDE1 = ~SIDE0;
@@ -163,11 +179,12 @@
 	WF1772IP_TOP FDC (
 		.CLK(clk),
 		.MRn(rstn),
-		.CSn(phi_2 && (addr[15:13]==3'b011)),
+		.CSn(!(phi_2 && (addr[15:13]==3'b011))),
 		.RWn(rw),
 		.A1(addr[1]),
 		.A0(addr[0]),
-		.DATA(data_in_cpu),
+		.DATA_IN(data_out_cpu),
+		.DATA_OUT(data_in_cpu),
 		.RDn(~RDATA),
 		.TR00n(~TRK00),
 		.IPn(~INDEX),
@@ -213,7 +230,7 @@
 	// ROM module
 	ROM_23256 ROM (
 		.clk(clk), 
-		.addr(addr), 
+		.addr(addr[14:0]), 
 		.data(data_in_cpu), 
 		.oe(rw && addr[15])				//address range: $8000-$FFFF (U7)
 	);
@@ -223,7 +240,7 @@
 		.clk(clk), 
 		.rstn(rstn), 
 		.phi_0(phi_0), 
-		.fdc_clk(fdc_clk)
+		.fdc_clk()		//not used
 	);
 
 	assign rstn = ~RESET_IN;

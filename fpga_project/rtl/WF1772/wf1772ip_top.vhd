@@ -81,7 +81,11 @@ entity WF1772IP_TOP is
 		CSn			: in std_logic;
 		RWn			: in std_logic;
 		A1, A0		: in std_logic;
-		DATA		: inout std_logic_vector(7 downto 0);
+		
+		--DATA		: inout std_logic_vector(7 downto 0);
+		DATA_IN		: in std_logic_vector(7 downto 0);
+		DATA_OUT	: out std_logic_vector(7 downto 0);
+		
 		RDn			: in std_logic;
 		TR00n		: in std_logic;
 		IPn			: in std_logic;
@@ -107,7 +111,7 @@ component WF1772IP_TOP_SOC
 		RWn			: in std_logic;
 		A1, A0		: in std_logic;
 		DATA_IN		: in std_logic_vector(7 downto 0);
-		DATA_OUT	: out std_logic_vector(7 downto 0);
+		DATA_OUT		: out std_logic_vector(7 downto 0);
 		DATA_EN		: out std_logic;
 		RDn			: in std_logic;
 		TR00n		: in std_logic;
@@ -124,10 +128,10 @@ component WF1772IP_TOP_SOC
 		INTRQ		: out std_logic
 	);
 end component;
-signal DATA_OUT : std_logic_vector(7 downto 0);
+signal DATA_OUT_G : std_logic_vector(7 downto 0);
 signal DATA_EN  : std_logic;
 begin
-    DATA <= DATA_OUT when DATA_EN = '1' else (others => 'Z');
+    DATA_OUT <= DATA_OUT_G when DATA_EN = '1' else (others => 'Z');
 
     I_1772: WF1772IP_TOP_SOC
         port map(
@@ -137,8 +141,8 @@ begin
             RWn         => RWn,
             A1          => A1,
             A0          => A0,
-            DATA_IN     => DATA,
-            DATA_OUT    => DATA_OUT,
+            DATA_IN     => DATA_IN,
+            DATA_OUT    => DATA_OUT_G,
             DATA_EN     => DATA_EN,
             RDn         => RDn,
             TR00n       => TR00n,
