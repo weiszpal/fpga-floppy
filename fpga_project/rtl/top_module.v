@@ -244,7 +244,7 @@
 		.addr(addr[12:0]), 
 		.data_in(data_out_cpu), 
 		.data_out(DO_RAM), 
-		.rw(rw && phi_2), 				//WE signal sync (U6)
+		.rw(rw),				 			//WE signal sync (U6) (was: rw && phi_2)
 		.en(CSn_RAM)
 	);
 

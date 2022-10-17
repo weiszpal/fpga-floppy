@@ -29,7 +29,10 @@ module SRAM_8K(
 
 	reg[7:0] RAM[8191:0];
 
-	initial data_out <= 8'bz;
+	initial begin
+		$readmemh("../rtl/RAM/RAM_testpattern.mem", RAM);
+		data_out <= 8'bz;
+	end
 
 	always @(posedge clk)
 	begin

@@ -92,7 +92,7 @@ module floppy_testbench;
 
 	initial begin
 		// Initialize Inputs
-		RESET_IN = 0;
+		RESET_IN = 1;
 		ATN_IN = 0;
 		CLK_IN = 0;
 		DATA_IN = 0;
@@ -111,9 +111,6 @@ module floppy_testbench;
 		#50;
         
 		// Add stimulus here
-		RESET_IN = 1;
-		
-		#50;
 		RESET_IN = 0;
 	end
       
