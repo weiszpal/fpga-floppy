@@ -108,13 +108,16 @@ module floppy_testbench;
 		clk = 0;
 
 		// Wait 100 ns for global reset to finish
-		#100;
+		#50;
         
 		// Add stimulus here
 		RESET_IN = 1;
+		
+		#50;
+		RESET_IN = 0;
 	end
       
-	always #5
+	always #1
 		clk <= ~clk;
 		
 endmodule

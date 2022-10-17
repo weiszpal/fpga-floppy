@@ -26,35 +26,26 @@ module clock_test;
 
 	// Inputs
 	reg clk;
-	reg rst;
 
 	// Outputs
 	wire phi_0;
-	wire fdc_clk;
+	wire phi_2;
 
 	// Instantiate the Unit Under Test (UUT)
 	clock_gen uut (
-		.clk(clk), 
-		.rst(rst), 
-		.phi_0(phi_0), 
-		.fdc_clk(fdc_clk)
+		.clk(clk),
+		.phi_0(phi_0),
+		.phi_2(phi_2)
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
-		rst = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-		rst = 1;
-		#200;
-		rst = 0;
-		
-		#200;
-		rst = 1;
 	end
 	
 	always #5

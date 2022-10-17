@@ -67,7 +67,7 @@
 
 	// Bus signals
 	wire rstn;			// active low reset signal
-	wire irq;
+	wire irqn;
 	wire rw;
 	wire [15:0] addr;
 	wire [7:0] data_out_cpu;
@@ -156,7 +156,7 @@
 		.rs(addr[3:0]),
 		.db_in(data_out_cpu),
 		.db_out(DO_CIA),
-		.irq_n(irq),
+		.irq_n(irqn),
 		.tod(1'b1),
 
 		.pa_in(pa_in),
@@ -227,23 +227,16 @@
 		.INTRQ()			//not connected
 	);
 
-// Processor
+	// Processor
 	chip_6502 CPU (
-		.clk(clk),    	// FPGA clock
-		.phi(phi_0),   // 6502 clock
-		.res(rstn),
-		.so(1'b1),
-		.rdy(1'b1),
-		.nmi(1'b1),
-		.irq(irq),
-		.dbi(data_in_cpu),
-		.dbo(data_out_cpu),
-		.rw(rw),
-		.sync(),			//not connected
-		.ab(addr)
+		.clk(phi_0),					// CPU clock 
+		.rstn(rstn),					// reset signal
+		.address(addr[15:0]),		// address bus
+		.data_in(data_in_cpu),		// data in, read bus
+		.data_out(data_out_cpu),	// data out, write bus
+		.rw(rw),							// write enable
+		.irqn(irqn)						// interrupt request	
 	);
-
-	assign phi_2 = phi_0;
 	
 	// RAM module
 	SRAM_8K SRAM (
@@ -251,7 +244,7 @@
 		.addr(addr[12:0]), 
 		.data_in(data_out_cpu), 
 		.data_out(DO_RAM), 
-		.rw(rw && phi_0), 				//WE signal sync (U6)
+		.rw(rw && phi_2), 				//WE signal sync (U6)
 		.en(CSn_RAM)
 	);
 
@@ -265,10 +258,9 @@
 
 	// Clock generator
 	clock_gen sysclk (
-		.clk(clk), 
-		.rstn(rstn), 
-		.phi_0(phi_0), 
-		.fdc_clk()		//not used
+		.clk(clk),
+		.phi_0(phi_0),
+		.phi_2(phi_2)
 	);
 
 	assign rstn = ~RESET_IN;

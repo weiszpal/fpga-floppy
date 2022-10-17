@@ -20,24 +20,22 @@
 //////////////////////////////////////////////////////////////////////////////////
 module clock_gen(
     input clk,				// 16 MHZ input
-    input rstn,			// active low reset
-    output phi_0,			// 2 MHz system clk
-    output fdc_clk		// 8 MHz for FDC chip
+    output phi_0,			// 2 MHz clk pulses for CPU
+	 output phi_2			// 2 MHz system clk
     );
 
 	reg[2:0] Q;
+	reg D;
 
 	initial Q <= 3'b000;
 
 	always @(posedge clk)
 	begin
-			if(!rstn)
-				Q <= 0;
-			else
-				Q <= Q + 1'b1;
+			D <= Q[2];
+			Q <= Q + 1'b1;
 	end
 
-	assign fdc_clk = (Q[0] & 1'b1);		// divide by 2
-	assign phi_0 = (Q[2] & 1'b1);			// divide by 8
+	assign phi_0 = (Q[2] & (Q[2] ^ D));		// divide by 8
+	assign phi_2 = Q[2];
 
 endmodule

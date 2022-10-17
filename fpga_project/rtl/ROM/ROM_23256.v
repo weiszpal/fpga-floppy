@@ -28,7 +28,7 @@ module ROM_23256(
 	reg[7:0] ROM[32767:0];
 
 	initial begin
-		$readmemh("1581-rom.318045-02.mem", ROM);
+		$readmemh("../rtl/ROM/1581-rom.318045-02.mem", ROM);
 		data <= 8'bz;
 	end
 

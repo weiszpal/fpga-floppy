@@ -27,7 +27,7 @@ module rom_test;
 	// Inputs
 	reg clk;
 	reg [14:0] addr;
-	reg oe;
+	reg oen;
 
 	// Outputs
 	wire [7:0] data;
@@ -37,31 +37,31 @@ module rom_test;
 		.clk(clk), 
 		.addr(addr), 
 		.data(data), 
-		.oe(oe)
+		.oen(oen)
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
 		addr = 0;
-		oe = 0;
+		oen = 1;
 
 		// Wait 100 ns for global reset to finish
 		#100;
         
 		// Add stimulus here
-		oe = 1;
+		oen = 0;
 		addr = 0;
 		#10;
 		addr = 1;
 		#10;
 		addr = 2;
 		#10;
-		oe = 0;
+		oen = 1;
 		#10
 		addr = 15'h7FFE;
 		#20;
-		oe = 1;
+		oen = 0;
 	end
       
 	always #5
