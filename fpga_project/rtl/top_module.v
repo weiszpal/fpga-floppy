@@ -113,7 +113,7 @@
 	assign CSn_RAM = addr[15:13]!=3'b000;						//address range: $0000-$1FFF (U6)
 	assign CSn_ROM = !(rw && addr[15]);							//address range: $8000-$FFFF (U7)
 	assign CSn_CIA = addr[15:13]!=3'b010;						//address range: $4000 (U6)
-	assign CSn_FDC = !(phi_2 && (addr[15:13]==3'b011));	//address range: $6000 (U6)
+	assign CSn_FDC = !(addr[15:13]==3'b011);					//address range: $6000 (U6)
 
 	wire DATA_OUT_AUX;
 	wire ATN_ACK;
