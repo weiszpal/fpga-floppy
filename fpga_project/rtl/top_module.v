@@ -106,7 +106,7 @@
          4'b1011 : data_in_cpu <= DO_ROM;
          4'b1101 : data_in_cpu <= DO_CIA;
          4'b1110 : data_in_cpu <= DO_FDC;
-			default data_in_cpu <= 8'bz;
+			default data_in_cpu <= 8'hFF; //was 8'bz;
       endcase
    end
 	
@@ -191,6 +191,17 @@
 	assign ACTION_LED = pa_out[6];
 	assign pa_in[7] = ~DSKCHG;
 
+	//unused CIA inputs
+	assign pa_in[0] = pa_out[0];
+	assign pa_in[2] = pa_out[2];
+	assign pa_in[5] = pa_out[5];
+	assign pa_in[6] = pa_out[6];
+	
+	assign pb_in[1] = pb_out[1];
+	assign pb_in[3] = pb_out[3];
+	assign pb_in[4] = pb_out[4];
+	assign pb_in[5] = 1'b1;
+ 
 	assign DATA_OUT = (~SP_OUT) || DATA_OUT_AUX || (ATN_IN && ATN_ACK);
 	assign SRQ_OUT = ~CNT_OUT;
 	assign SIDE1 = ~SIDE0;

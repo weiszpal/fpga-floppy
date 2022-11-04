@@ -336,7 +336,7 @@ begin
 					end case;
 				end if;
 				if IR = "00000000" and MCycle = "011" and RstCycle = '0' and NMICycle = '0' then
-					P(Flag_B) <= '1';
+					P(Flag_B) <= IRQ_n_o; --was '1';
 				end if;
 				if IR = "00000000" and MCycle = "100" and RstCycle = '0' and NMICycle = '0' then
 					P(Flag_I) <= '1';
@@ -352,6 +352,11 @@ begin
 				end if;
 				P(Flag_1) <= '1';
 
+				--Break flag bug fix:
+				if IR /= "00000000" then
+					P(Flag_B) <= '0';
+				end if;
+				
 				B_o	<= P(Flag_B);
 				SO_n_o <= SO_n;
 				IRQ_n_o <= IRQ_n;

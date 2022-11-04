@@ -36,7 +36,11 @@ module clock_gen(
 	end
 
 	//assign phi_0 = (Q[2] & (Q[2] ^ D));		// divide by 8
-	assign phi_0 = Q[2];
-	assign phi_2 = Q[2];
+	
+	//assign phi_0 = Q[2];
+	//assign phi_2 = Q[2];
+
+	assign phi_0 = (Q==0);
+	assign phi_2 = (Q==0);
 
 endmodule

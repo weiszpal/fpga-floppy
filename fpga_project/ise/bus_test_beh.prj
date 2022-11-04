@@ -1,0 +1,5 @@
+verilog work "../rtl/ROM/ROM_23256.v"
+verilog work "../rtl/RAM/SRAM_8K.v"
+verilog work "../rtl/clock/clock_gen.v"
+verilog work "../tests/bus_test.v"
+verilog work "/opt/Xilinx/14.3/ISE_DS/ISE//verilog/src/glbl.v"

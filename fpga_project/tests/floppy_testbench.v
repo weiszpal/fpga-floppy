@@ -92,9 +92,9 @@ module floppy_testbench;
 
 	initial begin
 		// Initialize Inputs
-		RESET_IN = 1;
+		RESET_IN = 0;
 		ATN_IN = 0;
-		CLK_IN = 0;
+		CLK_IN = 1;
 		DATA_IN = 0;
 		SRQ_IN = 0;
 		DSKCHG = 0;
@@ -108,10 +108,68 @@ module floppy_testbench;
 		clk = 0;
 
 		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		RESET_IN = 1;
+		
 		#50;
         
 		// Add stimulus here
 		RESET_IN = 0;
+		
+		
+		#56000000;
+		
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#10;
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#10;
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#10;
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#10;
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#10;
+		INDEX = 1;
+		#10;
+		INDEX = 0;
+		#30;
+		
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
+		INDEX = 1;
+		#5;
+		INDEX = 0;
+		#5;
 	end
       
 	always #1

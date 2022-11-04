@@ -3,7 +3,7 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
 promgen -w -p mcs -c FF -o /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests//floppy_drive -s 2048 -u 0000 /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/top_module.bit -spi 
 
-PROM /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests/floppy_drive.prm map: Tue Oct 18 18:55:06 2022
+PROM /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests/floppy_drive.prm map: Fri Oct 21 20:29:41 2022
 
 Calculating PROM checksum with fill value ff
 
@@ -11,7 +11,7 @@ Format        Mcs86 (32-bit)
 Size          2048K
 PROM start    0000:0000
 PROM end      001f:ffff
-PROM checksum 1b482e6c
+PROM checksum 1b44c91d
 
         Addr1        Addr2                     Date File(s)
-    0000:0000    0005:327b     Oct 18 18:51:02 2022 /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/top_module.bit
+    0000:0000    0005:327b     Oct 21 20:28:04 2022 /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/top_module.bit

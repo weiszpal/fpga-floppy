@@ -2,10 +2,10 @@
 # Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
 SOFTWARE_VERSION P.40xd
-DATE            10/18/2022 - 18:55
+DATE            10/21/2022 - 20:29
 SOURCE          /home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests/floppy_drive.mcs
 DEVICE          2048K
 DATA_WIDTH      1
 FILL_DATA       0xFF
-SIGNATURE       0x1B482E6C
+SIGNATURE       0x1B44C91D
 START_ADDRESS   0x00000000 END_ADDRESS 0x0005327B DIRECTION_UP   "/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/top_module.bit" 6slx9tqg144

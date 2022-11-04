@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="top_module">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2022-11-4T22:56:30</timestamp>
+    <attr value="top_module" name="VeriModel" />
+    <pin polarity="Input" x="0" y="-928" name="RESET_IN" />
+    <pin polarity="Input" x="0" y="-864" name="ATN_IN" />
+    <pin polarity="Input" x="0" y="-800" name="CLK_IN" />
+    <pin polarity="Input" x="0" y="-736" name="DATA_IN" />
+    <pin polarity="Input" x="0" y="-672" name="SRQ_IN" />
+    <pin polarity="Input" x="0" y="-608" name="DSKCHG" />
+    <pin polarity="Input" x="0" y="-544" name="RDATA" />
+    <pin polarity="Input" x="0" y="-480" name="WPT" />
+    <pin polarity="Input" x="0" y="-416" name="TRK00" />
+    <pin polarity="Input" x="0" y="-352" name="INDEX" />
+    <pin polarity="Input" x="0" y="-288" name="REDWC_IN" />
+    <pin polarity="Input" x="0" y="-224" name="SW0" />
+    <pin polarity="Input" x="0" y="-160" name="SW1" />
+    <pin polarity="Input" x="0" y="-96" name="clk" />
+    <pin polarity="Output" x="416" y="-928" name="PWR_LED" />
+    <pin polarity="Output" x="416" y="-864" name="ACTION_LED" />
+    <pin polarity="Output" x="416" y="-800" name="CLK_OUT" />
+    <pin polarity="Output" x="416" y="-736" name="DATA_OUT" />
+    <pin polarity="Output" x="416" y="-672" name="SRQ_OUT" />
+    <pin polarity="Output" x="416" y="-608" name="SIDE1" />
+    <pin polarity="Output" x="416" y="-544" name="WGATE" />
+    <pin polarity="Output" x="416" y="-480" name="WDATE" />
+    <pin polarity="Output" x="416" y="-416" name="STEP" />
+    <pin polarity="Output" x="416" y="-352" name="DIR" />
+    <pin polarity="Output" x="416" y="-288" name="MOTEB" />
+    <pin polarity="Output" x="416" y="-224" name="DRVSA" />
+    <pin polarity="Output" x="416" y="-160" name="DRVSB" />
+    <pin polarity="Output" x="416" y="-96" name="MOTEA" />
+    <pin polarity="Output" x="416" y="-32" name="REDWC_OUT" />
+    <graph>
+        <rect width="288" x="64" y="-960" height="960" />
+        <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="208" y="-968" type="symbol" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-928" type="pin RESET_IN" />
+        <line x2="0" y1="-928" y2="-928" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-864" type="pin ATN_IN" />
+        <line x2="0" y1="-864" y2="-864" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-800" type="pin CLK_IN" />
+        <line x2="0" y1="-800" y2="-800" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-736" type="pin DATA_IN" />
+        <line x2="0" y1="-736" y2="-736" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-672" type="pin SRQ_IN" />
+        <line x2="0" y1="-672" y2="-672" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-608" type="pin DSKCHG" />
+        <line x2="0" y1="-608" y2="-608" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-544" type="pin RDATA" />
+        <line x2="0" y1="-544" y2="-544" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-480" type="pin WPT" />
+        <line x2="0" y1="-480" y2="-480" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-416" type="pin TRK00" />
+        <line x2="0" y1="-416" y2="-416" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-352" type="pin INDEX" />
+        <line x2="0" y1="-352" y2="-352" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-288" type="pin REDWC_IN" />
+        <line x2="0" y1="-288" y2="-288" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-224" type="pin SW0" />
+        <line x2="0" y1="-224" y2="-224" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-160" type="pin SW1" />
+        <line x2="0" y1="-160" y2="-160" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-96" type="pin clk" />
+        <line x2="0" y1="-96" y2="-96" x1="64" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-928" type="pin PWR_LED" />
+        <line x2="416" y1="-928" y2="-928" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-864" type="pin ACTION_LED" />
+        <line x2="416" y1="-864" y2="-864" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-800" type="pin CLK_OUT" />
+        <line x2="416" y1="-800" y2="-800" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-736" type="pin DATA_OUT" />
+        <line x2="416" y1="-736" y2="-736" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-672" type="pin SRQ_OUT" />
+        <line x2="416" y1="-672" y2="-672" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-608" type="pin SIDE1" />
+        <line x2="416" y1="-608" y2="-608" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-544" type="pin WGATE" />
+        <line x2="416" y1="-544" y2="-544" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-480" type="pin WDATE" />
+        <line x2="416" y1="-480" y2="-480" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-416" type="pin STEP" />
+        <line x2="416" y1="-416" y2="-416" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-352" type="pin DIR" />
+        <line x2="416" y1="-352" y2="-352" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-288" type="pin MOTEB" />
+        <line x2="416" y1="-288" y2="-288" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-224" type="pin DRVSA" />
+        <line x2="416" y1="-224" y2="-224" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-160" type="pin DRVSB" />
+        <line x2="416" y1="-160" y2="-160" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-96" type="pin MOTEA" />
+        <line x2="416" y1="-96" y2="-96" x1="352" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="344" y="-32" type="pin REDWC_OUT" />
+        <line x2="416" y1="-32" y2="-32" x1="352" />
+    </graph>
+</symbol>

@@ -30,6 +30,10 @@
       <marker time="56115911000000" label="" />
       <marker time="56427447000000" label="" />
       <marker time="56428727000000" label="" />
+      <marker time="56008223000000" label="" />
+      <marker time="81796271000000" label="" />
+      <marker time="81797743000000" label="" />
+      <marker time="81811032400000" label="" />
    </wave_markers>
    <wvobject fp_name="/floppy_testbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -141,6 +145,15 @@
       <wvobject fp_name="/floppy_testbench/uut/CPU/core/pc" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">pc[15:0]</obj_property>
          <obj_property name="ObjectShortName">pc[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CPU/core/ir" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ir[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ir[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CPU/core/mcode/mcycle" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">mcycle[2:0]</obj_property>
+         <obj_property name="ObjectShortName">mcycle[2:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="vbus101" type="vbus" db_ref_id="1">
          <obj_property name="label">acc</obj_property>

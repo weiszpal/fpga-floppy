@@ -16,7 +16,22 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="25" />
+   <WVObjectSize size="27" />
+   <wave_markers>
+      <marker time="147629078900000" label="" />
+      <marker time="12764231000000" label="" />
+      <marker time="26688551000000" label="" />
+      <marker time="26688951000000" label="" />
+      <marker time="26700007000000" label="" />
+      <marker time="26716151000000" label="" />
+      <marker time="26717223000000" label="" />
+      <marker time="46577527000000" label="" />
+      <marker time="46579015000000" label="" />
+      <marker time="46580935000000" label="" />
+      <marker time="46882935000000" label="" />
+      <marker time="147553111000000" label="" />
+      <marker time="147951367000000" label="" />
+   </wave_markers>
    <wvobject fp_name="/floppy_testbench/clk" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -302,6 +317,22 @@
          <obj_property name="ElementShortName">irq_n</obj_property>
          <obj_property name="ObjectShortName">irq_n</obj_property>
       </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/sp_in" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sp_in</obj_property>
+         <obj_property name="ObjectShortName">sp_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/sp_out" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sp_out</obj_property>
+         <obj_property name="ObjectShortName">sp_out</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/cnt_in" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">cnt_in</obj_property>
+         <obj_property name="ObjectShortName">cnt_in</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/cnt_out" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">cnt_out</obj_property>
+         <obj_property name="ObjectShortName">cnt_out</obj_property>
+      </wvobject>
       <wvobject fp_name="/floppy_testbench/uut/CIA/rs" type="array" db_ref_id="1">
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="ElementShortName">rs[3:0]</obj_property>
@@ -316,6 +347,22 @@
       <wvobject fp_name="/floppy_testbench/uut/CIA/db_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">db_out[7:0]</obj_property>
          <obj_property name="ObjectShortName">db_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/pa_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pa_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pa_in[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/pa_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pa_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pa_out[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/pb_in" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pb_in[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pb_in[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/CIA/pb_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pb_out[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pb_out[7:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/floppy_testbench/uut/CIA/pra" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">pra[7:0]</obj_property>
@@ -749,6 +796,22 @@
          <obj_property name="ElementShortName">csn</obj_property>
          <obj_property name="ObjectShortName">csn</obj_property>
       </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/FDC/I_1772/I_CONTROL/rwn" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rwn</obj_property>
+         <obj_property name="ObjectShortName">rwn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/FDC/I_1772/I_CONTROL/cmd_wr" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">cmd_wr</obj_property>
+         <obj_property name="ObjectShortName">cmd_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/FDC/I_1772/I_REGISTERS/cmd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">cmd[7:0]</obj_property>
+         <obj_property name="ObjectShortName">cmd[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/floppy_testbench/uut/FDC/I_1772/I_CONTROL/delay" type="other" db_ref_id="1">
+         <obj_property name="ElementShortName">delay</obj_property>
+         <obj_property name="ObjectShortName">delay</obj_property>
+      </wvobject>
       <wvobject fp_name="/floppy_testbench/uut/FDC/I_1772/I_REGISTERS/command_reg" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">command_reg[7:0]</obj_property>
          <obj_property name="ObjectShortName">command_reg[7:0]</obj_property>
@@ -903,5 +966,13 @@
    <wvobject fp_name="/floppy_testbench/REDWC_OUT" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">REDWC_OUT</obj_property>
       <obj_property name="ObjectShortName">REDWC_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/ATN_IN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ATN_IN</obj_property>
+      <obj_property name="ObjectShortName">ATN_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/CLK_IN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_IN</obj_property>
+      <obj_property name="ObjectShortName">CLK_IN</obj_property>
    </wvobject>
 </wave_config>
