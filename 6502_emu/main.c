@@ -1098,7 +1098,7 @@ int main(void){
 	dump_ROM();
 	reset();
 	char it_prev = P.I;
-	char votma = 0;
+	unsigned char votma = 0;
 	while(!fetch()){
 		if(it_prev!=P.I){
 			it_prev = P.I;
@@ -1143,8 +1143,8 @@ int main(void){
 		if(PC==0xAFD6){
 			votma++;
 			//TODO: update CIA flags majd
+			printf("\n\tWIN! %u\n", votma);
 			breakpoint();
-			printf("\n\tWIN !!! %d\n", votma);
 		}
 		/*
 		if(DBG_FLAG){
