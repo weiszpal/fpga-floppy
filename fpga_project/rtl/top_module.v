@@ -56,9 +56,21 @@
 		input 	SW0,
 		input 	SW1,
 		
+		//debug signals for cia inspection
+		output 	DBG_CLKOUT,
+		output 	DBG_ATNACK,
+		output	DBG_DAUX,
+		output	DBG_RDY,
+		
 		// MAIN CLOCK SIGNAL
 		input 	clk				// 16MHz to FPGA logic
 	);
+
+	//debug signals
+	assign DBG_CLKOUT = CLK_OUT;
+	assign DBG_DAUX = DATA_OUT_AUX;
+	assign DBG_ATNACK = ATN_ACK;
+	assign DBG_RDY = RDY;
 
 	// Clock signals
 	wire phi_0;			// 2 MHz to CPU
