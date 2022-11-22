@@ -19,28 +19,36 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module clock_gen(
-    input clk,				// 16 MHZ input
-    output phi_0,			// 2 MHz clk pulses for CPU
-	 output phi_2			// 2 MHz system clk
-    );
+	input reset,
+	input fpga_clk,	// 50 MHZ input
+	output clk,			// 16 MHz output for basically everything, especially wf1772
+	output clk_tap,	// 16 MHz output for debug purposes
+	output phi_0,		// 2 MHz clk pulses for CPU
+	output phi_2		// 2 MHz system clk
+	);
+
+	wire locked;
+	wire pll_clk_out;
 
 	reg[2:0] Q;
-	reg D;
 
 	initial Q <= 3'b000;
 
-	always @(posedge clk)
+	always @(posedge pll_clk_out)
 	begin
-			D <= Q[2];
-			Q <= Q + 1'b1;
+		Q <= Q + 1'b1;
 	end
 
-	//assign phi_0 = (Q[2] & (Q[2] ^ D));		// divide by 8
-	
-	//assign phi_0 = Q[2];
-	//assign phi_2 = Q[2];
+	assign clk = pll_clk_out;
 
 	assign phi_0 = (Q==0);
 	assign phi_2 = (Q==0);
+
+	clk_pll PLL(
+     .fpga_clk(fpga_clk),
+     .reset(reset),
+     .clk_out(pll_clk_out),
+	  .clk_tap(clk_tap)
+	);
 
 endmodule

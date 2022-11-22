@@ -63,19 +63,20 @@
 		output	DBG_RDY,
 		
 		// MAIN CLOCK SIGNAL
-		input 	clk				// 16MHz to FPGA logic
+		input 	fpga_clk			// 50 MHz to FPGA logic
 	);
 
 	//debug signals
 	assign DBG_CLKOUT = CLK_OUT;
 	assign DBG_DAUX = DATA_OUT_AUX;
-	assign DBG_ATNACK = ATN_ACK;
+	assign DBG_ATNACK = phi_2; //clk_tap;
 	assign DBG_RDY = RDY;
 
 	// Clock signals
+	wire clk;			// 16 MHz system clock
 	wire phi_0;			// 2 MHz to CPU
 	wire phi_2;			// 2 MHz to system
-	wire fdc_clk;		// 8 MHz to drive controller (not used, see WF1772IP_TOP CLK requirements)
+	wire clk_tap;		// PLL output to measure (16 MHz intended)
 
 	// Bus signals
 	wire rstn;			// active low reset signal
@@ -87,6 +88,7 @@
 
 	// Other auxiliary signals
 	reg RDY;
+	
 	initial RDY <= 1'b1;
 	always @(posedge clk) begin
 		if(!rstn)
@@ -160,8 +162,8 @@
 	// FUNCTIONAL MODULES
 	iecdrv_mos8520 CIA (
 		.clk(clk),
-		.phi2_p(phi_2), // Phi 2 positive edge
-		.phi2_n(~phi_2), // Phi 2 negative edge
+		.phi2_p(~phi_2), // Phi 2 positive edge (inv!)
+		.phi2_n(phi_2), // Phi 2 negative edge (inv!)
 		.res_n(rstn),
 		.cs_n(CSn_CIA),
 		.rw(rw),
@@ -219,6 +221,8 @@
 	assign SIDE1 = ~SIDE0;
 	assign MOTEB = ~MOTOR;
 	assign DRVSB = 1'b1;
+	//assign MOTEA = ~MOTOR;
+	//assign DRVSA = 1'b1;
 	
 	// Unused pins:
 	assign MOTEA = 1'b0;
@@ -227,7 +231,7 @@
 
 	// Disk driver
 	WF1772IP_TOP FDC (
-		.CLK(clk),
+		.CLK(fdc_clk),
 		.MRn(rstn),
 		.CSn(CSn_FDC),
 		.RWn(rw),
@@ -281,9 +285,12 @@
 
 	// Clock generator
 	clock_gen sysclk (
+		.reset(!rstn),
+		.fpga_clk(fpga_clk),
 		.clk(clk),
 		.phi_0(phi_0),
-		.phi_2(phi_2)
+		.phi_2(phi_2),
+		.clk_tap(clk_tap)
 	);
 
 	assign rstn = ~RESET_IN;

@@ -25,14 +25,16 @@
 module clock_test;
 
 	// Inputs
-	reg clk;
+	reg fpga_clk;
 
 	// Outputs
+	wire clk;
 	wire phi_0;
 	wire phi_2;
 
 	// Instantiate the Unit Under Test (UUT)
 	clock_gen uut (
+		.fpga_clk(fpga_clk),
 		.clk(clk),
 		.phi_0(phi_0),
 		.phi_2(phi_2)
@@ -40,16 +42,11 @@ module clock_test;
 
 	initial begin
 		// Initialize Inputs
-		clk = 0;
-
-		// Wait 100 ns for global reset to finish
-		#100;
-        
-		// Add stimulus here
+		fpga_clk = 0;
 	end
 	
-	always #5
-		clk = ~clk;
+	always #10
+		fpga_clk = ~fpga_clk;
 	
 endmodule
 
