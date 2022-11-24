@@ -111,7 +111,7 @@ component WF1772IP_TOP_SOC
 		RWn			: in std_logic;
 		A1, A0		: in std_logic;
 		DATA_IN		: in std_logic_vector(7 downto 0);
-		DATA_OUT		: out std_logic_vector(7 downto 0);
+		DATA_OUT	: out std_logic_vector(7 downto 0);
 		DATA_EN		: out std_logic;
 		RDn			: in std_logic;
 		TR00n		: in std_logic;

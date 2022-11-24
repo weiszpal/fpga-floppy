@@ -135,6 +135,7 @@
 	wire CNT_OUT;
 	wire SIDE0;
 	wire MOTOR;
+	wire DIRC;
 
 	wire [7:0] pa_in;
 	wire [7:0] pa_out;
@@ -162,8 +163,8 @@
 	// FUNCTIONAL MODULES
 	iecdrv_mos8520 CIA (
 		.clk(clk),
-		.phi2_p(~phi_2), // Phi 2 positive edge (inv!)
-		.phi2_n(phi_2), // Phi 2 negative edge (inv!)
+		.phi2_p(phi_2), // Phi 2 positive edge
+		.phi2_n(~phi_2), // Phi 2 negative edge
 		.res_n(rstn),
 		.cs_n(CSn_CIA),
 		.rw(rw),
@@ -221,8 +222,7 @@
 	assign SIDE1 = ~SIDE0;
 	assign MOTEB = ~MOTOR;
 	assign DRVSB = 1'b1;
-	//assign MOTEA = ~MOTOR;
-	//assign DRVSA = 1'b1;
+	assign DIR = DIRC; //?polarity
 	
 	// Unused pins:
 	assign MOTEA = 1'b0;
@@ -231,7 +231,7 @@
 
 	// Disk driver
 	WF1772IP_TOP FDC (
-		.CLK(fdc_clk),
+		.CLK(clk),
 		.MRn(rstn),
 		.CSn(CSn_FDC),
 		.RWn(rw),
@@ -244,12 +244,12 @@
 		.IPn(~INDEX),
 		.WPRTn(~WPT),
 		.DDEn(1'b0),
-		.HDTYPE(1'b1),	//MFM, double density (see wf1772ip_digital_pll)
+		.HDTYPE(1'b0),	//MFM, double density (see wf1772ip_digital_pll)
 		.MO(),			//not connected
 		.WG(WGATE),
 		.WD(WDATE),
 		.STEP(STEP),
-		.DIRC(DIR),
+		.DIRC(DIRC),
 		.DRQ(),			//not connected
 		.INTRQ()			//not connected
 	);

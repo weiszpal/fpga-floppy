@@ -605,6 +605,7 @@ int fetch(){
 			break;
 		//indirect addressing modes not implemented yet
 		}
+		printf(" A=%02X", A);
 		A = result;
 		P.N = msb(A);
 		P.Z = zero(A);
@@ -1099,6 +1100,7 @@ int main(void){
 	reset();
 	char it_prev = P.I;
 	unsigned char votma = 0;
+	unsigned char step_mode = 0;
 	while(!fetch()){
 		if(it_prev!=P.I){
 			it_prev = P.I;
@@ -1151,6 +1153,12 @@ int main(void){
 			dump_zeropage();
 			DBG_FLAG = 0;
 		}*/
+		if(PC==0xCDBE){
+			step_mode = 1;
+		}
+		if(step_mode == 1){
+			getchar();
+		}
 	}
 	dump_zeropage();
 	dump_stack();
