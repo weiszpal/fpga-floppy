@@ -56,8 +56,8 @@
 		input 	SW0,
 		input 	SW1,
 		
-		//debug signals for cia inspection
-		output 	DBG_CLKOUT,
+		//debug signals for inspection
+		output 	DBG_MO,
 		output 	DBG_ATNACK,
 		output	DBG_DAUX,
 		output	DBG_RDY,
@@ -67,7 +67,6 @@
 	);
 
 	//debug signals
-	assign DBG_CLKOUT = CLK_OUT;
 	assign DBG_DAUX = DATA_OUT_AUX;
 	assign DBG_ATNACK = phi_2; //clk_tap;
 	assign DBG_RDY = RDY;
@@ -245,7 +244,7 @@
 		.WPRTn(~WPT),
 		.DDEn(1'b0),
 		.HDTYPE(1'b0),	//MFM, double density (see wf1772ip_digital_pll)
-		.MO(),			//not connected
+		.MO(DBG_MO),			//not connected
 		.WG(WGATE),
 		.WD(WDATE),
 		.STEP(STEP),

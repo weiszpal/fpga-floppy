@@ -49,11 +49,12 @@ unsigned char peek(unsigned int addr){
 	}else if(addr >= CIA_BASE && addr < CIA_BASE+CIA_SIZE){
 		val = CIA[addr - CIA_BASE];
 		printf("\nread from CIA: %04X : %02X", addr, val);
-		//getchar();
+		if(addr==0x4001){
+			getchar();
+		}
 	}else if(addr >= FDC_BASE && addr < FDC_BASE+FDC_SIZE){
 		val = FDC[addr - FDC_BASE];
 		printf("\nread from FDC: %04X : %02X", addr, val);
-		//getchar();
 	}else if(addr >= ROM_BASE && addr < ROM_BASE+ROM_SIZE){
 		val = ROM[addr - ROM_BASE];
 	}
@@ -69,7 +70,9 @@ void poke(unsigned int addr, unsigned char val){
 		CIA[addr - CIA_BASE] = val;
 	}else if(addr >= FDC_BASE && addr < FDC_BASE+FDC_SIZE){
 		printf("\nwrite to FDC: %04X <- %02X", addr, val);
-		//getchar();
+		if(addr==0x6000){
+		 //getchar();
+		}
 		FDC[addr - FDC_BASE] = val;
 	}else if(addr >= ROM_BASE && addr < ROM_BASE+ROM_SIZE){
 		ROM[addr - ROM_BASE] = val;
@@ -397,7 +400,7 @@ int fetch(){
 		}
 		PC++;
 /*LSR*/ }else if(IR==0x4A || IR==0x46 || IR==0x56 || IR==0x4E || IR==0x5E){
-		printf("LSR");
+		printf("LSR ");
 		P.N = 0;
 		switch(IR){
 		case 0x4A:
@@ -518,7 +521,6 @@ int fetch(){
 			PC = PC + (signed char)operand;
 			printf(" %d", (signed char)operand);
 		}
-		breakpoint();
 		PC++;
 /*CLC*/ }else if(IR==0x18){
 		P.C = 0;
@@ -540,6 +542,10 @@ int fetch(){
 		P.D = 0;
 		PC++;
 		printf("CLD");
+/*SED*/ }else if(IR==0xF8){
+		P.D = 1;
+		PC++;
+		printf("SED");
 /*JSR*/ }else if(IR==0x20){
 		printf("JSR ");
 		push(((PC+2)>>8)&0xFF);
@@ -577,7 +583,7 @@ int fetch(){
 		printf("RTI %04X", PC);
 		//breakpoint();
 		//dump_stack();
-/*LDA*/ }else if(IR==0xA9 || IR==0xA5 || IR==0xB5 || IR==0xAD || IR==0xBD || IR==0xB9 /*|| IR==0xA1 || IR==0xB1*/){
+/*LDA*/ }else if(IR==0xA9 || IR==0xA5 || IR==0xB5 || IR==0xAD || IR==0xBD || IR==0xB9 || IR==0xA1 /*|| IR==0xB1*/){
 		printf("LDA");
 		PC++;
 		operand = peek(PC);
@@ -602,6 +608,9 @@ int fetch(){
 		case 0xB9:	//absolute, y
 			result = peek((operand | peek(PC+1)<<8) + Y);
 			PC++;
+			break;
+		case 0xA1:	//indirext x
+			result = peek(peek((operand + X) & 0xFF) | peek((operand + X + 1) & 0xFF)<<8);
 			break;
 		//indirect addressing modes not implemented yet
 		}
@@ -645,7 +654,7 @@ int fetch(){
 		}
 		PC++;
 /*STY*/ }else if(IR==0x84 || IR==0x94 || IR==0x8C){
-		printf("STY");
+		printf("STY ");
 		PC++;
 		operand = peek(PC);
 		switch(IR){
@@ -660,9 +669,10 @@ int fetch(){
 			PC++;
 			break;
 		}
+		printf("Y=%02X", Y);
 		PC++;
 /*STX*/ }else if(IR==0x86 || IR==0x96 || IR==0x8E){
-		printf("STX");
+		printf("STX ");
 		PC++;
 		operand = peek(PC);
 		switch(IR){
@@ -677,6 +687,7 @@ int fetch(){
 			PC++;
 			break;
 		}
+		printf("X=%02X", Y);
 		PC++;
 /*LDY*/ }else if(IR==0xA0 || IR==0xA4 || IR==0xB4 || IR==0xAC || IR==0xBC){
 		printf("LDY ");
@@ -1101,6 +1112,7 @@ int main(void){
 	char it_prev = P.I;
 	unsigned char votma = 0;
 	unsigned char step_mode = 0;
+	unsigned char LED_prev = 0;
 	while(!fetch()){
 		if(it_prev!=P.I){
 			it_prev = P.I;
@@ -1139,8 +1151,16 @@ int main(void){
 			if(votma>=3){
 				CIA[0x0D] = 0x83;	//match IT status flags on cia
 				Handle_IRQ();		//Timer B interrupt occurs
+				//getchar();
 				//dump_zeropage();
 			}
+		}
+		if(PC==0xAFD3){
+			printf("\n\tInitialize DOS tables...\n");
+			breakpoint();
+		}
+		if(PC==0xCBEE){
+			//step_mode = 1;
 		}
 		if(PC==0xAFD6){
 			votma++;
@@ -1153,10 +1173,20 @@ int main(void){
 			dump_zeropage();
 			DBG_FLAG = 0;
 		}*/
-		if(PC==0xCDBE){
-			step_mode = 1;
+		if(PC==0x94F8){
+			breakpoint();
+		}
+		if(PC==0xAFE3){
+			CIA[0x01] &= ~(0x85);	//set DATA, CLK, and ATN to idle state as in reality
+			breakpoint();
+			//step_mode = 1; //<- from now on, it's in main idle loop (JIDLE), waiting for ATN interrupt http://unusedino.de/ec64/technical/aay/c1581/ro81b0f0.htm
 		}
 		if(step_mode == 1){
+			getchar();
+		}
+		if(CIA[0x00] & (1<<5) != LED_prev){
+			LED_prev = CIA[0x00] & (1<<5);
+			printf("\tLED IS %s\n", LED_prev ? "ON" : "OFF");
 			getchar();
 		}
 	}
