@@ -5,6 +5,12 @@
   )
 
   (paper "A4")
+  (title_block
+    (title "FPGA - C64 Floppy drive interface board")
+    (date "2022-09-14")
+    (company "Weisz Pál")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" signal)

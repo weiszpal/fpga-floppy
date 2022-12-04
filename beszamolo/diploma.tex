@@ -20,6 +20,7 @@
 \usepackage{setspace}  % Ettol a tablazatok, abrak, labjegyzetek maradnak 1-es sorkozzel!
 \usepackage[hang]{caption}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 
 %--------------------------------------------------------------------------------------
 % Main variables
@@ -116,9 +117,10 @@
 	declaration,%
 	abstract,%
 	introduction,%
-	chapter1,%
-	chapter2,%
-	chapter3,%
+	cpt1_bevezeto,%
+	cpt2_fpga_interface,%
+	cpt3_fejlesztes_fpga,%
+	cpt4_teszteles,%
 	acknowledgement,%
 	appendices,%
 }
@@ -145,10 +147,11 @@ aboveskip=10pt}
 \onehalfspacing
 \include{titlepage}
 \include{project}
+\include{cpt1_bevezeto}
+\include{cpt2_fpga_interface}
+\include{cpt3_fejlesztes_fpga}
+\include{cpt4_teszteles}
 \tableofcontents\vfill
-\include{chapter1}
-\include{chapter2}
-\include{chapter3}
 
 %\listoffigures\addcontentsline{toc}{chapter}{Ábrák jegyzéke}
 %\listoftables\addcontentsline{toc}{chapter}{Táblázatok jegyzéke}

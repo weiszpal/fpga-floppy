@@ -58,8 +58,8 @@
 		
 		//debug signals for inspection
 		output 	DBG_MO,
-		output 	DBG_ATNACK,
-		output	DBG_DAUX,
+		output 	DBG_PI2,
+		output	DBG_RST,
 		output	DBG_RDY,
 		
 		// MAIN CLOCK SIGNAL
@@ -67,8 +67,8 @@
 	);
 
 	//debug signals
-	assign DBG_DAUX = DATA_OUT_AUX;
-	assign DBG_ATNACK = phi_2; //clk_tap;
+	assign DBG_RST = rstn;
+	assign DBG_PI2 = phi_2; //clk_tap;
 	assign DBG_RDY = RDY;
 
 	// Clock signals

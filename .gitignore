@@ -1,5 +1,16 @@
+.gitignore
 tutorial/
 fpga_project/*.wdb
 fpga_project/ise/iseconfig
 fpga_project/ise/_xmsgs
-interface_board/interface_board-backups/
+fpga_project/*.xreport
+fpga_project/ise/*.html
+fpga_project/ise/*.log
+fpga_project/ise/*.xwbt
+fpga_project/ise/*.ncd
+fpga_project/ise/*.lso
+interface_board/interface_board-backups/*.zip
+measurements/*.jpeg
+6502_emu/*
+!6502_emu/*.c
+!6502_emu/*.h

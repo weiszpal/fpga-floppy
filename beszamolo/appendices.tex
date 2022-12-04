@@ -9,29 +9,11 @@
 \numberwithin{lstlisting}{section}
 %\numberwithin{tabular}{section}
 
-%----------------------------------------------------------------------------
-\section{A TeXnicCenter felülete}
-%----------------------------------------------------------------------------
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=150mm, keepaspectratio]{figures/TeXnicCenter.png}
-\caption{A TeXnicCenter Windows alapú \LaTeX-szerkesztõ.} 
-\end{figure}
 
-%----------------------------------------------------------------------------
-\clearpage\section{Válasz az ,,Élet, a világmindenség, meg minden'' kérdésére}
-%----------------------------------------------------------------------------
-A Pitagorasz-tételbõl levezetve
-\begin{align}
-c^2=a^2+b^2=42.
-\end{align}
-A Faraday-indukciós törvénybõl levezetve
-\begin{align}
-\rot E=-\frac{dB}{dt}\hspace{1cm}\longrightarrow \hspace{1cm}
-U_i=\oint\limits_\mathbf{L}{\mathbf{E}\mathbf{dl}}=-\frac{d}{dt}\int\limits_A{\mathbf{B}\mathbf{da}}=42.
-\end{align}
+\section{Az eredeti 1581-es floppy meghajtó kapcsolási rajza}
+\includepdf[pages=-,angle=90]{appendices/1581_schematic.pdf}
 
+\section{Az interfészkártya kapcsolási rajza}
+\includepdf[pages={-},angle=90, offset=0 -25]{appendices/interface_board.pdf}
 
-
-
-
+\includepdf[pages={-}, nup=1x2, scale=.8, pagecommand={\section{Az interfészkártya NYÁK-terve}}]{appendices/pcb.pdf}

@@ -1,0 +1,114 @@
+%----------------------------------------------------------------------------
+\chapter{Bevezetõ}
+%----------------------------------------------------------------------------
+\section{A feladat értelmezése}
+%----------------------------------------------------------------------------
+Feladatként 
+
+Wat iz
+wat todo
+%----------------------------------------------------------------------------
+\section{Rendszerterv}
+%----------------------------------------------------------------------------
+A meghajtó eredeti kapcsolási rajza, reverse enjeniring\\
+Mit hogyan, mit mivel\\
+Részekre bontás:\\
+	interfész panel <- kimenõ inverterek\\
+	fpga <- minden más\\
+	floppy <- floppy + ami speckó logika kell azt bele az FPGA-ba\\
+
+A floppy lemezzel közvetlenül természetesen egy valóságos floppy meghajtó fog kapcsolatot teremteni, ahogyan az eredeti 1581-esben is.
+%----------------------------------------------------------------------------
+\section{Protokollok}
+%----------------------------------------------------------------------------
+Felsorolás szintjén megjegyezni, melyik protokoll mit tud, milyen jelei vannak, stb. Feladat, hogy az itt ismeretetett protokollokon szabványos módon törtöénjen kommunikáció a floppy-meghajtóval és a számítógéppel is.\\
+
+\subsection{A Commodore IEEE-488 soros (IEC) busz}
+A Commodore számítógépek ún. IEC-busz segítségével kommunikálnak a hozzájuk kapcsolt fõbb perifériákkal: jellemzõen nyomtatókkal vagy mágneses adathordozó alapú háttértárakkal. Eredetileg az IEEE-488 szabványból alakították ki a költségek csökkentése végett (innen az elnevezése). Ez alapvetõen egy fél-duplex szinkron soros adatátviteli interfész, viszont számos speciális megoldást alkalmaz a szabvány pl. handshake vagy ready-logika megvalósítására.\cite{iecwiki}
+
+\begin{table}[ht]
+	\footnotesize
+	\centering
+	\caption{Az IEC-busz jelei} 
+	\begin{tabular}{ | l | l | l |}
+	\hline
+	Pin & Jelölés & Név \\ \hline
+	1 & $\overline{\text{SRQ}}$ & Service Request In\\
+	2 & GND & Ground\\
+	3 & $\overline{\text{ATN}}$ & Serial Attention In/Out\\
+	4 & $\overline{\text{CLK}}$ & Serial Clock In/Out\\
+	5 & $\overline{\text{DATA}}$ & Serial Data In/out\\
+	6 & $\overline{\text{RESET}}$ & Serial Reset\\
+	\hline
+	\end{tabular}
+	\label{tab:IEC_Pinout}
+\end{table}
+
+Alacsony-aktív, nyitott kollektoros vonalak ezek, 0-5V jelszinttel. A számítógépez csatlakoztatott eszközöknek saját maguknak kell biztosítani a tápellátásukat. Csatlakozó gyanánt 6 lábú DIN csatlakozót alkalmaznak.?ref\\
+
+todo: jelalakok? vagy késõbbre a debughoz?
+
+\subsection{Floppy meghajtó}
+A feladat egyik nehézségét az adja, hogy a 1581-es meghajtó eredetileg másfajta floppy-meghajtókat tartalmazott, mint amilyeneket az IBM-kompatibilis személyi számítógépekben használtak, használnak.\\
+
+TODO: konkrét típust megemlíteni, IBM PC vagy Shugart\\
+
+Lábkiosztások:
+
+\begin{table}[ht]
+	\footnotesize
+	\centering
+	\caption{IBM/PC és Shugart interfésszel rendelkezõ hajlékonylemez-meghajtók lábkiosztása} 
+	\begin{tabular}{ | l | l | l |}
+	\multicolumn{3}{c}{IBM/PC}\\ \hline
+	Pin & Jelölés & Név \\ \hline
+	2 & $\overline{\text{REDWC}}$ & Density Select\\
+	4 & n/c & Reserved\\
+	6 & n/c & Reserved\\
+	8 & $\overline{\text{INDEX}}$ & Index \\
+	10 & $\overline{\text{MOTEA}}$ & Motor Enable A\\
+	12 & $\overline{\text{DRVSB}}$ & Drive Select B\\
+	14 & $\overline{\text{DRVSA}}$ & Drive Select A\\
+	16 & $\overline{\text{MOTEB}}$ & Motor Enable B\\
+	18 & $\overline{\text{DIR}}$ & Direction\\
+	20 & $\overline{\text{STEP}}$ & Step\\
+	22 & $\overline{\text{WDATE}}$ & Write Data\\
+	24 & $\overline{\text{WGATE}}$ & Write Enable\\
+	26 & $\overline{\text{TRK00}}$ & Track 0\\
+	28 & $\overline{\text{WPT}}$ & Write Protect\\
+	30 & $\overline{\text{RDATA}}$ & Read Data\\
+	32 & $\overline{\text{SIDE1}}$ & Head Select\\
+	34 & $\overline{\text{DSKCHG}}$ & Disk Change\\
+	\hline
+	\end{tabular}
+	\quad
+		\begin{tabular}{ | l | l | l |}
+	\multicolumn{3}{c}{Shugart}\\ \hline
+	Pin & Jelölés & Név \\ \hline
+	2 & $\overline{\text{DCD}}$ & Disk Change Detect\\
+	4 & key & no pin in this position\\
+	6 & $\overline{\text{DS3}}$ & Drive Select 3\\
+	8 & $\overline{\text{INDEX}}$ & Index \\
+	10 & $\overline{\text{DS0}}$ & Drive Select 0\\
+	12 & $\overline{\text{DS1}}$ & Drive Select 1\\
+	14 & $\overline{\text{DS2}}$ & Drive Select 2\\
+	16 & $\overline{\text{MTRON}}$ & Motor On\\
+	18 & $\overline{\text{DIR}}$ & Direction\\
+	20 & $\overline{\text{STEP}}$ & Step\\
+	22 & $\overline{\text{WDATE}}$ & Write Data\\
+	24 & $\overline{\text{WGATE}}$ & Write Enable\\
+	26 & $\overline{\text{TRK00}}$ & Track 0\\
+	28 & $\overline{\text{WPT}}$ & Write Protect\\
+	30 & $\overline{\text{RDATA}}$ & Read Data\\
+	32 & $\overline{\text{SIDE1}}$ & Side Select\\
+	34 & $\overline{\text{RDY}}$ & Ready\\
+	\hline
+	\end{tabular}
+	\label{tab:FDD_Pinouts}
+\end{table}
+
+Nem tüntettem fel a táblázatban, de mindenképp érdemes megjegyezni, hogy minden páratlan számú lábat a földre kötnek. Mivel a gyakorlatban szalagkábelen szokás továbbítani ezeket a jeleket, zavarvédelem szempontjából elõnyös, ha az áthallás csökkentése véget nem jelvezetékek haladnak közvetlenül egymás mellett, hanem felváltva követik egymást a földvezetékekkel.\\
+
+TODO: jelszintek, funkcionalitás: eltérések, megfeleltetések\\
+kiegészítõ logika\\
+hacc, forrasztásos téma a finn csávó oldaláról -> debughoz?

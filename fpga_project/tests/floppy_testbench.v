@@ -1,4 +1,4 @@
-`timescale 1ns / 500ps
+`timescale 10ns / 10ns
 
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -38,7 +38,7 @@ module floppy_testbench;
 	reg REDWC_IN;
 	reg SW0;
 	reg SW1;
-	reg clk;
+	reg fpga_clk;
 
 	// Outputs
 	wire PWR_LED;
@@ -87,7 +87,7 @@ module floppy_testbench;
 		.REDWC_OUT(REDWC_OUT), 
 		.SW0(SW0), 
 		.SW1(SW1), 
-		.clk(clk)
+		.fpga_clk(fpga_clk)
 	);
 
 	initial begin
@@ -105,7 +105,7 @@ module floppy_testbench;
 		REDWC_IN = 0;
 		SW0 = 0;
 		SW1 = 0;
-		clk = 0;
+		fpga_clk = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
@@ -118,7 +118,7 @@ module floppy_testbench;
 		// Add stimulus here
 		RESET_IN = 0;
 		
-		
+		/*
 		#56000000;
 		
 		INDEX = 1;
@@ -169,11 +169,11 @@ module floppy_testbench;
 		INDEX = 1;
 		#5;
 		INDEX = 0;
-		#5;
+		#5;*/
 	end
       
 	always #1
-		clk <= ~clk;
+		fpga_clk <= ~fpga_clk;
 		
 endmodule
 

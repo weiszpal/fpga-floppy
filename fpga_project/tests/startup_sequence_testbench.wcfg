@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/ise/floppy_testbench_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="floppy_testbench" />
+            <top_module name="glbl" />
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="t65_pack" />
+            <top_module name="wf1772ip_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="26" />
+   <wvobject fp_name="/floppy_testbench/PWR_LED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PWR_LED</obj_property>
+      <obj_property name="ObjectShortName">PWR_LED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/ACTION_LED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ACTION_LED</obj_property>
+      <obj_property name="ObjectShortName">ACTION_LED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/SIDE1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SIDE1</obj_property>
+      <obj_property name="ObjectShortName">SIDE1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/WGATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WGATE</obj_property>
+      <obj_property name="ObjectShortName">WGATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/WDATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WDATE</obj_property>
+      <obj_property name="ObjectShortName">WDATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/STEP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">STEP</obj_property>
+      <obj_property name="ObjectShortName">STEP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/DIR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DIR</obj_property>
+      <obj_property name="ObjectShortName">DIR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/MOTEB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">MOTEB</obj_property>
+      <obj_property name="ObjectShortName">MOTEB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/DRVSB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DRVSB</obj_property>
+      <obj_property name="ObjectShortName">DRVSB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/REDWC_OUT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">REDWC_OUT</obj_property>
+      <obj_property name="ObjectShortName">REDWC_OUT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/RESET_IN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RESET_IN</obj_property>
+      <obj_property name="ObjectShortName">RESET_IN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/DSKCHG" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DSKCHG</obj_property>
+      <obj_property name="ObjectShortName">DSKCHG</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/RDATA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDATA</obj_property>
+      <obj_property name="ObjectShortName">RDATA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/WPT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WPT</obj_property>
+      <obj_property name="ObjectShortName">WPT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/TRK00" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRK00</obj_property>
+      <obj_property name="ObjectShortName">TRK00</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/INDEX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INDEX</obj_property>
+      <obj_property name="ObjectShortName">INDEX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/SW0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SW0</obj_property>
+      <obj_property name="ObjectShortName">SW0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/SW1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SW1</obj_property>
+      <obj_property name="ObjectShortName">SW1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/fpga_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fpga_clk</obj_property>
+      <obj_property name="ObjectShortName">fpga_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/rstn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rstn</obj_property>
+      <obj_property name="ObjectShortName">rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/core/pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/irqn" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">irqn</obj_property>
+      <obj_property name="ObjectShortName">irqn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/DBG_MO" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DBG_MO</obj_property>
+      <obj_property name="ObjectShortName">DBG_MO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CSn_CIA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CSn_CIA</obj_property>
+      <obj_property name="ObjectShortName">CSn_CIA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CSn_FDC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CSn_FDC</obj_property>
+      <obj_property name="ObjectShortName">CSn_FDC</obj_property>
+   </wvobject>
+</wave_config>

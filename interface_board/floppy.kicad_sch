@@ -4,6 +4,13 @@
 
   (paper "A4")
 
+  (title_block
+    (title "FPGA - C64 Floppy drive interface board")
+    (date "2022-09-14")
+    (rev "1")
+    (company "Weisz Pál")
+  )
+
   (lib_symbols
     (symbol "74xx:74LS06" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at 0 1.27 0)

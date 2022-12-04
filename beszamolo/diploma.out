@@ -1,21 +1,33 @@
-\BOOKMARK [0][-]{chapter.1}{LaTeX-eszk\366z\366k}{}% 1
-\BOOKMARK [1][-]{section.1.1}{A szerkeszt\351shez haszn\341latos, Windows alap\372 eszk\366z\366k}{chapter.1}% 2
-\BOOKMARK [1][-]{section.1.2}{A dokumentum leford\355t\341sa Windows alatt}{chapter.1}% 3
-\BOOKMARK [1][-]{section.1.3}{Eszk\366z\366k Linuxhoz}{chapter.1}% 4
-\BOOKMARK [0][-]{chapter.2}{A dolgozat formai kivitele}{}% 5
-\BOOKMARK [1][-]{section.2.1}{A dolgozat kim\351rete}{chapter.2}% 6
-\BOOKMARK [1][-]{section.2.2}{A dolgozat nyelve}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.3}{A dokumentum nyomdatechnikai kivitele}{chapter.2}% 8
-\BOOKMARK [0][-]{chapter.3}{A LaTeX-sablon haszn\341lata}{}% 9
-\BOOKMARK [1][-]{section.3.1}{C\355mk\351k \351s hivatkoz\341sok}{chapter.3}% 10
-\BOOKMARK [1][-]{section.3.2}{\301br\341k \351s t\341bl\341zatok}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.3}{Felsorol\341sok \351s list\341k}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.4}{K\351pletek}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.5}{Irodalmi hivatkoz\341sok}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.6}{A dolgozat szerkezete \351s a forr\341sf\341jlok}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.7}{Alapadatok megad\341sa}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.8}{\332j fejezet \355r\341sa}{chapter.3}% 17
-\BOOKMARK [0][-]{section.3.8}{Irodalomjegyz\351k}{}% 18
-\BOOKMARK [0][-]{appendix*.11}{F\374ggel\351k}{}% 19
-\BOOKMARK [1][-]{section.F.1}{A TeXnicCenter fel\374lete}{appendix*.11}% 20
-\BOOKMARK [1][-]{section.F.2}{V\341lasz az ,,\311let, a vil\341gmindens\351g, meg minden'' k\351rd\351s\351re}{appendix*.11}% 21
+\BOOKMARK [0][-]{chapter.1}{Bevezeto}{}% 1
+\BOOKMARK [1][-]{section.1.1}{A feladat \351rtelmez\351se}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Rendszerterv}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Protokollok}{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.3.1}{A Commodore IEEE-488 soros \(IEC\) busz}{section.1.3}% 5
+\BOOKMARK [2][-]{subsection.1.3.2}{Floppy meghajt\363}{section.1.3}% 6
+\BOOKMARK [0][-]{chapter.2}{A hardver}{}% 7
+\BOOKMARK [1][-]{section.2.1}{Bemutatom a fejlesztok\341rty\341t}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.2}{Az interf\351szpanel}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Fejleszt\351s az FPGA-ra}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Hogyan}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.2}{Modulok}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.3}{Tesztel\351s}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.4}{Felsorol\341sok \351s list\341k}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.5}{K\351pletek}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.6}{Irodalmi hivatkoz\341sok}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.7}{A dolgozat szerkezete \351s a forr\341sf\341jlok}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.8}{Alapadatok megad\341sa}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.9}{\332j fejezet \355r\341sa}{chapter.3}% 19
+\BOOKMARK [0][-]{chapter.4}{Tesztel\351s, hibajav\355t\341s}{}% 20
+\BOOKMARK [1][-]{section.4.1}{C\355mk\351k \351s hivatkoz\341sok}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.2}{\301br\341k \351s t\341bl\341zatok}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.3}{Felsorol\341sok \351s list\341k}{chapter.4}% 23
+\BOOKMARK [1][-]{section.4.4}{K\351pletek}{chapter.4}% 24
+\BOOKMARK [1][-]{section.4.5}{Irodalmi hivatkoz\341sok}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.6}{A dolgozat szerkezete \351s a forr\341sf\341jlok}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.7}{Alapadatok megad\341sa}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.8}{\332j fejezet \355r\341sa}{chapter.4}% 28
+\BOOKMARK [0][-]{chapter*.20}{Irodalomjegyz\351k}{}% 29
+\BOOKMARK [0][-]{appendix*.21}{F\374ggel\351k}{}% 30
+\BOOKMARK [1][-]{section.F.1}{Az eredeti 1581-es floppy meghajt\363 kapcsol\341si rajza}{appendix*.21}% 31
+\BOOKMARK [1][-]{section.F.2}{Az interf\351szk\341rtya kapcsol\341si rajza}{appendix*.21}% 32
+\BOOKMARK [1][-]{section.F.3}{Az interf\351szk\341rtya NY\301K-terve}{appendix*.21}% 33
