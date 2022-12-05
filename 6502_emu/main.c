@@ -50,7 +50,7 @@ unsigned char peek(unsigned int addr){
 		val = CIA[addr - CIA_BASE];
 		printf("\nread from CIA: %04X : %02X", addr, val);
 		if(addr==0x4001){
-			getchar();
+			//getchar();
 		}
 	}else if(addr >= FDC_BASE && addr < FDC_BASE+FDC_SIZE){
 		val = FDC[addr - FDC_BASE];
@@ -614,8 +614,8 @@ int fetch(){
 			break;
 		//indirect addressing modes not implemented yet
 		}
-		printf(" A=%02X", A);
 		A = result;
+		printf(" A=%02X", A);
 		P.N = msb(A);
 		P.Z = zero(A);
 		PC++;
@@ -1113,6 +1113,9 @@ int main(void){
 	unsigned char votma = 0;
 	unsigned char step_mode = 0;
 	unsigned char LED_prev = 0;
+	
+	unsigned short step_from = 0x959d; //required JOB: RESTORE_DV
+	
 	while(!fetch()){
 		if(it_prev!=P.I){
 			it_prev = P.I;
@@ -1159,8 +1162,8 @@ int main(void){
 			printf("\n\tInitialize DOS tables...\n");
 			breakpoint();
 		}
-		if(PC==0xCBEE){
-			//step_mode = 1;
+		if(PC==step_from){
+			step_mode = 1;
 		}
 		if(PC==0xAFD6){
 			votma++;
@@ -1182,13 +1185,33 @@ int main(void){
 			//step_mode = 1; //<- from now on, it's in main idle loop (JIDLE), waiting for ATN interrupt http://unusedino.de/ec64/technical/aay/c1581/ro81b0f0.htm
 		}
 		if(step_mode == 1){
-			getchar();
+			printf(">");
+			char c = getchar();
+			if(c=='s'){
+				dump_stack();
+				printf("\n");
+			}else if(c=='z'){
+				dump_zeropage();
+				printf("\n");
+			}else if(c=='p'){
+				printf("P=%02X A=%02X X=%02X Y=%02X\n", P.value, A, X, Y);
+				getchar();
+			}else if(c=='c'){
+				getchar();
+				printf("continue to:");
+				scanf("%hx", &step_from);
+				getchar();
+				step_mode = 0;
+			}else if(c=='q'){
+				getchar();
+				break;
+			}
 		}
-		if(CIA[0x00] & (1<<5) != LED_prev){
+		/*if(CIA[0x00] & (1<<5) != LED_prev){
 			LED_prev = CIA[0x00] & (1<<5);
 			printf("\tLED IS %s\n", LED_prev ? "ON" : "OFF");
 			getchar();
-		}
+		}*/
 	}
 	dump_zeropage();
 	dump_stack();

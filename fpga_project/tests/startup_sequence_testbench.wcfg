@@ -16,7 +16,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="26" />
+   <WVObjectSize size="27" />
    <wvobject fp_name="/floppy_testbench/PWR_LED" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">PWR_LED</obj_property>
       <obj_property name="ObjectShortName">PWR_LED</obj_property>
@@ -104,6 +104,12 @@
    <wvobject fp_name="/floppy_testbench/uut/CPU/core/pc" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">pc[15:0]</obj_property>
       <obj_property name="ObjectShortName">pc[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/core/p[4]" type="logic" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">[4]</obj_property>
+      <obj_property name="ObjectShortName">p[4]</obj_property>
+      <obj_property name="label">BREAK_FLAG</obj_property>
    </wvobject>
    <wvobject fp_name="/floppy_testbench/uut/CPU/irqn" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">irqn</obj_property>

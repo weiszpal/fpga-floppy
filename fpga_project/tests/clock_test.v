@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 10ns / 10ns
 
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
@@ -34,6 +34,7 @@ module clock_test;
 
 	// Instantiate the Unit Under Test (UUT)
 	clock_gen uut (
+		.reset(1'b0),
 		.fpga_clk(fpga_clk),
 		.clk(clk),
 		.phi_0(phi_0),
@@ -45,7 +46,7 @@ module clock_test;
 		fpga_clk = 0;
 	end
 	
-	always #10
+	always #1
 		fpga_clk = ~fpga_clk;
 	
 endmodule
