@@ -1382,7 +1382,7 @@ begin
         end if;
     end process P_CRC_ERR;
 
-    CMD_WR <= true when CSn = '0' and A1 = '0' and A0 = '0' and RWn = '0' else false; -- Command register write.
+    CMD_WR <= true when CSn = '0' and A1 = '0' and A0 = '0' and RWn = '0' and rising_edge(CLK) else false; -- Command register write.
     STAT_RD <= true when CSn = '0' and A1 = '0' and A0 = '0' and RWn = '1' else false; -- Status register read.
     DATA_WR <= true when CSn = '0' and A1 = '1' and A0 = '1' and RWn = '0' else false; -- Data register write.
     DATA_RD <= true when CSn = '0' and A1 = '1' and A0 = '1' and RWn = '1' else false; -- Data register read.

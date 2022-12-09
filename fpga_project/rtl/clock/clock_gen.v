@@ -24,7 +24,8 @@ module clock_gen(
 	output clk,			// 16 MHz output for basically everything, especially wf1772
 	output clk_tap,	// 16 MHz output for debug purposes
 	output phi_0,		// 2 MHz clk pulses for CPU
-	output phi_2		// 2 MHz system clk
+	output phi_2,		// 2 MHz system clk
+	output clk_sel_fdc
 	);
 
 	wire locked;
@@ -43,6 +44,7 @@ module clock_gen(
 
 	assign phi_0 = (Q==0);
 	assign phi_2 = (Q==0);
+	assign clk_sel_fdc = !Q[2];
 
 	clk_pll PLL(
      .fpga_clk(fpga_clk),

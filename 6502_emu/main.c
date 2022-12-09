@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define RAM_BASE 0x0000
+#define RAM_BASE 0x0000		//base addresses
 #define CIA_BASE 0x4000
 #define FDC_BASE 0x6000
 #define ROM_BASE 0x8000
 #define STACK_TOP 0x0100
 
-#define RAM_SIZE 8192
+#define RAM_SIZE 8192		//in bytes
 #define ROM_SIZE 32768
 #define CIA_SIZE 16
 #define FDC_SIZE 8
@@ -40,18 +40,13 @@ unsigned char SP;	//stack pointer
 unsigned char A;	//accumulator
 unsigned char X, Y;	//index registers
 
-unsigned char DBG_FLAG = 0;
-
-unsigned char peek(unsigned int addr){
+unsigned char peek(unsigned int addr){		//read memory
 	unsigned char val = 0;
 	if(addr >= RAM_BASE && addr < RAM_BASE+RAM_SIZE){
 		val = RAM[addr - RAM_BASE];
 	}else if(addr >= CIA_BASE && addr < CIA_BASE+CIA_SIZE){
 		val = CIA[addr - CIA_BASE];
 		printf("\nread from CIA: %04X : %02X", addr, val);
-		if(addr==0x4001){
-			//getchar();
-		}
 	}else if(addr >= FDC_BASE && addr < FDC_BASE+FDC_SIZE){
 		val = FDC[addr - FDC_BASE];
 		printf("\nread from FDC: %04X : %02X", addr, val);
@@ -61,25 +56,22 @@ unsigned char peek(unsigned int addr){
 	return val;
 }
 
-void poke(unsigned int addr, unsigned char val){
+void poke(unsigned int addr, unsigned char val){	//write memory
 	if(addr >= RAM_BASE && addr < RAM_BASE+RAM_SIZE){
 		RAM[addr - RAM_BASE] = val;
 	}else if(addr >= CIA_BASE && addr < CIA_BASE+CIA_SIZE){
 		printf("\nwrite to CIA: %04X <- %02X", addr, val);
-		//getchar();
 		CIA[addr - CIA_BASE] = val;
 	}else if(addr >= FDC_BASE && addr < FDC_BASE+FDC_SIZE){
 		printf("\nwrite to FDC: %04X <- %02X", addr, val);
-		if(addr==0x6000){
-		 //getchar();
-		}
+
 		FDC[addr - FDC_BASE] = val;
 	}else if(addr >= ROM_BASE && addr < ROM_BASE+ROM_SIZE){
 		ROM[addr - ROM_BASE] = val;
 	}
 }
 
-void dump_ROM(void){
+void dump_ROM(void){	//print ROM contents
 	unsigned int block = 16;
 	for(unsigned int i=0; i<ROM_SIZE; i+=block){
 		printf("%04X:\t", i + ROM_BASE);
@@ -90,7 +82,7 @@ void dump_ROM(void){
 	}
 }
 
-void dump_RAM(void){
+void dump_RAM(void){	//print RAM contents
 	unsigned int block = 16;
 	for(unsigned int i=0; i<RAM_SIZE; i+=block){
 		printf("%04X:\t", i + RAM_BASE);
@@ -101,7 +93,7 @@ void dump_RAM(void){
 	}
 }
 
-void dump_zeropage(void){
+void dump_zeropage(void){	//print first 256 bytes of ROM (called zero page)
 	printf("\n");
 	unsigned int block = 16;
 	for(unsigned int i=0; i<256; i+=block){
@@ -114,7 +106,7 @@ void dump_zeropage(void){
 	getc(stdin);
 }
 
-void dump_stack(void){
+void dump_stack(void){	//print stack
 	printf("\n");
 	unsigned int block = 16;
 	for(unsigned int i=STACK_TOP; i<STACK_TOP+256; i+=block){
@@ -152,14 +144,14 @@ unsigned char pop(){
 	return peek(SP+0x0100);
 }
 
-void breakpoint(void){
+void breakpoint(void){	//manually set breakpoint occurred
 	static unsigned char brpcount = 0;
 	printf("\n\t\033[0;31mBREAKPOINT %d\033[0m", brpcount);
 	brpcount++;
 	getchar();
 }
 
-void dump_CIA(void){
+void dump_CIA(void){	//print CIA registers
 	printf("PRA:\t%02X\n", peek(CIA_BASE + 0));
 	printf("PRB:\t%02X\n", peek(CIA_BASE + 1));
 	printf("DDRA:\t%02X\n", peek(CIA_BASE + 2));
@@ -173,13 +165,13 @@ void dump_CIA(void){
 	printf("CRB:\t%02X\n", peek(CIA_BASE + 15));
 }
 
-unsigned char bcd(unsigned char hex){
+unsigned char bcd(unsigned char hex){	//convert hex to BCD number
 	unsigned char bcdnum = hex % 10;
 	bcdnum += (hex / 10) << 4;
 	return bcdnum;
 }
 
-void reset(){
+void reset(){	//initialize PC and P
 	P.value = 0;
 	P.I = 1;
 	P.x = 1; //(as in the implementation)
@@ -187,7 +179,7 @@ void reset(){
 	printf("%04X\n", PC);
 }
 
-void Handle_IRQ(){
+void Handle_IRQ(){	//(simulated) interrupt occured
 	if(P.I==0){
 		printf("\n\t\033[0;33mEXTERNAL INTERRUPT\033[0m PC=%04X\n",PC);
 		push(PC >> 8);
@@ -199,20 +191,19 @@ void Handle_IRQ(){
 	}
 }
 
-unsigned char msb(unsigned char B){
+unsigned char msb(unsigned char B){	//test if MSB set
 	return ((B & 0x80) == 0) ? 0:1;
 }
 
-unsigned char lsb(unsigned char B){
+unsigned char lsb(unsigned char B){	//test if LSB set
 	return ((B & 0x01) == 0) ? 0:1;
 }
 
-
-unsigned char zero(unsigned char B){
+unsigned char zero(unsigned char B){	//test if zero
 	return ((B==0) ? 1:0);
 }
 
-int fetch(){
+int fetch(){				//command fetch and execution
 	unsigned char operand = 0;
 	unsigned short result = 0;
 	IR = peek(PC);
@@ -1099,7 +1090,7 @@ int fetch(){
 }
 
 int main(void){
-	FILE* binary = fopen("1581-rom.318045-02.bin","r");
+	FILE* binary = fopen("1581-rom.318045-02.bin","r");	//load 6502 binary
 	if(binary==NULL){
 		printf("Executable binary code not found!\n");
 		return -1;
@@ -1109,12 +1100,15 @@ int main(void){
 	printf("ROM load complete.\n");
 	dump_ROM();
 	reset();
+	
+	unsigned char step_mode = 0;	//in step mode, user input needed after each instruction (debug feature)
+	
+/* PUT TEST CASES HERE: */	
 	char it_prev = P.I;
-	unsigned char votma = 0;
-	unsigned char step_mode = 0;
+	unsigned char votma = 0;	//generic counter
 	unsigned char LED_prev = 0;
 	
-	unsigned short step_from = 0x959d; //required JOB: RESTORE_DV
+	unsigned short step_from = 0xb0ab; //required JOB: RESTORE_DV 0x959d second time
 	
 	while(!fetch()){
 		if(it_prev!=P.I){
@@ -1129,15 +1123,30 @@ int main(void){
 				printf("\033[0m\n");
 			}
 		}
+		if(PC==0xAFD3){
+			printf("\n\tInitialize DOS tables...\n");
+			breakpoint();
+		}
+		if(PC==0x959d){
+			printf("\nRESET_DV\n");
+			step_mode = 1;
+		}
 		if(PC==0xAFE9){
-			CIA[0x00] = 0xE6;	//read input as in simulation
+			CIA[0x00] = 0xE6;	//read device number (dip switch input as in the simulation)
+			CIA[0x0D] = 0x05;	//for later, IRQ source testing at first BRK call
 		}
-		if(PC==0xAF56){
-			CIA[0x0D] = 0x01;	//Timer A expires as in simulation
-		}
-		if(PC==0xCBEC){
-			FDC[0x00] = 0x90;	//fake index signals
-		}
+		if(PC==0x95A3 && (votma==0 || votma==1)){
+			votma++;
+			CIA[0x0D] = 0x03;	//Timer A expires as in simulation
+			Handle_IRQ();
+			step_mode = 1;
+		}	
+		//breakpoints: cbb1
+		
+		//0xcb9f cia write // timer b start, 1/100 s interval
+		//continue to b0ab: calling $959D second time (before RESTORE_DV)
+		
+		/*
 		if(PC==0x95A3 && !(P.I) && votma==0){
 			CIA[0x0D] = 0x83;	//match IT status flags on cia
 			Handle_IRQ();		//Timer B interrupt occurs
@@ -1157,11 +1166,7 @@ int main(void){
 				//getchar();
 				//dump_zeropage();
 			}
-		}
-		if(PC==0xAFD3){
-			printf("\n\tInitialize DOS tables...\n");
-			breakpoint();
-		}
+		}*/
 		if(PC==step_from){
 			step_mode = 1;
 		}
@@ -1184,36 +1189,38 @@ int main(void){
 			breakpoint();
 			//step_mode = 1; //<- from now on, it's in main idle loop (JIDLE), waiting for ATN interrupt http://unusedino.de/ec64/technical/aay/c1581/ro81b0f0.htm
 		}
-		if(step_mode == 1){
-			printf(">");
-			char c = getchar();
-			if(c=='s'){
-				dump_stack();
-				printf("\n");
-			}else if(c=='z'){
-				dump_zeropage();
-				printf("\n");
-			}else if(c=='p'){
-				printf("P=%02X A=%02X X=%02X Y=%02X\n", P.value, A, X, Y);
-				getchar();
-			}else if(c=='c'){
-				getchar();
-				printf("continue to:");
-				scanf("%hx", &step_from);
-				getchar();
-				step_mode = 0;
-			}else if(c=='q'){
-				getchar();
-				break;
-			}
-		}
 		/*if(CIA[0x00] & (1<<5) != LED_prev){
 			LED_prev = CIA[0x00] & (1<<5);
 			printf("\tLED IS %s\n", LED_prev ? "ON" : "OFF");
 			getchar();
 		}*/
+		
+/* STEP MODE DEBUG: */
+		if(step_mode == 1){
+			printf(">");
+			char c = getchar();		// enter to continue
+			if(c=='s'){			// s:stack
+				dump_stack();
+				printf("\n");
+			}else if(c=='z'){		// z:zero page
+				dump_zeropage();
+				printf("\n");
+			}else if(c=='p'){		// p:CPU registers
+				printf("P=%02X A=%02X X=%02X Y=%02X SP=%02X\n", P.value, A, X, Y, SP);
+				getchar();
+			}else if(c=='c'){		// c:continue to specified PC value
+				getchar();
+				printf("continue to:");
+				scanf("%hx", &step_from);
+				getchar();
+				step_mode = 0;
+			}else if(c=='q'){		// q:quit
+				getchar();
+				break;
+			}
+		}
 	}
-	dump_zeropage();
+	dump_zeropage();	//on exit, print these
 	dump_stack();
 	return 0;
 }

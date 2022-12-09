@@ -31,6 +31,7 @@ module clock_test;
 	wire clk;
 	wire phi_0;
 	wire phi_2;
+	wire clk_sel_fdc;
 
 	// Instantiate the Unit Under Test (UUT)
 	clock_gen uut (
@@ -38,7 +39,8 @@ module clock_test;
 		.fpga_clk(fpga_clk),
 		.clk(clk),
 		.phi_0(phi_0),
-		.phi_2(phi_2)
+		.phi_2(phi_2),
+		.clk_sel_fdc(clk_sel_fdc)
 	);
 
 	initial begin

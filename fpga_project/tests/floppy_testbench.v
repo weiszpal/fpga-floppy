@@ -97,10 +97,11 @@ module floppy_testbench;
 		CLK_IN = 1;
 		DATA_IN = 0;
 		SRQ_IN = 0;
+		
 		DSKCHG = 0;
-		RDATA = 0;
-		WPT = 0;
-		TRK00 = 0;
+		RDATA = 1;
+		WPT = 1;
+		TRK00 = 1;
 		INDEX = 0;
 		REDWC_IN = 0;
 		SW0 = 0;
@@ -113,10 +114,12 @@ module floppy_testbench;
 		// Add stimulus here
 		RESET_IN = 1;
 		
-		#50;
+		#25;
         
 		// Add stimulus here
 		RESET_IN = 0;
+		
+		#25;
 		
 		/*
 		#56000000;

@@ -76,6 +76,7 @@
 	wire phi_0;			// 2 MHz to CPU
 	wire phi_2;			// 2 MHz to system
 	wire clk_tap;		// PLL output to measure (16 MHz intended)
+	wire clk_sel_fdc;	// symmetrica 2MHz clock for CSn_FDC
 
 	// Bus signals
 	wire rstn;			// active low reset signal
@@ -284,12 +285,13 @@
 
 	// Clock generator
 	clock_gen sysclk (
-		.reset(!rstn),
+		.reset(1'b0),//!rstn),
 		.fpga_clk(fpga_clk),
 		.clk(clk),
 		.phi_0(phi_0),
 		.phi_2(phi_2),
-		.clk_tap(clk_tap)
+		.clk_tap(clk_tap),
+		.clk_sel_fdc(clk_sel_fdc)
 	);
 
 	assign rstn = ~RESET_IN;
