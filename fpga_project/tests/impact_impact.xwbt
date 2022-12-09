@@ -1,8 +1,0 @@
-INTSTYLE=impact
-INFILE=/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests/impact.xsl
-OUTFILE=/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests/impact.xsl
-FAMILY=Single
-PART=Single
-WORKINGDIR=/home/pali/Documents/BME/MSC/masodik_felev/Onlab/fpga-floppy/fpga_project/tests
-LICENSE=iMPACT
-USER_INFO=iMPACT
