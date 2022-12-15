@@ -3,16 +3,26 @@
 %----------------------------------------------------------------------------
 \section{Bemutatom a fejlesztõkártyát}
 %----------------------------------------------------------------------------
-A feladat megoldásához egy Xilinx Spartan-6 alapú FPGA-fejlesztõpanel állt rendelkezésemre.
-Wat iz
-röviden
-x-sp6-x9
+A feladat megoldásához egy X-SP6-X9 jelzésû Xilinx Spartan 6 alapú FPGA-fejlesztõkártya állt rendelkezésemre. Számos szabadon felhasználható és széleskörûen konfigurálható IO kivezetésén kívül elõnye, hogy tartalmazza az általános célú fejlesztésekhez szükséges perifériákat, nyomógombokat, kapcsolókat, LED-eket. Külsõ JTAG programozóval tölthetõ fel rá a bitstream, de egy 16MB-os SPI flash is helyet kapott, melyrõl szintén elvégezhetõ a konfiguráció. 5V-os tápellátással rendelkezik, viszont az IO lábak 3.3V-nak megfelelõ CMOS logikai jelszinttel dolgoznak.
+
+Mivel a soros busz és az író-olvasó egységként szolgáló PC floppy meghajtó eltérõ logikai jelszinteket használ, mint az FPGA, így mindenképp szükséges a valóságban realizálni egy szintillesztõ áramkört. Ezt egy interfészpanel formájában terveztem és valósítottam meg.
+
 %----------------------------------------------------------------------------
 \section{Az interfészpanel}
 %----------------------------------------------------------------------------
-(saját munka!)
+Már a 1581-es kapcsolási rajzában is látható, hogy mind a soros port, mind a lemezmeghajtó esetén is meghajtófokozatokat, nyitott kollektoros buffereket vagy invertereket alkalmaztak, 1k$\Omega$-os felhúzó ellenállásokkal kiegészítve. Ezeket az áramköri elemeket a szintillesztésre való tekintettel a valóságban is realizálnom kellett.
 
-Mivel a soros busz és az író-olvasó egységként szolgáló PC floppy meghajtó eltérõ logikai jelszinteket használ, mint az FPGA, így mindenképp szükséges a valóságban realizálni egy szintillesztõ áramkört. Ezt egy interfész panel formájában terveztem és valósítottam meg.
+%kapcsolási rajzot magyarázni, szintillesztés
+%nyitott kollektoros meghajtás és logika mindanhol fyeah
+Az interfészpanel tervezésekor az eredeti terveknek megfelelõ tulajdonságú integrált áramköri alkatrészeket választottam azzal a kritériummal kiegészítve, hogy a szükséges jelszint-illesztési feladatot is képesek legyenek ellátni. Gazdaságossági okokból, valamint az áramkör egyszerûsítése végett az összes kimeneti vonalat 74LS06 típusú nyitott kollektoros inverterrel, a bemenetieket 5V toleráns bemenetû 74LVC14 típusú CMOS inverterrel kapcsoltam a rendszerhez. Ebbõl a megoldásból ugyan az következik, hogy az eredeti kapcsolással ellentétben néhány jel így invertáltan áll rendelkezésre, de ezek visszaállítását az FPGA-n megvalósított rendszer implementálásakor figyelembe vettem. 
 
-kapcsolási rajzot magyarázni, szintillesztés
-nyitott kollektoros meghajtás és logika mindanhol fyeah
+Az illesztõ áramkör kapcsolási rajza nem bonyolult, külön vettem rajta a soros porthoz és a floppy meghajtóhoz tartozó részeket, valamint helyet kapott rajta az eredeti 1581-es elõlapján megtalálható két státuszjelzõ LED is. Az eredeti kapcsolási rajznak megfelelõen a soros port kétirányú jeleit is különválasztottam.
+
+Az áramkörnek két tápfeszültségre van szüksége, egy 3.3V-osra, és egy 5V-osra, mindkettõt az FPGA-fejlesztõpanelrõl biztosítottam. Ehhez rendelkezésemre állt a fejlesztõpanel kapcsolási rajza és lábkiosztása. A nyomtatott áramkört úgy terveztem meg, hogy közvetlenül illeszkedjen az FPGA-panel tüskesoraira. A huzalozás és a lábkiosztás megtervezésekor törekedtem arra, hogy a lehetõ legkevesebb keresztezõdéssel elférjenek egymás mellett a vezetõsávok. Ergonómiai szempontokat is figyelembe vettem a tervezés során, hogy az FPGA-kártya kialakításának megfelelõen maradjon hely a programozó csatlakozó, a meghajtó azonosítójának beállítására használt DIP kapcsolók és a RESET gomb számára, és ne takarja el az interfészpanel ezeket a felületeket, miközben rajta van. Hasonlóképp helyeztem el a floppy meghajtó csatlakoztatására szolgáló IDC csatlakozót és   a soros port számára a 6 lábú Tuchel aljzatot. A mechanikai kialakításkor nehézséget okozott, hogy nem volt pontos mûszaki rajz az FPGA-panel oldalsó tüskesorának pontos helyérõl, így azt becslés alapján tudtam csak pozicionálni, ez elég pontosan sikerült is.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=90mm, keepaspectratio]{figures/interface_board_3d.png}
+\caption{A saját tervezésû interfészpanel 3D terve}
+\label{fig:HVSpaces}
+\end{figure}

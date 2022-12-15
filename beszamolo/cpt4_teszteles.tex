@@ -47,12 +47,6 @@ epstopdf "%%j"
 echo done .
 \end{lstlisting}
 
-Egy ilyen parancsfájlt (\verb+convert.cmd+) elhelyeztük a sablon \verb+figures\eps+ könyvtárába, így a felhasználónak csak annyi a dolga, hogy a \verb+figures\eps+ könyvtárba kimenti az EPS formátumú vektorgrafikus képet, majd lefuttatja a \verb+convert.cmd+ parancsfájlt, ami PDF-be konvertálja az EPS fájlt.
-
-Ezek után a PDF-ábrát ugyanúgy lehet a dokumentumba beilleszteni, mint a PNG-t vagy a JPEG-et. A megoldás elõnye, hogy a lefordított dokumentumban is vektorgrafikusan tárolódik az ábra, így a mérete jóval kisebb, mintha raszterizáltuk volna beillesztés elõtt. Ez a módszer minden -- az EPS formátumot ismerõ -- vektorgrafikus program (pl. CorelDraw) esetén is használható.
-
-A képek beillesztésére az \sectref{LatexTools}. fejezetben mutattunk be példát (\figref{TexnicCenter}~ábra). Az elõzõ mondatban egyúttal az automatikusan feloldódó ábrahivatkozásra is láthatunk példát. Több képfájlt is beilleszthetünk egyetlen ábrába. Az egyes képek közötti horizontális és vertikális margót metrikusan szabályozhatjuk (\figref{HVSpaces}~ábra). Az ábrák elhelyezését számtalan tipográfiai szabály egyidejû teljesítésével a fordító maga végzi, a dokumentum írója csak preferenciáit jelezheti a fordító felé (olykor ez bosszúságot is okozhat, ilyenkor pl. a kép méretével lehet játszani).
-
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=67mm, keepaspectratio]{figures/TeXnicCenter.png}\hspace{1cm}
@@ -62,95 +56,6 @@ A képek beillesztésére az \sectref{LatexTools}. fejezetben mutattunk be példát (
 \caption{Több képfájl beillesztése esetén térközöket is érdemes használni.} 
 \label{fig:HVSpaces}
 \end{figure}
-
-A táblázatok használatára a \tabref{TabularExample}~táblázat mutat példát.
-A táblázat címkéje nem véletlenül került a táblázat fölé, ez a szokványos.
-\begin{table}[ht]
-	\footnotesize
-	\centering
-	\caption{Az órajel-generátor chip órajel-kimenetei.} \label{tab:SysClocks}
-	\begin{tabular}{ | l | c | c |}
-	\hline
-	Órajel & Frekvencia & Cél pin \\ \hline
-	CLKA & 100 MHz & FPGA CLK0\\
-	CLKB & 48 MHz  & FPGA CLK1\\
-	CLKC & 20 MHz  & Processzor\\
-	CLKD & 25 MHz  & Ethernet chip \\
-	CLKE & 72 MHz  & FPGA CLK2\\
-	XBUF & 20 MHz  & FPGA CLK3\\
-	\hline
-	\end{tabular}
-	\label{tab:TabularExample}
-\end{table}
-
-
-%----------------------------------------------------------------------------
-\section{Felsorolások és listák}
-%----------------------------------------------------------------------------
-Számozatlan felsorolásra mutat példát a jelenlegi bekezdés:
-\begin{itemize}
-	\item \emph{elsõ bajusz:} ide lehetne írni az elsõ elem kifejését,
-	\item \emph{második bajusz:} ide lehetne írni a második elem kifejését,
-	\item \emph{ez meg egy szakáll:} ide lehetne írni a harmadik elem kifejését.
-\end{itemize}
-
-Számozott felsorolást is készíthetünk az alábbi módon:
-\begin{enumerate}
-	\item \emph{elsõ bajusz:} ide lehetne írni az elsõ elem kifejését, és ez a kifejtés így néz ki, ha több sorosra sikeredik,
-	\item \emph{második bajusz:} ide lehetne írni a második elem kifejését,
-	\item \emph{ez meg egy szakáll:} ide lehetne írni a harmadik elem kifejését.
-\end{enumerate}
-A felsorolásokban sorok végén vesszõ, az utolsó sor végén pedig pont a szokásos írásjel. Ez alól kivételt képezhet, ha az egyes elemek több teljes mondatot tartalmaznak.
-
-Listákban a dolgozat szövegétõl elkülönítendõ kódrészleteket, programsorokat, pszeudo-kódokat jeleníthetünk meg (\listref{Example}~lista). 
-\begin{lstlisting}[frame=single,float=!ht,caption=A fenti számozott felsorolás \LaTeX- forráskódja, label=listing:Example]
-\begin{enumerate}
-	\item \emph{elsõ bajusz:} ide lehetne írni az elsõ elem kifejését, 
-	és ez a kifejtés így néz ki, ha több sorosra sikeredik,
-	\item \emph{második bajusz:} ide lehetne írni a második elem kifejését,
-	\item \emph{ez meg egy szakáll:} ide lehetne írni a harmadik elem kifejését.
-\end{enumerate}
-\end{lstlisting}
-A lista keretét, háttérszínét, egész stílusát megválaszthatjuk. Ráadásul különféle programnyelveket és a nyelveken belül kulcsszavakat is definiálhatunk, ha szükséges. Errõl bõvebbet a \verb+listings+ csomag hivatalos leírásában találhatunk.
-
-%----------------------------------------------------------------------------
-\section{Képletek}
-%----------------------------------------------------------------------------
-Ha egy formula nem túlságosan hosszú, és nem akarjuk hivatkozni a szövegbõl, mint például a $e^{i\pi}+1=0$ képlet, \emph{szövegközi képletként} szokás leírni. Csak, hogy másik példát is lássunk, az $U_i=-d\Phi/dt$ Faraday-törvény a $\rot E=-\frac{dB}{dt}$ differenciális alakban adott Maxwell-egyenlet felületre vett integráljából vezethetõ le. Látható, hogy a \LaTeX-fordító a sorközöket betartja, így a szöveg szedése esztétikus marad szövegközi képletek használata esetén is.
-
-Képletek esetén az általános konvenció, hogy a kisbetûk skalárt, a kis félkövér betûk ($\mathbf{v}$) oszlopvektort -- és ennek megfelelõen $\mathbf{v}^T$ sorvektort -- a kapitális félkövér betûk ($\mathbf{V}$) mátrixot jelölnek. Ha ettõl el szeretnénk térni, akkor az alkalmazni kívánt jelölésmódot célszerû külön alfejezetben definiálni. Ennek megfelelõen, amennyiben $\mathbf{y}$ jelöli a mérések vektorát, $\mathbf{\vartheta}$ a paraméterek vektorát és $\hat{\mathbf{y}}=\mathbf{X}\vartheta$ a paraméterekben lineáris modellt, akkor a \emph{Least-Squares} értelemben optimális paraméterbecslõ $\hat{\mathbf{\vartheta}}_{LS}=(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$ lesz.
-
-Emellett kiemelt, sorszámozott képleteket is megadhatunk, ennél az \verb+equation+ és a \verb+eqnarray+ környezetek helyett a korszerûbb \verb+align+ környezet alkalmazását javasoljuk (több okból, különféle problémák elkerülése végett, amelyekre most nem térünk ki). Tehát
-\begin{align}
-\dot{\mathbf{x}}&=\mathbf{A}\mathbf{x}+\mathbf{B}\mathbf{u},\\
-\mathbf{y}&=\mathbf{C}\mathbf{x},
-\end{align}
-ahol $\mathbf{x}$ az állapotvektor, $\mathbf{y}$ a mérések vektora és $\mathbf{A}$, $\mathbf{B}$ és $\mathbf{C}$ a rendszert leíró paramétermátrixok. Figyeljük meg, hogy a két egyenletben az egyenlõségjelek egymáshoz igazítva jelennek meg, mivel a mindkettõt az \& karakter elõzi meg a kódban. Lehetõség van számozatlan kiemelt képlet használatára is, például
-\begin{align}
-\dot{\mathbf{x}}&=\mathbf{A}\mathbf{x}+\mathbf{B}\mathbf{u},\nonumber\\
-\mathbf{y}&=\mathbf{C}\mathbf{x}\nonumber.
-\end{align}
-Mátrixok felírására az $\mathbf{A}\mathbf{x}=\mathbf{b}$ inhomogén lineáris egyenlet részletes kifejtésével mutatunk példát:
-\begin{align}
-\begin{bmatrix}
-a_{11} & a_{12} & \dots & a_{1n}\\
-a_{21} & a_{22} & \dots & a_{2n}\\
-\vdots & \vdots & \ddots & \vdots\\
-a_{m1} & a_{m2} & \dots & a_{mn}
-\end{bmatrix}
-\begin{pmatrix}x_1\\x_2\\\vdots\\x_n\end{pmatrix}=
-\begin{pmatrix}b_1\\b_2\\\vdots\\b_m\end{pmatrix}.
-\end{align}
-A \verb+\frac+ utasítás hatékonyságát egy általános másodfokú tag átviteli függvényén keresztül mutatjuk be, azaz
-\begin{align}
-W(s)=\frac{A}{1+2T\xi s+s^2T^2}.
-\end{align}
-A matematikai mód minden szimbólumának és képességének a bemutatására természetesen itt nincs lehetõség, de gyors referenciaként hatékonyan használhatók a következõ linkek:\\
-\indent\url{http://www.artofproblemsolving.com/LaTeX/AoPS_L_GuideSym.php},\\
-\indent\url{http://www.ctan.org/tex-archive/info/symbols/comprehensive/symbols-a4.pdf},\\
-\indent\url{ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf}.\\
-Ez pedig itt egy magyarázat, hogy miért érdemes \verb+align+ környezetet használni:\\
-\indent\url{http://texblog.net/latex-archive/maths/eqnarray-align-environment/}.
 
 %----------------------------------------------------------------------------
 \section{Irodalmi hivatkozások}\label{sect:HowtoReference}
