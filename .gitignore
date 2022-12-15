@@ -16,6 +16,7 @@ beszamolo/*.bbl
 beszamolo/*.blg
 beszamolo/*.dvi
 beszamolo/*.aux
+beszamolo/*.toc
 beszamolo/*.log
 6502_emu/*
 !6502_emu/*.c
