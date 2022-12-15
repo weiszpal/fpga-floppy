@@ -1,30 +1,53 @@
 %----------------------------------------------------------------------------
 \chapter{Bevezetõ}
 %----------------------------------------------------------------------------
-\section{A feladat értelmezése}
+\section{A feladat összefoglalása} % értelmezése
 %----------------------------------------------------------------------------
-Feladatként 
+%Wat iz
+Cél tehát, hogy egy szabványos IBM PC floppy meghajtót felhasználva FPGA segítségével egy olyan hajlékonylemezes egységet valósítsak meg, mely Commodore-számítógépekkel kompatibilis és a hozzájuk való floppy-lemezeket írni-olvasni képes.
 
-Wat iz
-wat todo
+%wat todo (aka. halgatói összefoglaló)
+Az önálló laboratórium alatt végzett munkám során egy Commodore~1581 típusú, 3,5"\nobreakdash-es lemezmeghajtó prototípusát készítettem el ily módon. A kitûzött cél megvalósításához felkutattam ez eredeti meghajtó kapcsolási rajzát, szervizkönyvét, elolvastam a konstrukcióban alkalmazott alkatrészek adatlapjait. Megismerkedtem a Commodore számítógépes környezetben alkalmazott perifériák, interfészek szabványaival, mûködésével is. Ezek alapján, valamint az általam használt FPGA-fejlesztõpanel és PC-s meghajtó jelszintjeinek, tulajdonságainak figyelembe vételével megterveztem egy interfészpanelt, mely az alaplapi vezérlõ logikát implementáló FPGA-t illeszti a fizikai környezetéhez, vagyis a meghajtó hardveregységéhez és a számítógéppel való kapcsolatot biztosító soros porthoz.
+
+Az eredeti 1581-es vezérlését egy komplett mikroprocesszoros rendszer látja el, melyet - funkcionalitását tekintve - egy az egyben az FPGA-n szintetizálva valósítottam meg. Az ehhez szükséges verilog-modulok egy részét korábbi projektekbõl emeltem át, a hiányzóakat pedig én magam implementáltam.
+
+A rendszert elõször modulonként, majd különbözõ integráltsági szinteken is teszteltem, elõször a Xilinx ISE szimulációs környezetében, majd pedig logikai analizátorral a kész hardveren is. Az FPGA-n megvalósított rendszer alkalmas az eredeti 1581-es firmware-ének futtatására, mely bináris állomány formájában rendelkezésemre állt. A kezdeti sikeres integrációs teszteket követõen processzor belsõ állapotát nagyon körülményessé vált vizsgálni, és mivel a rendszer egy ponton érzékelhetõen hibára futott, másféle megközelítéssel próbálkoztam: írtam egy emulátorprogramot, mely segítségével sikerült meghatároznom és kijavítanom a készként átvett CPU implementáció hibáját.
+
+További teszteket követõen számos egyéb hibát derítettem fel és javítottam ki. A félév végeztével sikerül elérnem, hogy a meghajtó képes legyen hibamentesen kommunikálni soros porton keresztül a valódi Commodore számítógéppel.
+
 %----------------------------------------------------------------------------
 \section{Rendszerterv}
 %----------------------------------------------------------------------------
-A meghajtó eredeti kapcsolási rajza, reverse enjeniring\\
-Mit hogyan, mit mivel\\
-Részekre bontás:\\
-	interfész panel <- kimenõ inverterek\\
-	fpga <- minden más\\
-	floppy <- floppy + ami speckó logika kell azt bele az FPGA-ba\\
+%Mit hogyan, mit mivel
+Elsõ lépés az irodalomkutatás volt, valamint az elinduláshoz szükséges információk összegyûjtése. Az eredeti meghajtó áttervezéséhez nélkülözhetetlen megismerni, hogyan mûködik, milyen részekbõl épül fel az eszköz - ebben nagy segítségemre voltak a nyilvánosan elérhetõ dokumentációk, kézikönyvek.\cite{servicemanual} Azért esett a választás épp a Commodore 1581 típusú floppy meghajtóra, mert ez ma is többé-kevésbé elérhetõ kis méretû 3.5"-es hajlékonylemezeket használ, belsõ felépítését tekintve pedig jól elkülöníthetõ részekre dekomponálható, szemben például a 1541-essel.
 
-A floppy lemezzel közvetlenül természetesen egy valóságos floppy meghajtó fog kapcsolatot teremteni, ahogyan az eredeti 1581-esben is.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=70mm, keepaspectratio]{figures/c1581.png}
+\caption{A Commodore 1581 típusú hajlékonylemezes meghajtó} 
+\label{fig:HVSpaces}
+\end{figure}
+
+A Commodore 1581-es meghajtó tulajdonképpen maga is egy "számítógép", hiszen a kiszolgálni kívánt számítógéppel való kommunikációt, és magát a lemezkezelést egy, a meghajtó alaplapján található diszkrét integrált áramköri elemekbõl felépített processzoros rendszer végzi. A 1581-es és a számítógép közötti kommunikáció egy Commodore IEEE\nobreakdash-488 szabványú soros buszon zajlik.\cite{iecwiki} A floppy lemezhez fizikailag egy belsõ író-olvasó egység segítségével lehetséges hozzáférni, mely egyébként szabványos, Amiga számítógépeknél is használatos ún. Shugart-interfésszel rendelkezik.\cite{original_fdd} Ezzel szemben az általam megtervezett rendszerben a floppy író-olvasó egységet egy mai modern asztali IBM PC-vel kompatibilis floppy meghajtóval helyettesítettem, mivel ilyen berendezéseket ma sem lehetetlen beszerezni, szemben az eredeti konstrukcióban alkalmazott típusúval.\\
+
+A szervizkönyv mellékleteként megtalálható a meghajtó eredeti kapcsolási rajza is, melyet a további tervezéshez az alábbi részekre bontottam:
+
+\begin{itemize}
+	\item \emph{Soros port:} a soros busz meghajtását és leválasztását szolgáló áramköri elemek
+	\item \emph{Floppy interfész:} a PC floppy meghajtó illesztéséhez szükséges bufferek, inverterek
+	\item \emph{FPGA:} az egész processzoros környezetet és minden más integrált áramköri elemet a szükséges kiegészítõ logikákkal együtt ezen fogok megvalósítani
+\end{itemize}
+
+Így jól elkülöníthetõvé váltak azok a részek, melyekhez kiegészítõ áramkör fizikai elkészítése szükséges az egyes protokollok tulajdonságainak ismeretében.
+
 %----------------------------------------------------------------------------
 \section{Protokollok}
 %----------------------------------------------------------------------------
-Felsorolás szintjén megjegyezni, melyik protokoll mit tud, milyen jelei vannak, stb. Feladat, hogy az itt ismeretetett protokollokon szabványos módon törtöénjen kommunikáció a floppy-meghajtóval és a számítógéppel is.\\
+%Felsorolás szintjén megjegyezni, melyik protokoll mit tud, milyen jelei vannak, stb. 
+Következõ feladat annak az elõkészítése volt, hogy az itt ismeretetett protokollokon szabványos módon történjen kommunikáció az alaplap és a PC floppy-meghajtó, valamint a számítógép között.	
 
-\subsection{A Commodore IEEE-488 soros (IEC) busz}
-A Commodore számítógépek ún. IEC-busz segítségével kommunikálnak a hozzájuk kapcsolt fõbb perifériákkal: jellemzõen nyomtatókkal vagy mágneses adathordozó alapú háttértárakkal. Eredetileg az IEEE-488 szabványból alakították ki a költségek csökkentése végett (innen az elnevezése). Ez alapvetõen egy fél-duplex szinkron soros adatátviteli interfész, viszont számos speciális megoldást alkalmaz a szabvány pl. handshake vagy ready-logika megvalósítására.\cite{iecwiki}
+\subsection{A Commodore IEEE-488 soros busz}
+A 8-bites Commodore asztali számítógépek az ún. Commodore IEEE-488 soros busz (vagy röviden IEC-busz) segítségével kommunikálnak a hozzájuk kapcsolt fõbb perifériákkal, jellemzõen nyomtatókkal vagy mágneses adathordozó alapú háttértárakkal. Eredetileg az IEEE-488 szabványból alakították ki a költségek csökkentése végett (innen az elnevezése). Ez alapvetõen egy fél-duplex szinkron soros adatátviteli interfész, viszont számos speciális megoldást alkalmaz a szabvány pl. handshake vagy a buszra kapcsolódó eszközök jelenlét-érzékelésének megvalósítására.\cite{iecwiki}
 
 \begin{table}[ht]
 	\footnotesize
@@ -32,7 +55,7 @@ A Commodore számítógépek ún. IEC-busz segítségével kommunikálnak a hozzájuk kapc
 	\caption{Az IEC-busz jelei} 
 	\begin{tabular}{ | l | l | l |}
 	\hline
-	Pin & Jelölés & Név \\ \hline
+	Pin & Jelölés & Funkció \\ \hline
 	1 & $\overline{\text{SRQ}}$ & Service Request In\\
 	2 & GND & Ground\\
 	3 & $\overline{\text{ATN}}$ & Serial Attention In/Out\\
@@ -44,16 +67,20 @@ A Commodore számítógépek ún. IEC-busz segítségével kommunikálnak a hozzájuk kapc
 	\label{tab:IEC_Pinout}
 \end{table}
 
-Alacsony-aktív, nyitott kollektoros vonalak ezek, 0-5V jelszinttel. A számítógépez csatlakoztatott eszközöknek saját maguknak kell biztosítani a tápellátásukat. Csatlakozó gyanánt 6 lábú DIN csatlakozót alkalmaznak.?ref\\
+Alacsony-aktív, nyitott kollektoros meghajtású vonalak ezek, 5V-os logikai jelszinttel. A számítógépez csatlakoztatott eszközöknek saját maguknak kell gondoskodniuk a tápellátásukról. Az egyes adatvonalakat mindkét végükön felhúzó ellenállások zárják le, a buszt nyitott kollektoros inverterek hajtják meg. Csatlakozó gyanánt 6 lábú DIN dugót alkalmaznak.
 
-todo: jelalakok? vagy késõbbre a debughoz?
+%TODO Jelalakok? Vagy késõbbre a debughoz?
+A soros buszra több eszköz is csatlakozhat, ezeket fizikailag daisy-chainelve lehetséges összekapcsolni egymással és a számítógéppel, emiatt szokásosan két csatlakozót építenek ki az egyes perifériákra. Az egyes eszközöket azonosítójuk alapján képes megcímezni a számítógép. Az adott periféria azonosítója DIP kapcsolók segítségével hardveresen konfigurálható, mely lemezmeghajtók esetén tipikusan 8 és 11 közötti egész értéket vehet fel.
+
+A kommunikáció egységei 8-bites adatcsomagok, melyekben a legkisebb helyi értékû bit található az elsõ helyen. A mintavételezés szinkron módon, a $\overline{\text{CLK}}$ jel felfutó élére történik. Ezek az adatcsomagok lehetnek vezérlõ parancsok, vagy adatok.
+Vezérlõ parancsokkal lehet a busz használatára vagy elengedésére utasítani az egyes perifériákat, vagy épp valamilyen irányú adatátvitelt kezdeményezni a megcímzett eszközzel. A vezérlõ parancsok a buszon az $\overline{\text{ATN}}$ jel alacsony szintje mellett érkeznek mégpedig kizárólag a számítógép felõl, innen lehet tudni, hogy nem egy általános adat átvitele történik.
+
+A $\overline{\text{CLK}}$ és $\overline{\text{DATA}}$ vonalak kétirányúak, ezeket a floppy meghajtó is lehúzhatja. Ilyen módon jelzi a számítógépnek, hogy készen áll az adat fogadására vagy küldésére, de például bizonyos idõkorláttal kiegészített nyugtázásra is használja ezt a módszert a szabvány.\cite{IECbus}
+
+%TODO részletezni?
 
 \subsection{Floppy meghajtó}
-A feladat egyik nehézségét az adja, hogy a 1581-es meghajtó eredetileg másfajta floppy-meghajtókat tartalmazott, mint amilyeneket az IBM-kompatibilis személyi számítógépekben használtak, használnak.\\
-
-TODO: konkrét típust megemlíteni, IBM PC vagy Shugart\\
-
-Lábkiosztások:
+A feladat egyik nehézségét az adta, hogy a 1581-es meghajtó eredetileg másfajta floppy író-olvasót tartalmazott, mint amilyeneket az IBM-kompatibilis személyi számítógépekben használtak, használnak. Ez nem is a mûködési módjukban, sokkal inkább az IBM PC és a Shugart interfészek közti különbségben nyilvánul meg:\cite{floppy_pinout}
 
 \begin{table}[ht]
 	\footnotesize
@@ -61,7 +88,7 @@ Lábkiosztások:
 	\caption{IBM/PC és Shugart interfésszel rendelkezõ hajlékonylemez-meghajtók lábkiosztása} 
 	\begin{tabular}{ | l | l | l |}
 	\multicolumn{3}{c}{IBM/PC}\\ \hline
-	Pin & Jelölés & Név \\ \hline
+	Pin & Jelölés & Funkció \\ \hline
 	2 & $\overline{\text{REDWC}}$ & Density Select\\
 	4 & n/c & Reserved\\
 	6 & n/c & Reserved\\
@@ -84,7 +111,7 @@ Lábkiosztások:
 	\quad
 		\begin{tabular}{ | l | l | l |}
 	\multicolumn{3}{c}{Shugart}\\ \hline
-	Pin & Jelölés & Név \\ \hline
+	Pin & Jelölés & Funkció \\ \hline
 	2 & $\overline{\text{DCD}}$ & Disk Change Detect\\
 	4 & key & no pin in this position\\
 	6 & $\overline{\text{DS3}}$ & Drive Select 3\\
@@ -107,8 +134,24 @@ Lábkiosztások:
 	\label{tab:FDD_Pinouts}
 \end{table}
 
-Nem tüntettem fel a táblázatban, de mindenképp érdemes megjegyezni, hogy minden páratlan számú lábat a földre kötnek. Mivel a gyakorlatban szalagkábelen szokás továbbítani ezeket a jeleket, zavarvédelem szempontjából elõnyös, ha az áthallás csökkentése véget nem jelvezetékek haladnak közvetlenül egymás mellett, hanem felváltva követik egymást a földvezetékekkel.\\
+Nem tüntettem fel a táblázatban, de mindenképp érdemes megjegyezni, hogy minden páratlan számú lábat a földre kötnek. Mivel a gyakorlatban szalagkábelen szokás továbbítani ezeket a jeleket, zavarvédelem szempontjából elõnyös, ha az áthallás csökkentése végett nem jelvezetékek haladnak közvetlenül egymás mellett, hanem felváltva követik egymást a földvezetékekkel.
 
-TODO: jelszintek, funkcionalitás: eltérések, megfeleltetések\\
-kiegészítõ logika\\
-hacc, forrasztásos téma a finn csávó oldaláról -> debughoz?
+%jelszintek, funkcionalitás: eltérések, megfeleltetések
+Hasonlóan a soros porthoz, mindkét fajta interfész esetén is 5V-os, open kollektoros meghajtású alacsony aktív jelekkel lehet találkozni, viszont nem elõírás, hogy az eszköz tartalmazza a felhúzó ellenállásokat. Ezek PC esetén a számítógépben, jelen megoldásban pedig a 1581-es meghajtó alaplapján találhatóak.
+
+Megfigyelhetõ, hogy a jelek többsége megfeleltethetõ egymásnak.\cite{floppybus}
+%TODO részletezni a jeleket
+PC esetén egy szalagkábelre két meghajtó kapcsolható, ezeket az A és B kiválasztójelek segítségével lehet megkülönböztetni egymástól, míg a Shugart interfészen akár 4 különbözõ eszköz is kiválasztható a $\overline{\text{DS}}$ jelek megfelelõjének földre húzásával.
+
+Szembetûnõ különbség ezen kívül még, hogy a Disk Change jel máshol van kivezetve a két esetben, a Density Select valamint a Ready jeleknek pedig nincs megfelelõje a másik csatlakozón.
+
+A Density Select jellel kapcsolatban egymásnak ellentmondó információkat találtam kutatásom során, valahol kimenetként, máshol bemenetként használják, de mindenképp a meghajtóban használt floppy lemez adatsûrûségével hozható kapcsolatba. Ennek oka, hogy fizikailag máshogy kell kezelni egy SD, egy DD vagy egy HD hajlékonylemezt. Korszerû meghajtók ezt az adathordozó tokján található kivágás segítségével érzékelik, régi fajta (és fõleg 5.25"-es) meghajtók esetén viszont ezzel a Density Select jellel írható elõ, milyen adatsebességgel dolgozzon a meghajtó vezérlõje. Az általam használt PC floppy meghajtóban például ez a jel nincs is kivezetve.\cite{sonyfdd}
+%TODO mivel a densel kétirányú:-> interfész panelhez?
+
+A Ready jel elõállításához mindenképp kiegészítõ logika megtervezése kellett, mivel a 1581-es kapcsolási rajza szerint szükség van rá. Az eredeti író-olvasó egység adatlapja alapján ez a jel akkor aktív, ha van lemez a meghajtóban és emellett megfelelõ sebességgel forog a motor.\cite{original_fdd} Ha forog a motor, fordulatonként egy impulzus mérhetõ az Index jelen. Az általam használt PC-s meghajtóban ez az impulzussorozat kapuzva van, és csak akkor kerül ki a kimenetre, miután a motor elérte a megfelelõ fordulatszámot. Ennek a felhasználásával elõállítható a Ready jel, hiszen hardveresen biztosított, hogy a motor csak akkor forog, ha van a meghajtóban lemez.
+%TODO hogyan van ez megvalósítva az FPGA-n?
+
+A Commodore 1581-es meghajtó két oldalú, 800kB kapacitású kétszeres adatsûrûségû (double-density, DD) lemezek kezelésére alkalmas. Az így formázott lemez oldalanként 80 sávot és 10 szektort tartalmaz fizikailag, a biteket MFM kódolással tárolja a rendszer. Mivel az így formázott lemez nem IBM kompatibilis, így a mai asztali számítógépekkel nem értelmezhetõ a tartalma. A feladatban használt PC floppy meghajtó reményeim szerint mégis tudja kezelni, hiszen az valójában csak alacsony szintû hozzáférést biztosít a lemezhez, a rajta lévõ adatok feldolgozásáról az alaplapi processzoros rendszer gondoskodik.
+
+%TODO
+%hacc, forrasztásos téma a finn csávó oldaláról -> debughoz?

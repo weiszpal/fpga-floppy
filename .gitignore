@@ -12,6 +12,9 @@ beszamolo/.synctex.gz
 beszamolo/.out
 beszamolo/.tcp
 beszamolo/.thm
+beszamolo/.bbl
+beszamolo/.blg
+beszamolo/.dvi
 6502_emu/*
 !6502_emu/*.c
 !6502_emu/*.h

@@ -1,0 +1,101 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: diploma.aux
+A level-1 auxiliary file: titlepage.aux
+A level-1 auxiliary file: project.aux
+A level-1 auxiliary file: cpt1_bevezeto.aux
+A level-1 auxiliary file: cpt2_fpga_interface.aux
+A level-1 auxiliary file: cpt3_fejlesztes_fpga.aux
+A level-1 auxiliary file: cpt4_teszteles.aux
+The style file: plain.bst
+A level-1 auxiliary file: appendices.aux
+Database file #1: mybib.bib
+You're missing a field name---line 60 of file mybib.bib
+ : 
+ : %  author="Ferenc Wettl and Gyula Mayer and Péter Szabó",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 67 of file mybib.bib
+ : 
+ : %  author ="James C. Candy",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 78 of file mybib.bib
+ : 
+ : %  author =       "Wai L. Lee and Charles G. Sodini",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 89 of file mybib.bib
+ : 
+ : %  author =   "Peter Kiss",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 97 of file mybib.bib
+ : 
+ : % author="Budapesti {M}ûszaki és {G}azdaságtudományi {E}gyetem {V}illamosmérnöki és {I}nformatikai {K}ar",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Schreier00"
+Warning--to sort, need author, editor, or key in Wettl04
+Warning--to sort, need author or key in Candy86
+Warning--to sort, need author or key in Lee87
+Warning--to sort, need author or key in KissPhD
+Warning--to sort, need author or key in DipPortal
+Warning--empty author and editor in Wettl04
+Warning--empty title in Wettl04
+Warning--empty publisher in Wettl04
+Warning--empty year in Wettl04
+Warning--empty author in Candy86
+Warning--empty title in Candy86
+Warning--empty journal in Candy86
+Warning--empty year in Candy86
+Warning--empty author in Lee87
+Warning--empty title in Lee87
+Warning--empty booktitle in Lee87
+Warning--empty year in Lee87
+Warning--empty author in KissPhD
+Warning--empty title in KissPhD
+Warning--empty school in KissPhD
+Warning--empty year in KissPhD
+You've used 12 entries,
+            2118 wiz_defined-function locations,
+            554 strings with 5417 characters,
+and the built_in function-call counts, 2260 in all, are:
+= -- 193
+> -- 54
+< -- 0
++ -- 26
+- -- 14
+* -- 129
+:= -- 336
+add.period$ -- 29
+call.type$ -- 12
+change.case$ -- 34
+chr.to.int$ -- 0
+cite$ -- 33
+duplicate$ -- 109
+empty$ -- 246
+format.name$ -- 14
+if$ -- 472
+int.to.chr$ -- 0
+int.to.str$ -- 12
+missing$ -- 3
+newline$ -- 56
+num.names$ -- 14
+pop$ -- 93
+preamble$ -- 1
+purify$ -- 31
+quote$ -- 0
+skip$ -- 82
+stack$ -- 0
+substring$ -- 60
+swap$ -- 13
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 46
+warning$ -- 21
+while$ -- 14
+width$ -- 14
+write$ -- 99
+(There were 5 error messages)

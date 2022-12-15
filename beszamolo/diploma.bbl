@@ -1,0 +1,61 @@
+\begin{thebibliography}{10}
+
+\bibitem{Wettl04}
+
+
+\bibitem{Candy86}
+
+
+\bibitem{Lee87}
+
+
+\bibitem{KissPhD}
+PhD thesis.
+
+\bibitem{DipPortal}
+
+
+\bibitem{floppybus}
+Thomas Brase.
+\newblock Floppy disk drive / bus interface.
+\newblock \url{https://retrocmp.de/fdd/general/floppy-bus.htm}, 2022.
+\newblock [Online; accessed 15-dec-2021].
+
+\bibitem{original_fdd}
+NEC Corporation.
+\newblock {\em FDI036A 3.5'' FLOPPY DISK DRIVE PRODUCT DESCRIPTION}, 1985.
+\newblock URL:
+  \url{https://raw.githubusercontent.com/MiSTer-devel/AtariST_MiSTer/master/rtl/fdc1772/NEC%20FD1036%20Floppy.pdf}.
+
+\bibitem{IECbus}
+J.~Derogee.
+\newblock {\em IEC disected - IEC-bus documentation as used for the 1541-III},
+  February 2008.
+\newblock URL:
+  \url{http://www.zimmers.net/anonftp/pub/cbm/programming/serial-bus.pdf}.
+
+\bibitem{servicemanual}
+Commodore~Electronics Limited.
+\newblock {\em SERVICE MANUAL 1581 3.5 DISK DRIVE}, June 1987.
+\newblock URL:
+  \url{http://www.zimmers.net/anonftp/pub/cbm/schematics/drives/new/1581/1581_Service_Manual_314982-01_(1987_Jun).pdf}.
+
+\bibitem{sonyfdd}
+{Sony Corporation}.
+\newblock {\em MPF920-Z 3?'' Floppy Disk Drive}, 2004.
+\newblock URL:
+  \url{https://pro.sony/s3/cms-static-content/operation-manual/4668278111.pdf}.
+
+\bibitem{floppy_pinout}
+{Sven Olaf Kamphuis, Malvineous, Kikinou, Peter Bye, archyx et. al.}
+\newblock Floppy diskdrive pinout and wiring.
+\newblock \url{https://old.pinouts.ru/HD/InternalDisk_pinout.shtml}, 2019.
+\newblock [Online; accessed 15-dec-2022].
+
+\bibitem{iecwiki}
+{Wikipedia contributors}.
+\newblock Commodore bus --- {W}ikipedia{,} the free encyclopedia.
+\newblock \url{https://en.wikipedia.org/wiki/Commodore_bus}, 2022.
+\newblock [Online; accessed 04-dec-2022].
+
+\end{thebibliography}
