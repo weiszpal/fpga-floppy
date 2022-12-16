@@ -16,7 +16,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="54" />
+   <WVObjectSize size="55" />
    <wave_markers>
       <marker time="834373960000000" label="" />
       <marker time="834884690000000" label="" />
@@ -117,6 +117,10 @@
    <wvobject fp_name="/floppy_testbench/uut/CPU/rstn" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rstn</obj_property>
       <obj_property name="ObjectShortName">rstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/floppy_testbench/uut/CPU/core/mcode/mcycle" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mcycle[2:0]</obj_property>
+      <obj_property name="ObjectShortName">mcycle[2:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/floppy_testbench/uut/CPU/core/pc" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">pc[15:0]</obj_property>

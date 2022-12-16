@@ -1,7 +1,7 @@
 %----------------------------------------------------------------------------
 \chapter{Digitális tervezés}
 %----------------------------------------------------------------------------
-Az FPGA-ra a Xilinx ISE 14.3-as verzójú fejlesztõi környezetének segítségével fejlesztettem a rendszert. Ez nem egy kimondottan korszerû ám szerencsére hibamentes szoftver. Azért ezt választottam mégis, mert a Spartan 6-os FPGA-kat a szoftver korszerû alternatívája (a Vivado) már nem támogatja. A leírófájlokat, modulokat és testbench-eket Verilog nyelven készítettem el, viszont helyenként szükséges volt VHDL-ben implementált részekkel is foglalkoznom késõbb a hibakeresés során.
+Az FPGA-ra a Xilinx ISE 14.3-as verzójú fejlesztõi környezetének segítségével fejlesztettem a rendszert. Ez nem egy kimondottan korszerû ám szerencsére hibamentes szoftver. Azért ezt használtam mégis, mert a Spartan 6-os FPGA-kat a szoftver korszerû alternatívája (a Vivado) már nem támogatja. A leírófájlokat, modulokat és testbench-eket Verilog nyelven készítettem el, viszont helyenként szükséges volt VHDL-ben implementált részekkel is foglalkoznom késõbb a hibakeresés során.
 
 %----------------------------------------------------------------------------
 \section{Modulok}
@@ -17,11 +17,11 @@ A 1581-es meghajtót egy MOS 6502 típusú processzoron futó operációs rendszer irá
 \end{figure}
 
 %milyen verilog modulok vannak, miket csináltam én
-Korábbi projektek eredményét felhasználva rendelkezésemre álltak a CPU, a CIA és az FDC implementációi, ezeket átvettem, esetenként továbbfejlesztettem munkám során. Az órajel generátort, a RAM és ROM modulokat én készítettem el.
+Korábbi projektek eredményét felhasználva rendelkezésemre álltak a CPU, a CIA és az FDC implementációi, ezeket átvettem, esetenként továbbfejlesztettem munkám során. Az órajel-generátort, a RAM és ROM modulokat én készítettem el.
 
 A rendszer 8-bites adatbuszt és 16 bites címbuszt használ, 2MHz-es rendszerórajelrõl jár minden a floppy vezérlõ kivételével, mely 8MHz-es órajelet igényel. Ezen órajelek elõállítása egy 4-bites számlálóval történt eredetileg, egy 16MHz-es oszcillátor jelének leosztásával. Érdekesség, hogy az ehhez alkalmazott 74LS93-as IC konfigurálható bitszámú: 3 vagy 4 bites számlálót is lehetséges kialakítani a segítségével. Egy ebben a témában végzett korábbi próbálkozás során a nem megfelelõ konfiguráció jelenthetett hibalehetõséget.
 
-Az eredeti kapcsolásban az egyes logikai egységekhez tartozó címdekódolást és engedélyezõ jelek elõállítását multiplexerek végzik, a memóriatérkép az alábbiak szerint alakul:
+Az eredeti kapcsolásban az egyes logikai egységekhez tartozó címdekódolást és engedélyezõ jelek elõállítását kombinációs hálózattal kiegészített multiplexerek végzik, a memóriatérkép az alábbiak szerint alakul:
 
 \begin{table}[ht]
 	\footnotesize
@@ -44,34 +44,84 @@ Az eredeti kapcsolásban az egyes logikai egységekhez tartozó címdekódolást és en
 Mivel 1581-es meghajtóban gyakran használnak nyitott kollektoros meghajtású logikai elemeket, így kézenfekvõ, hogy a felhasznált logikai kapuk számának csökkentése végett huzalozott módon valósítsanak meg bizonyos logikai függvényeket. Erre az FPGA-n technológiai okokból nincs lehetõség, ezért a huzalozott logikájú részeket átterveztem, hogy logikai kapukkal is le lehessen azokat írni.
 
 %kétirányú adatvonalak szétbontása két egyirányúra 
-Bizonyos VHDL modulok implementációjában elõfordult, hogy kétirányúként definiáltak jeleket, például az adatbusz esetén. Ennek használata nem szerencsés, mert bár a valóságban tényleg kétirányú ugyanaz a vonal, az FPGA-ra két különbözõ irányú jelvezetékként szintetizálódik, ezért a könnyebb érthetõség és a többi modullal való kompatibilitás kedvéért már a leírófájlban szétbontottam két különbözõ vezetékre.
+Bizonyos VHDL modulok implementációjában elõfordult, hogy kétirányúként definiáltak jeleket, például az adatbusz esetén. Ennek használata nem szerencsés, mert bár a valóságban tényleg kétirányú ugyanaz a vonal, az FPGA-ra két különbözõ irányú jelvezetékként szintetizálódik, ezért a könnyebb érthetõség és a többi modullal való kompatibilitás kedvéért már a leírófájlban szétbontottam két különbözõ vezetékre. Hasonlóképp elõfordult ennek a fordítottja is, amikor az eredeti kapcsolás tartalmazott kétirányú adatforgalom szétválasztására használt multiplexert, melyet így el lehetett hagyni az implementációban.
 
 %melyik alegység mit csinál, hogy mûködik, mi van bennne:
 %CPU: 6502 (belsõ felépítése, stb -> assembly oldalról fontos inkább, lásd brk flag)
-\subsection{CPU}
-A 6502-es CPU egy NMOS technológiával készült 8-bites processzor. Adatbusza 8 bites, címbusza 16 bites, így összesen 64kB memóriát képes megcímezni. Kevés belsõ regisztere van: egy akkumulátor (A), két indexregiszter (X és Y) melyek különbözõ címzési módokhoz is  felhasználhatók címeltolásra, egy stack pointer (S) egy állapotregiszter (P), és egy 16-bites programszámláló (PC). A memória (virtuálisan) 256-bájtos blokkokba, lapokba van rendezve. A stack hardveresen rögzített helyen, az elsõ lapon, a 0x0100-as memóriacímtõl kezdõdik, és 0x01FF-ig tart. Külön figyelmez érdemel még a 0x00-s memórialap (zero-page) mely gyorsabban hozzáférhetõ, ha a parancsok dedikált címzési módú verziójával érjük el az ott tárolt változókat. Az állapotregiszter bitjei flag-ek, logikai és aritmetikai mûveletek eredményeivel kapcsolatos tulajdonságokat jeleznek, a szokásos elõjel- (N), nulla- (Z), átvitel- (C) és túlcsordulás (V) biteken kívül tartalmaz egy BCD aritmetikát (D) és megszakításokat engedélyezõ bitet (I), valamint egy szoftveres megszakításkérés jelzésére szolgáló flag-et is (B).
-A reset vektor a 0xFFFC 0xFFFD címeken található, a megszakításvektor pedig a 0xFFFE 0xFFFF címeken - ezekrõl a helyekrõl töltõdik be a programszámláló értéke a processzor indulásakor, illetve megszakítás esetén.\cite{6502}
+\section{CPU}
+A 6502-es CPU egy NMOS technológiával készült 8-bites processzor. Adatbusza 8 bites, címbusza 16 bites, így összesen 64kB memóriát képes megcímezni. Kevés belsõ regisztere van: egy akkumulátor (A), két indexregiszter (X és Y) melyek különbözõ címzési módokhoz, címeltolásra is felhasználhatók, egy stack pointer (S) egy állapotregiszter (P), és egy 16-bites programszámláló (PC). A memória (virtuálisan) 256-bájtos blokkokba, lapokba van szervezve.
 
-Az eredeti 6502-es processzor a $\phi_0$ bemeneti órajelbõl két másik, fázisban egymáshoz képest 90?-kal eltolt és egymással nem átlapolódó órajelet állít elõ a rendszer többi része számára. Ezek közül a $\phi_2$-t használja csak az eredeti terv alapján a meghajtó, mely az eredeti órajellel megegyezõ fázisú.
+A stack hardveresen rögzített helyen, az elsõ lapon, a 0x0100-as memóriacímtõl kezdõdik, és 0x01FF-ig tart. Külön figyelmet érdemel még a 0x00-s memórialap (zero-page) mely gyorsabban hozzáférhetõ, ha a parancsok dedikált címzési módú verziójával érjük el az ott tárolt változókat. Az állapotregiszter bitjei flag-ek, logikai és aritmetikai mûveletek eredményeivel kapcsolatos tulajdonságokat jeleznek, a szokásos elõjel- (N), nulla- (Z), átvitel- (C) és túlcsordulás (V) biteken kívül tartalmaz egy BCD aritmetikát (D) és megszakításokat engedélyezõ bitet (I), valamint egy szoftveres megszakításkérés jelzésére szolgáló flag-et is (B).
+A reset vektor a 0xFFFC 0xFFFD címeken található, a megszakításvektor pedig a 0xFFFE 0xFFFF címeken - ezekrõl a helyekrõl töltõdik be a programszámláló értéke a processzor indulásakor, illetve megszakításkérés esetén.\cite{6502}
 
-A HDL modulként használt CPU implementáció az eredeti 6502-essel ellentétben az FPGA-n való megvalósíthatóság és a szemléletes mûködés kedvéért mikroprogramozott architektúrájú, emiatt nem elegendõ csupán 2MHz-es rendszerórajelet adni neki, mindenképp szükséges a benne található sorrendi hálók szinkronizációját biztosító nagyobb frekvenciás órajel. Ez utóbbi feltétel az összes többi modulra is érvényes, az FPGA-n alapvetõen szinkron logikai hálózatokat érdemes megvalósítani.
+Az eredeti 6502-es processzor a $\phi_0$ bemeneti órajelbõl két másik, fázisban egymáshoz képest 90\textdegree-kal eltolt és egymással nem átlapolódó órajelet állít elõ a rendszer többi része számára. Ezek közül a $\phi_2$-t használja csak az eredeti terv alapján a meghajtó, mely az eredeti órajellel megegyezõ fázisú.
 %TODO emulátorhoz írni ezeket?
 %\cite{instruction_set}\cite{programming_manual}
 
-
-%A processzor implementációját többször lecseréltem, és végül a T65
-
-\subsection{FDC}
-Dedikált integrált áramkör, mely a floppy író-olvasó modul jeleit állítja elõ. stb\cite{FDC}
+A processzor implementációját többször lecseréltem a fejlesztés során. Elõször az eredeti MOS 6502-es processzor tranzisztor-szintû felépítése alapján generált verilog-modullal próbálkoztam.\cite{transistor-level-6502} Sajnos az automatikusan generált leírófájl monolitikus felépítésû és gyakorlatilag átláthatatlan, így mivel eleinte nem sikerült mûködésre bírni és a belsõ jelek vizsgálata nagyon körülményesnek bizonyult, hamar lecseréltem az Arlet Ottens-féle verilog-6502 core-ra.\cite{arlet} Ez az implementáció az eredetivel ellentétben az FPGA-n való megvalósíthatóság és a szemléletes mûködés kedvéért mikroprogramozott architektúrájú, a benne található állapotgép ráadásul aszinkron mûködésû. Ebbõl adódóan egy speciális, impulzusszerû órajelet igényel, hogy a processzormag mikro-utasításai biztosan le tudjanak futni az adott órajelciklusban. Technológiai megfontolásból FPGA-s rendszereken alapvetõen szinkron logikai hálózatokat érdemes megvalósítani, így konzulensem javaslatára elvetettem ezt a megoldást is, és a fejlesztõk körében gyakran alkalmazott T-65 nevû 6502 processzormag-implementációt használtam a továbbiakban.\cite{T65}
 
 %többféle mód a soros port használatára included
-\subsection{CIA}
-A 8520-as komplex interfész adapter IC két 8-bites IO portot, két 16-bites idõzítõt, egy valós idejû órát és egy dedikált soros port perifériát tartalmaz. Érdekesség, hogy az IEC-busz jeleit az általános IO lábak segítségével is meg tudja hajtani, sõt alapvetõen a 1581-es meghajtó ezt is használja az egyébként nagyobb sebességû dedikált soros periféria helyett. Ennek történelmi okai vannak, a Commodore 64-es számítógép egy tervezési hibából adódóan nem képes olyan gyorsan feldolgozni a nagysebességû soros porttal küldött adatot, ahogyan az ki tudná szolgálni. Késõbb ezt javították, és a Commodore 128-as számítógép esetén már a soros busz $\overline{\text{SRQ}}$ jele szolgált (az eredeti specifikációtól eltérõen soros órajelként) a gyors átviteli protokoll használatának kiegészítésére.\cite{cia}
+\section{CIA}
+A 8520-as komplex interfész adapter (Complex Interface Adapter, CIA) IC két 8-bites IO portot, két 16-bites idõzítõt, egy valós idejû órát és egy dedikált soros port perifériát tartalmaz. A 1581-es alaplapján a CIA az egyedüli periféria, mely képes megszakításokat kérni, ha valamelyik idõzítõje lejár vagy valamilyen esemény következik be a nagy sebességû soros porton. A megszakításkérés egyenként engedélyezhetõ, valamint a megszakítás forrása is lekérdezhetõ a CIA megszakításvezérlõ regisztere segítségével. Hasonlóképp konfigurálhatók az idõzítõk, a valós idejû óra, és a két IO port paraméterei. A CIA A és B jelû IO portjaira csatlakoznak az eszköz azonosítóját kiválasztó DIP kapcsolók, a visszajelzõ LED-ek, valamint a soros busz jelei, irány szerint különválasztva.
 
-A CIA A és B jelû IO portjaira csatlakoznak az eszköz azonosítóját kiválasztó DIP kapcsolók, a visszajelzõ LED-ek, valamint a soros busz jelei, irány szerint különválasztva.
-A valós idejû órát nem az eredeti rendeltetési céljának megfelelõen használja a meghajtó, viszont késõbb a firmware-rel való ismerkedés során egy érdekes tervezési megoldásra derült fény: az alaplapot kétféle különbözõ típusú floppy vezérlõvel is fel lehet szerelni, ez lehet WD1770 vagy WD1772. Az alaplapon egy átkötés beültetésével vagy elhagyásával lehet jelezni a firmware számára, melyik típusú IC szerepel a kapcsolásban, hiszen a két esetben eltérõ rutinokat kell meghívnia a processzornak. Mivel az összes általános célú IO láb foglalt már, a valós idejû órát léptetõ TOD láb vagy egy ellenálláson keresztül 5V-ra, vagy pedig a 2MHz-es rendszerórajelre kapcsolódik az átkötés jelenlététõl függõen. Szoftveresen ez úgy ellenõrizhetõ, hogy ha egy adott idejû szoftveres várakozás után megváltozik a valós idejû óra regiszterének értéke akkor ott az átkötés, egyébként nincs.
+Érdekesség, hogy az IEC-busz jeleit az általános IO lábak segítségével is meg tudja hajtani, sõt alapvetõen a 1581-es meghajtó ezt is használja az egyébként nagyobb sebességû dedikált soros periféria helyett. Ennek történelmi okai vannak, a Commodore 64-es számítógép egy tervezési hibából adódóan nem képes olyan gyorsan feldolgozni a nagysebességû soros porttal küldött adatot, ahogyan az ki tudná szolgálni. Késõbb ezt javították, és a Commodore 128-as számítógép esetén már a soros busz $\overline{\text{SRQ}}$ jele szolgált (az eredeti specifikációtól eltérõen soros órajelként) a gyors átviteli protokoll használatának kiegészítésére.\cite{cia}
 
-A CIA képes megszakításokat kérni, ha valamelyik 16-bites idõzítõje lejár vagy adott esemény következik be a nagy sebességû soros porton. A megszakításkérés egyenként engedélyezhetõ, valamint a megszakítás forrása is lekérdezhetõ a CIA megszakításvezérlõ regisztere segítségével. Hasonlóképp konfigurálhatók az idõzítõk, a valós idejû óra, és a két IO port paraméterei.
-%----------------------------------------------------------------------------
-\section{Tesztelés}
-%----------------------------------------------------------------------------
+A valós idejû órát nem az eredeti rendeltetési céljának megfelelõen használja a meghajtó, viszont késõbb a firmware-rel való ismerkedés során egy érdekes tervezési megoldásra derült fény: az alaplapot kétféle különbözõ típusú floppy vezérlõvel is fel lehet szerelni, ez lehet WD1770 vagy WD1772. Az alaplapon egy átkötés beültetésével vagy elhagyásával lehet jelezni a firmware számára, melyik típusú IC szerepel a kapcsolásban, hiszen a két esetben eltérõ rutinokat kell meghívnia a processzornak.
+
+Mivel az összes általános célú IO láb foglalt már, a valós idejû órát léptetõ TOD láb vagy egy ellenálláson keresztül 5V-ra, vagy pedig a 2MHz-es rendszerórajelre kapcsolódik az átkötés jelenlététõl függõen. Szoftveresen ez úgy ellenõrizhetõ, hogy ha egy adott idejû szoftveres várakozás után megváltozik a valós idejû óra regiszterének értéke akkor ott az átkötés, egyébként nincs.
+
+A 8520-as CIA implementációját a C64-MiSTer elnevezésû projektbõl vettem át. Ennek lényege, hogy egy egész Commodore 64 számítógép hardverleírását tartalmazza a MiSTer nevû nyílt forráskódú hardverkörnyezetre, melyen többféle retro számítógép és játékkonzol modern technológiákkal (FPGA) való megvalósítására terveztek \cite{mister}
+
+\section{FDC}
+A hajlékonylemezes meghajtó vezérlõ (Floppy Disk Controller, FDC) egy dedikált integrált áramkör, mely a floppy író-olvasó modul vezérlõjeleit állítja elõ közvetlenül, valamint ez fogadja a lemezmeghajtóról érkezõ nyers adatokat, visszajelzéseket is. Mûködését tekintve egy állapotgépet valósít meg, mely szoftver oldalról magas szintû parancsok regiszterbe írásával vezérelhetõ.\cite{FDC}
+
+A CIA-hoz hasonló módon, ehhez az IC-hez tartozó intellectual property-t is egy kész projektbõl emeltem át. A Suska projekt alapvetése, hogy egy Atari ST számítógép minden alkatrészét egyesével kicserélte a fejlesztõ az annak megfelelõ FPGA-s realizációjára.\cite{suska}
+
+A kapcsolási rajz alapján érdekes módon vannak a floppy meghajtónak bizonyos jelei, melyek nem, vagy nem kizárólagosan az FDC chiphez vezetnek, ilyenek például a motorvezérlés vagy az írásvédettség ellenõrzésére szolgáló vonalak. Az is elõfordul, hogy egyes kimenetek egyáltalán nincsenek is bekötve az IC-n, ezeket az hardverkonfiguráció során is bekötetlenül hagytam. Abban sincs egységesség, hogy a floppy meghajtó vezérlõjelei közül melyik használ ponált és melyik negált logikájú digitális jeleket. Ez különös figyelmet igényelt a a top modul huzalozásakor, mivel az interfészpanelen minden jelet invertálnak a szintillesztõ áramkörök.
+
+\section{Órajel-generátor}
+Az többi modulhoz szükséges órajeleket ezzel a modullal állítottam elõ. 16MHz-es rendszerórajelet feltételeztem, melyet a floppy vezérlõ egy az egyben megkapott, a többi modul számára az ebbõl leosztott 2MHz-es $\phi_2$ jelet adtam. A processzor implementációjából kihagyták az eredeti órajel-kondicionáló részt, mely a $\phi_0$-ból állítja elõ a kétfázisú rendszerórajelet, de erre egyrészt nincs is szükség ebben a megoldásban, másrészt úgyis az órajel-generátor modul a felelõs az összes szükséges órajel elõállításáért.
+
+A frekvenciaosztást egy egyszerû bináris számláló végzi. Mivel az Arlet-féle processzor-implementációhoz aszimmetrikus órajelre volt szükség, így a 2MHz-es órajel-impulzusokat komparálással állítottam elõ, és ezen a késõbbiekben sem módosítottam, mivel jól mûködött.
+
+A CIA implementációjának érdekes módon szüksége van egy invertált $\phi_2$ jelre is, ezt nem az órajel-modulban állítottam elõ, hanem a bekötésnél vezettem rá az negált órajelet.
+
+A floppy vezérlõ modul specifikációja szigorúan elõírja a 16MHz-es órajel használatát, mivel az FPGA-n való megvalósítás miatt belsõ állapotgépének léptetéséhez és a vezérlésbe iktatott idõzítések pontos megvalósításához nagyobb frekvenciára van szükség, mint az eredeti hardver esetén.
+
+\section{Memóriák}
+
+A meghajtó eredeti kapcsolásában aszinkron RAM és ROM chipeket alkalmaztak, az adat- és címbusz meghajtását engedélyezõ jeleket címdekóderrel állítják elõ. Én szinkron logikai vezérléssel biztosítottam a hozzáférést mindkétfajta memóriához. A RAM és a ROM is bájtos szervezésû, azaz egy memóriacímmel egy bájt összes bitjéhez hozzá lehet férni. Ha olvassuk a memóriákat, akkor ezek a bitek kikerülnek az adatbuszra, ha írjuk a RAM-ot, bekerül az adatbuszon lévõ bájt az adott címû helyre.
+
+Megvalósítás szempontjából tulajdonképpen mindkét memória egy-egy nagy regisztertömb. Arra kell külön figyelni, hogy amikor nincsenek megcímezve, ne hajtsák meg adatbuszt. Ez verilogban a Z logikai állapot használatával valósítható meg.
+
+Mivel a ROM tárolja a 1581-es firmware-ét vagyis a CPU-n futó programot, így azt a rendszer konfigurálásakor bele kell azt valahogyan tölteni. Ehhez a \$readmemh függvényt használtam, mely egy megadott helyen található  bináris állományával inicializálja a paraméterként megadott regisztertömböt.
+
+A bináris állomány rendelkezésemre állt, ugyanarról a weboldalról elérhetõ, ahol a 1581-es szervizkönyvét is megtaláltam. Mivel a verilog hex fájlt vár a \$readmemh paramétereként, át kellett alakítanom a bináris állományt a megfelelõ formátumúra. Linux alatt a következõ bash-szkripttel tettem ezt meg:
+
+\begin{lstlisting}[language=bash,frame=single,float=!ht]
+for FILE in *.bin; do
+hexdump -v -e '1/1 "%02X\n"' $FILE > ${FILE%.*}.mem;
+done
+\end{lstlisting}
+
+\section{Top modul}
+összekötések, címdekóder, ready logika a floppyhoz kimenetek visszakapcsolása a bemenetre a CIA-n
+felhúzó ellenállások megvalósítása
+
+\begin{lstlisting}[language=verilog,frame=single,float=!ht]
+	reg RDY;
+	
+	initial RDY <= 1'b1;
+	always @(posedge clk) begin
+		if(!rstn)
+			RDY <= 1'b1;
+		else begin
+			case({MOTEB, INDEX})	//motor on? index?
+				2'b00: RDY <= 1'b1;
+				2'b01: RDY <= 1'b1;
+				2'b10: RDY <= RDY;
+				2'b11: RDY <= 1'b0;
+			endcase
+		end
+	end
+\end{lstlisting}
