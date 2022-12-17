@@ -5,6 +5,13 @@
 %----------------------------------------------------------------------------
 A feladat megoldásához egy X-SP6-X9 jelzésû Xilinx Spartan 6 alapú FPGA-fejlesztõkártya állt rendelkezésemre. Számos szabadon felhasználható és széleskörûen konfigurálható IO kivezetésén kívül elõnye, hogy tartalmazza az általános célú fejlesztésekhez szükséges perifériákat, nyomógombokat, kapcsolókat, LED-eket. Külsõ JTAG programozóval tölthetõ fel rá a bitstream, de egy 16MB-os SPI flash is helyet kapott, melyrõl szintén elvégezhetõ a konfiguráció. 5V-os tápellátással rendelkezik, viszont az IO lábak 3.3V-nak megfelelõ CMOS logikai jelszinttel dolgoznak.
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=100mm, keepaspectratio]{figures/devboard.png}
+\caption{A megoldáshoz használt FPGA-fejlesztõpanel}
+\label{fig:devboard}
+\end{figure}
+
 Mivel a soros busz és az író-olvasó egységként szolgáló PC floppy meghajtó eltérõ logikai jelszinteket használ, mint az FPGA, így mindenképp szükséges a valóságban realizálni egy szintillesztõ áramkört. Ezt egy interfészpanel formájában terveztem és valósítottam meg.
 
 %----------------------------------------------------------------------------
@@ -22,7 +29,7 @@ Az áramkörnek két tápfeszültségre van szüksége, egy 3.3V-osra, és egy 5V-osra, m
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=90mm, keepaspectratio]{figures/interface_board_3d.png}
+\includegraphics[width=95mm, keepaspectratio]{figures/interface_board_3d.png}
 \caption{A saját tervezésû interfészpanel 3D terve}
-\label{fig:HVSpaces}
+\label{fig:interface_board}
 \end{figure}

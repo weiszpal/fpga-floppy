@@ -12,8 +12,9 @@
 \usepackage{nicefrac}
 \usepackage{epsfig}
 \usepackage{listings}
+\usepackage{pxfonts}
 \usepackage{color}
-\usepackage{fancyhdr}
+%\usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{anysize}
 \usepackage[magyar]{babel}
@@ -79,7 +80,7 @@
 %--------------------------------------------------------------------------------------
 \lstset{
 	basicstyle=\scriptsize\ttfamily, % print whole listing small
-	keywordstyle=\color{black}\bfseries\underbar, % underlined bold black keywords
+	keywordstyle=\color{black}\bfseries, % underlined bold black keywords
 	identifierstyle=, 					% nothing happens
 	commentstyle=\color{white}, % white comments
 	stringstyle=\scriptsize\sffamily, 			% typewriter type for strings
@@ -88,6 +89,7 @@
 	belowskip=3pt,
 	columns=fixed,
 	backgroundcolor=\color{lightgray},
+    literate={~} {$\sim$}{1}
 } 		
 \def\lstlistingname{lista}	
 
