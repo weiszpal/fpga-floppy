@@ -5,7 +5,7 @@
 A feladat hátralevõ részében az elkészült hardver-elemek tesztelésével, az esetleges hibák felderítésével és azok kijavításával foglalkoztam.
 
 \section{Az interfészpanel tesztje}
-Miután megérkezett a gyártásból az interfészpanel amit terveztem, elvégeztem az alkatrészek beforrasztását, és egy példaprojektet készítettem abból a célból, hogy magának a panelnek a mûködését ellenõrizni tudjam. Ehhez elkészítettem az FPGA-panel tüskesorának hozzárendelését a verilog-modul jeleihez egy UCF-fájl segítségével. Az interfészpanel 5V-os jeleire egy próbapanel segítségével LED-eket illesztettem, melyeket a tesztprojektben sorban egymás után villantottam fel, így megbizonyosodhattam a szintillesztõ áramkör helyes mûködésérõl. Ekkor vettem észre azt is, hogy a meghajtó foglaltságát jelzõ zöld színû státusjelzõ LED-et fordított polaritással forrasztottam rá az interfészpanelre, mivel az alkatrészen megtévesztõ módon szerepelt a polaritásmegjelölés - így ezt kijavítottam.
+Miután megérkezett a gyártásból az interfészpanel amit terveztem, elvégeztem az alkatrészek beforrasztását, és egy példaprojektet készítettem abból a célból, hogy magának a panelnek a mûködését ellenõrizni tudjam. Ehhez elkészítettem az FPGA-panel tüskesorának hozzárendelését a verilog-modul jeleihez egy UCF-fájl segítségével. Az interfészpanel 5V-os jeleire egy próbapanel segítségével LED-eket illesztettem, melyeket a tesztprojektben sorban egymás után villantottam fel, így megbizonyosodhattam a szintillesztõ áramkör helyes mûködésérõl. Ekkor vettem észre azt is, hogy a meghajtó foglaltságát jelzõ zöld színû státuszjelzõ LED-et fordított polaritással forrasztottam rá az interfészpanelre, mivel az alkatrészen megtévesztõ módon szerepelt a polaritásmegjelölés - így ezt kijavítottam.
 
 A lábkiosztás megtervezésekor törekedtem arra, hogy az FPGA panel olyan lábait használjam, melyeknek nincs alternatív funkciója, ezzel csökkentve annak a valószínûségét, hogy a fejleszõpanelen található áramköri elemek vagy perifériák módosítják az áramköröm tervezett viselkedését. A teszt során nyilvánvalóvá vált, hogy az FPGA-panel specifikációjától eltérõ módon a P11-es lábnak más funkciója is van, mégpedig az integrált soros port TX vonalát is ez táplálja. Mivel ez nincs használatban szerencsére nem okozott gondot, csak bosszantó, hogy világít az alaplapon egy extra led, valamint ezek után kevésbé megbízható dolog pusztán a dokumentációkra támaszkodni.
 
@@ -50,11 +50,99 @@ Kiderült, hogy a processzor verilog-moduljában hibás a szoftveres megszakítást j
 Miután megkerestem és javítottam a hibát a processzormag leírásában, a meghajtó sikeresen el tudta végezni a inicializációt a szimuláció szerint, és a valóságban is.
 
 \section{Tesztelés valódi környezetben}
-tesztelés a valóságban: valódi C64 hardverrel (+hibajel kiolvasó szkript) + digitális analizátor + speckó kábelek
+Ettõl kezdve a meghajtó eseményvezérelt mûködését feltételeztem, így nem szimulátor vagy emulátor segítségével, hanem egy valódi, Commodore 64-es számítógéppel, PC-s floppy meghajtóval kiegészített tesztkörnyezetben figyeltem meg az FPGA-panel mûködését. A vezetékeken jelen lévõ jelszinteket egy Digilent Analog Discovery 2 típusú mûszer 16 csatornás logikai analizátor funkciója segítségével mértem. A logikai analizátort úgy kapcsoltam a rendszerhez, hogy házilag kiegészítettem a floppy meghajtóhoz vezetõ szalagkábelt, és az interfészpanelt a számítógéppel összekötõ soros buszt egy-egy extra hüvelysorral.
 
-FDC chip select logika bug (nem kritikus)
+A meghajtó bekapcsolásakor figyelmes lettem arra, hogy a hajlékonylemezt forgató motor egy adott ideig engedélyezõ parancsot kap majd leáll. Szimuláció szerint is ez a mûködés volt elvárható, viszont a floppy vezérlõ állapotgépét vizsgálva figyelmes lettem arra, hogy mintha nem megfelelõ állapotba kerülne a rendszer.
 
-soros port hiba: órajel-forrás helyessége -> PLL
-drive nem ready -> hibás ucf fájl (dskchg és read láb megcserélve)
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=125mm, keepaspectratio]{figures/fdc_fail.png}
+\caption{Szimuláció: a floppy-vezérlõ hibás állapot-átmenete}
+\label{fig:fdc_fail}
+\end{figure}
 
-parancsok basic-ben
+Az FDC-nek adatlapja szerint a 0xD0 (Force Interrupt) parancs hatására IDLE állapotban kellene maradnia, hiszen így történik meg a periféria alaphelyzetbe állítása, ehelyett INIT, majd SPINUP állapotba kerül. (Érdekességképp megjegyzem, hogy ezután a floppy-vezérlõ hat index-impulzus megérkezésére várakozik, hogy megbizonyosodjon arról, valóban forog a motor. Mivel azonban a floppy meghajtó motor engedélyezõ jele nem az FDC, hanem a CIA felõl van meghajtva, ez nem következik be. Helyette egy másik leállási feltétel lép érvénybe, timeout-ol a rendszer, majd hibajelzés nélkül folytatja a programvégrehajtást.)
+
+A jelenség oka az volt, hogy az FDC command regiszter írása szinkron, viszont az állapotgép "aszinkron", és már a chip select hatására továbblép, nem várja meg, hogy érvényre jusson az újonnan beérkezõ parancs. Megoldást jelentett a problémára, hogy a command regiszter írását az órajelhez szinkronizáltam:
+
+\begin{lstlisting}[language=vhdl,frame=single,float=!ht]
+CMD_WR <= true when
+ CSn = '0' and A1 = '0' and A0 = '0' and RWn = '0' and rising_edge(CLK)
+else false; -- Command register write.
+\end{lstlisting}
+
+Másik, nagyobb horderejû probléma akkor jelentkezett, amikor megpróbáltam parancsokat küldeni a számítógéprõl a meghajtónak. A soros buszon zajló adatforgalom könnyebb olvashatósága kedvéért írtam egy szkriptet a logikai analizátor felhasználói felületéhez, mely a Commodore IEEE-488 protokoll-specfikáció szerint beérkezõ handhsake-jelek és adatbitek alapján állítja vissza az adatokat olvasható formátumú hexadecimális értékekké.
+
+A Commodore számítógéprõl olyan parancsokat küldtem, melyek a floppy meghajtó mûködésének vizsgálatára alkalmasak: ilyen volt például a lemez formázása vagy a lemezen szereplõ fájlok kilistázása. Ez utóbbinak természetesen akkor van a gyakorlatban értelme, ha valóban egy megfelelõképp formázott lemez van a meghajtóban, viszont az én floppy lemezeim eredetileg IBM PC-ken való használat számára voltak megformázva. A Commodore 64-es számítógépen BASIC nyelven lehetséges programokat írni és parancsokat végrehajtani, így a lemezkezelés is ezek segítségével történt.
+
+Például a buszon lévõ egyes eszközök megszólítására és az adott parancs elküldésére az \lstinline| OPEN15,8,15,"PARANCS":CLOSE15| szekvencia használható. A paraméterekben szereplõ számok rendre a (tetszõleges 8-bites) csatornaszám, a meghajtó azonosítója (8), és a másodlagos címe.\cite{manual} A kiadott parancs bájtonként kerül elküldésre, az adatfolyamot egy nyitó- és egy záró vezérlõkód keretezi.
+
+\begin{table}[ht]
+	\footnotesize
+	\centering
+	\caption{Az IEC-busz vezérlõkódjai} 
+	\begin{tabular}{ | r | l |}
+	\hline
+	Kezdõcím & Parancs leírása és paraméterei\\ \hline
+	\$20 & LISTEN + azonosító\\
+	\$3F & UNLISTEN\\
+	\$40 & TALK + azonosító\\
+	\$5F & UNTALK\\
+	\$60 & OPEN CHANNEL/DATA  + másodlagos cím\\
+	\$E0 & CLOSE + másodlagos cím\\
+	\$F0 & OPEN + másodlagos cím\\
+	\hline
+	\end{tabular}
+	\label{tab:IEC_Commands}
+\end{table}
+
+\newpage
+A soros kommunikáció tesztelése végett a felhasználó kézikönyvben javasolt programrészletet használtam. Ennek segítségével lekérdezhetõ a meghajtó aktuális állapota, kiolvasható az esetlegesen fennálló hibakód. Érdekesség, hogy a meghajtó bekapcsolása vagy újraindítása után hibakód helyett a firmware verzióját küldi vissza.
+
+\begin{lstlisting}[frame=single,float=!ht]
+10 OPEN15,8,15
+20 INPUT#15,EN,EM$,ET,ES
+30 PRINT EN,EM$,ET,ES
+40 CLOSE15
+RUN
+\end{lstlisting}
+
+Azt tapasztaltam, hogy a parancsot elküldi a számítógép a meghajtónak, viszont válaszként nem érkezik meg az elvárt \lstinline|73, "COPY RIGHT CBM DOS V10 1581"| szöveg, helyette lefagyott a meghajtó, és nem fogadott több parancsot a következõ újraindulásig. Kíváncsiságból elvégeztem egy referenciamérést egy SDrive64 1564 típusú, SD2IEC SD-kártya adapterhez hasonló periféria eszközzel, amivel tudtam tesztelni, milyen - protokollra jellemzõ magas szintû - válaszokat várhatok az FPGA-n megvalósított meghajtóról.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=130mm, keepaspectratio]{figures/serial_diffs.png}
+\caption{Eltérés a handshake-jelek között}
+\label{fig:serial_diffs}
+\end{figure}
+
+A két esetben eltérést tapasztaltam, mégpedig a kommunikáció irányának megváltoztatására szolgáló handshake-jelek tekintetében. A floppy meghajtó nem húzza le a busz CLK vonalát, ellentétben a specifikációval és az SD-kártya olvasóval, mely az ábrán is látható.
+
+Annak megkülönböztetésére, hogy az adott pillanatban melyik eszköz hajtja meg a kétirányú adat-és órajel vonalat, külön állapotjelzõ jelek kivezetése volt szükséges az FPGA-ról, melyeket az interfészpanel szabadon maradt lábaira illesztettem, és mértem a logikai analizátorral.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=130mm, keepaspectratio]{figures/serial_stops_randomly.png}
+\caption{Megszakad az adatfolyam}
+\label{fig:serial_stops}
+\end{figure}
+
+Látható, hogy a Commodore 64 egyszer csak már nem húzza le a DATA vonalat. A nyilakkal jelölt helyen nem húzza le a vonalat a periféria (ez a DBG\_DATAIN jel segítségével ellenõrizhetõ), tehát a számítógépnek kellett volna vezérelnie az adatbuszt a specifikációnak megfelelõen. Látható tehát, hogy a parancsot sikeresen fogadta a meghajtó, és meg is kezdte a válasz elküldését, melyet viszont valamilyen ok folytán nem tudott befejezni.
+
+Egy konzultáció során felmerült a gyanú, hogy esetleg nem megfelelõ órajel-frekvenciával hajtom meg a CIA-t, mivel a soros adatátvitelt az azon található Timer A periféria ütemezni. Ezt a mérési eredmények alá is támasztották. Elkerülte a figyelmem, hogy az FPGA panelen rendelkezésre álló órajelforrás 16MHz helyett 50MHz-es órajellel látja el a rendszert. Ugyan a soros busz szinkron adatátvitelt biztosít, a protokoll specifikáció tartalmaz olyan helyzeteket, melyek során kritikus betartani a pontos idõzítést.
+
+A megoldás egyben egy feladatot is rejtett magában, ugyanis mivel az 50MHz nem egész számú többszöröse a 16MHz-nek, így egyszerû osztással nem lehet azt elõállítani belõle. Ehhez a Spartan 6 FPGA-ban található PLL modullal egészítettem ki az órajel-generátor verilog-modult, melyet az adatlapja alapján felkonfiguráltam és le is szimuláltam, mielõtt kipróbáltam a fizikai hardveren.\cite{pllconfig}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=90mm, keepaspectratio]{figures/tv.jpg}
+\caption{Sikeres státusz-kiolvasás eredménye a képernyõn}
+\label{fig:tv}
+\end{figure}
+
+Ezzel a megoldással már helyesen mûködött a soros port, viszont a meghajtót még mindig nem sikerült rábírnom a lemez megformázására. A parancs megérkezik a meghajtóra, és látszólag el is indul a formázás folyamata, azonban miután az író-olvasó fej ahelyett, hogy a szélsõ sávra lépés után egyesével belépkedne a lemez belsõ része felé némi várakozás után teljes sebességgel középre mozog és ott is marad, ezután pedig ismételten nem lehet megszólítani a meghajtót.
+
+\section{Záró gondolatok}
+A féléves munka végeztével ezeket az eredményeket sikerült elérnem. Megpróbálkoztam még a formázás során ütemezésre kerülõ job mûködésének megismerésével, valamint a fej által írt/olvasott adatok dekódolására - a soros porthoz hasonlóan - készíteni egy szkriptet a logikai analizátor szoftveréhez. Idõ hiányában egyelõre nem jártam sikerrel.
+
+Önálló laboratóriumi munkám során a méröki feladatok egy új perspektíváját ismertem meg, fõleg a reverse-engineering és a hardvertesztelés terén. További lehetõségnek fenntartom a 1581-es meghajtó befejezését, valamint a megszerzett tudás és tapasztalatok ismeretében hasonló témában tovább fejlõdni.

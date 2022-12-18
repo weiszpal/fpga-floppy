@@ -92,7 +92,7 @@ A valós idejû órát nem az eredeti rendeltetési céljának megfelelõen használja a 
 
 Mivel az összes általános célú IO láb foglalt már, a valós idejû órát léptetõ TOD láb vagy egy ellenálláson keresztül 5V-ra, vagy pedig a 2MHz-es rendszerórajelre kapcsolódik az átkötés jelenlététõl függõen. Szoftveresen ez úgy ellenõrizhetõ, hogy ha egy adott idejû szoftveres várakozás után megváltozik a valós idejû óra regiszterének értéke akkor ott az átkötés, egyébként nincs.
 
-A 8520-as CIA implementációját a C64-MiSTer elnevezésû projektbõl vettem át. Ennek lényege, hogy egy egész Commodore 64 számítógép hardverleírását tartalmazza a MiSTer nevû nyílt forráskódú hardverkörnyezetre, melyen többféle retro számítógép és játékkonzol modern technológiákkal (FPGA) való megvalósítására terveztek \cite{mister}
+A 8520-as CIA implementációját a C64-MiSTer elnevezésû projektbõl vettem át. Ennek lényege, hogy egy egész Commodore 64 számítógép hardverleírását tartalmazza a MiSTer nevû nyílt forráskódú hardverkörnyezetre, melyen többféle retro számítógép és játékkonzol modern technológiákkal (FPGA) való megvalósítására terveztek. \cite{mister}
 
 \section{FDC}
 A hajlékonylemezes meghajtó vezérlõ (Floppy Disk Controller, FDC) egy dedikált integrált áramkör, mely a floppy író-olvasó modul vezérlõjeleit állítja elõ közvetlenül, valamint ez fogadja a lemezmeghajtóról érkezõ nyers adatokat, visszajelzéseket is. Mûködését tekintve egy állapotgépet valósít meg, mely szoftver oldalról magas szintû parancsok regiszterbe írásával vezérelhetõ.\cite{FDC}
@@ -138,9 +138,9 @@ A meghajtó eredeti kapcsolásában aszinkron RAM és ROM chipeket alkalmaztak, az a
 
 Megvalósítás szempontjából tulajdonképpen mindkét memória egy-egy nagy regisztertömb. Arra kell külön figyelni, hogy amikor nincsenek megcímezve, ne hajtsák meg adatbuszt. Ez verilogban a Z logikai állapot használatával valósítható meg.
 
-Mivel a ROM tárolja a 1581-es firmware-ét vagyis a CPU-n futó programot, így azt a rendszer konfigurálásakor bele kell azt valahogyan tölteni. Ehhez a \$readmemh függvényt használtam, mely egy megadott helyen található  bináris állományával inicializálja a paraméterként megadott regisztertömböt.
+Mivel a ROM tárolja a 1581-es firmware-ét vagyis a CPU-n futó programot, így azt a rendszer konfigurálásakor bele kell azt valahogyan tölteni. Ehhez a \lstinline|$readmemh| függvényt használtam, mely egy megadott helyen található  bináris állományával inicializálja a paraméterként megadott regisztertömböt.
 
-A bináris állomány rendelkezésemre állt, ugyanarról a weboldalról elérhetõ, ahol a 1581-es szervizkönyvét is megtaláltam. Mivel a verilog hex fájlt vár a \$readmemh paramétereként, át kellett alakítanom a bináris állományt a megfelelõ formátumúra. Linux alatt a következõ bash-szkripttel végeztem ezt el:
+A bináris állomány rendelkezésemre állt, ugyanarról a weboldalról elérhetõ, ahol a 1581-es szervizkönyvét is megtaláltam. Mivel a verilog hex fájlt vár a \lstinline|$readmemh| paramétereként, át kellett alakítanom a bináris állományt a megfelelõ formátumúra. Linux alatt a következõ bash-szkripttel végeztem ezt el:
 
 \begin{lstlisting}[language=bash,frame=single,float=!ht]
 for FILE in *.bin; do
