@@ -126,7 +126,7 @@ A READY jelet elõállító logikai függvény verilog-implementációja:
 \section{Órajel-generátor}
 Az többi modulhoz szükséges órajeleket ezzel a modullal állítottam elõ. 16MHz-es rendszerórajelet feltételeztem, melyet a floppy vezérlõ egy az egyben megkapott, a többi modul számára az ebbõl leosztott 2MHz-es $\phi_2$ jelet adtam. A processzor implementációjából kihagyták az eredeti órajel-kondicionáló részt, mely a $\phi_0$-ból állítja elõ a kétfázisú rendszerórajelet, de erre egyrészt nincs is szükség ebben a megoldásban, másrészt úgyis az órajel-generátor modul a felelõs az összes szükséges órajel elõállításáért.
 
-A frekvenciaosztást egy egyszerû bináris számláló végzi. Mivel az Arlet-féle processzor-implementációhoz aszimmetrikus órajelre volt szükség, így a 2MHz-es órajel-impulzusokat komparálással állítottam elõ, és ezen a késõbbiekben sem módosítottam, mivel jól mûködött.
+A frekvenciaosztást egy egyszerû bináris számláló végzi. Mivel az Arlet-féle processzor-implementációhoz aszimmetrikus órajelre volt szükség, így a 2MHz-es órajel-impulzusokat komparálással állítottam elõ, és ezen a késõbbiekben sem módosítottam, mivel ugyanolyan jól mûködött.
 
 A CIA implementációjának érdekes módon szüksége van egy invertált $\phi_2$ jelre is, ezt nem az órajel-modulban állítottam elõ, hanem a bekötésnél vezettem rá az negált órajelet.
 

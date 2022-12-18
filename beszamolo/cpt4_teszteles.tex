@@ -1,25 +1,60 @@
 %----------------------------------------------------------------------------
 \chapter{Tesztelés, hibajavítás}
 %----------------------------------------------------------------------------
-na ide jöhet minden
 
-\section{Az interfész panel tesztje}
-interfész panel tesztje (tx led világít mert eltér a fpga fejlesztõpanel adatlapja a valóditól duh)
+A feladat hátralevõ részében az elkészült hardver-elemek tesztelésével, az esetleges hibák felderítésével és azok kijavításával foglalkoztam.
+
+\section{Az interfészpanel tesztje}
+Miután megérkezett a gyártásból az interfészpanel amit terveztem, elvégeztem az alkatrészek beforrasztását, és egy példaprojektet készítettem abból a célból, hogy magának a panelnek a mûködését ellenõrizni tudjam. Ehhez elkészítettem az FPGA-panel tüskesorának hozzárendelését a verilog-modul jeleihez egy UCF-fájl segítségével. Az interfészpanel 5V-os jeleire egy próbapanel segítségével LED-eket illesztettem, melyeket a tesztprojektben sorban egymás után villantottam fel, így megbizonyosodhattam a szintillesztõ áramkör helyes mûködésérõl. Ekkor vettem észre azt is, hogy a meghajtó foglaltságát jelzõ zöld színû státusjelzõ LED-et fordított polaritással forrasztottam rá az interfészpanelre, mivel az alkatrészen megtévesztõ módon szerepelt a polaritásmegjelölés - így ezt kijavítottam.
+
+A lábkiosztás megtervezésekor törekedtem arra, hogy az FPGA panel olyan lábait használjam, melyeknek nincs alternatív funkciója, ezzel csökkentve annak a valószínûségét, hogy a fejleszõpanelen található áramköri elemek vagy perifériák módosítják az áramköröm tervezett viselkedését. A teszt során nyilvánvalóvá vált, hogy az FPGA-panel specifikációjától eltérõ módon a P11-es lábnak más funkciója is van, mégpedig az integrált soros port TX vonalát is ez táplálja. Mivel ez nincs használatban szerencsére nem okozott gondot, csak bosszantó, hogy világít az alaplapon egy extra led, valamint ezek után kevésbé megbízható dolog pusztán a dokumentációkra támaszkodni.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=120mm, keepaspectratio]{figures/fpga_tx.png}
+\caption{Eltérés a fejlesztõpanel kapcsolási rajza és a valóság között.}
+\label{fig:pinout_fukdup}
+\end{figure}
 
 \section{Verilog-modulok}
-hogyan zajlott ez egyes modulok tesztje:
-órajel
-ram
-rom
-proci
+Elõször a saját készítésû verilog-modulokhoz készítettem külön-külön tesztkörnyezeteket, és mûködésüket az ISE szimulátora segítségével végeztem. Elõször az órajel-generátort, majd a memória-modulokat teszteltem, végül pedig egy olyan összeállítást is elkészítettem, ahol a RAM és a ROM is a rendszer buszaira kapcsolódik, és ellenõriztem az engedélyezõ logikát valamint azt, hogy a megfelelõ memóriacímek használatakor nem hajtanak-e szembe.
 
-\section{Debugolás}
+Mivel úgy tûnt, hogy helyesen mûködnek ezek a modulok, elkezdtem a rendszer többi részének integrációját, egyesével vettem hozzá a projekthez a processzor, a CIA és a floppy vezérlõ implementációjának egy-egy példányait.
 
-\section{Valódi környezetben}
-parancsok basic-ben
-tesztelés a valóságban: valódi C64 hardverrel (+hibajel kiolvasó szkript) + digitális analizátor + speckó kábelek
+\section{A firmware}
+Miután a processzor is bekerült a top modulba, a tesztelést a ROM-ba betöltött firmware bináris segítségével végeztem: a processzor ekkor már az eredeti 1581-es meghajtóra készült kódott futtatta, így biztos lehettem benne, hogy a szoftverben nincs hiba. A bináris állományt már csak azért sem lett volna érdemes piszkálni, mivel tartalmaz egy ellenõrzõösszeget is, amivel a program indulásakor a ROM tartalmának sértetlenségét ellenõrzi. Érdekes tapasztalat volt úgy fejleszteni, hogy egy hibamentes, kész szoftver alatt kellett megvalósítani azt a hardvert, mely az eredeti specifikációnak megfelelõ mûködést hivatott biztosítani.
+
+További nehézséget jelentett, hogy magának a firmware-nek a mûködése csak az eredeti, assemblyben megírt forrásfájlok kommentjeibõl, valamint egy német nyelven kommentezett dissassembly listing fájlból volt kideríthetõ.\cite{nemet_disassembly} Természetesen a 1581-es meghajtó felhasználói kézikönyvében számos információ utal arra, hogyan kell mûködnie bizonyos esetekben a meghajtónak, a részletes okokat csak a hardver és a firmware átfogó ismeretében lehet tudni.
+
+A szimulátor segítségével nyomon követhetõ volt a program futása, az FPGA-panel IO lábai mellé a processzor és a rendszer belsõ jeleit is felvettem a megjelenített hullámformák közé, így láthatóvá váltak a buszmûveletek, a programszámláló és a különbözõ regiszterek értékei is. A program futása során elõször különbözõ hardveres teszteket hajt végre: inicializálja a perifériákat, leellenõrzi a ROM sértetlenségét az ellenõrzõösszeg alapján, különbözõ értékekkel tölti fel a RAM-ot majd vissza is olvassa azokat. Az ekkor fellépõ hibajelenségeket a hiba okától függõen a visszajelzõ LED-ek megadott számú felvillanásával lehet azonosítani.
+
+Miután lefutottak a tesztek, elalszik a 'Drive' feliratú státusz visszajelzõ LED, és a firmware elindít egy operációs rendszert. Az ütemezõt az interfész adapter Timer B idõzítõje hívja meg, másodpercenként 100-szor. Az operációs rendszer prioritásokkal megadott JOB-okat futtat, egyszerre legfeljebb 8-at képes nyilvántartani. Futáskor a JOB kódokat a prioritásuknak megfelelõ sorrendben fix memóriacímeken tárolja, a feladat befejezésekor pedig a visszatéréskor adott kód (hibakód) kerül a helyére.
+
+A szimuláció kezdeti szakasza alapján mûködni látszott a processzor, így megpróbáltam az FPGA-ra szintetizálva is kipróbálni a rendszert. Azt tapasztaltam, hogy sosem aludt el a zöld LED, és valóban nem is jutott túl az inicializálási állapoton a meghajtó. Mivel a hardveren nem állt rendelkezésre debugolásra vagy legalábbis a program futásának nyomon követésére alkalmas interfész, visszatértem a szimulációhoz. Hosszabb ideig futtatva azt, kiderült, hogy végtelen ciklusba kerül a program és egy olyan változó értékének 0-ra csökkenésére vár, amelyet a program további futása során nem módosít semmi.
+
+Az assembly listing alapján kiderítettem, hogy a szóban forgó változó egy szoftveres várakozáshoz használt számláló, melynek értékét az idõzítõ lejártával kiszolgálásra kerülõ megszakításrutin csökkenti eggyel. A probléma, hogy nem jut sose érvényre ez a megszakítás. Mivel a jelenség okának felderítéséhez ezen a ponton már nem volt kényelmes pusztán a szimulátor környezetben vizsgált jelek alapján kitalálni, mi okozza a program futásában fellépõ eltérést (annak tudatában, hogy a program viszont biztosan jól mûködne egy hibamentes hardveren), más megközelítéssel próbálkoztam.
 
 \section{Emulátor}
-proci bug -> emulátor szkript
+Az ugró utasítások és ciklusok nyomon követése nagyon megnehezítette a debugolást, mivel az ISIM programban csak lineárisan követhetõ a program futása. Ráadásul a memória tartalma csak a szimuláció végével elért állapotot tükrözi, a kurzorok állításával nem kérdezhetõ le a szimuláció egy korábbi idõpontjához tartozó állapot. Emiatt a változók és a stack tartalmának vizsgálata, valamint az eltérések észrevétele csak egy újabb szimuláció segítségével volt megtehetõ, ami viszont jelentõsen megnövelte a hibakereséssel töltött idõt.
+
+Ahhoz, hogy egyáltalán a program futásának nyomon követését hatékonyabban tudjam végezni, írtam egy emulátor programot C-ben, mely a rendszer funkcionális mûködésének megfelelõen viselkedik. Léteznek ugyan online elérhetõ 6502-es processzorhoz készült disassembler és emulátor eszközök, melyek viszont elsõsorban demonstrációs célúak, így nem bõvíthetõk vagy fejleszthetõk tetszõlegesen. Az emulátor elkészítéséhez mindenképp szükséges volt megismernem a 6502-es processzor belsõ felépítését és mûködését, utasításkészletét, címzési módjait, és hogy melyik mûvelet milyen egyéb belsõ állapotokat változtat meg. Ebben segítségemre volt a 6502-es processzor programozói kézikönyve\cite{programming_manual}, valamint az utasításkészlet online példákkal kiegészített interaktívan kereshetõ változata.\cite{instruction_set}
+
+Az emulátor program ugyanazt a bináris állományt futtatja, mint amit a ROM-ba is betöltöttem, sõt felépítését tekintve a verilog-ban leírt rendszert tükrözi azzal az eltéréssel, hogy minden perifériához mint memória fér hozzá, a róluk beolvasott értékeket pedig az olvasás pillanatában állítottam elõ a valóságnak (és a szimulációnak) megfelelõ módon.
+
+Az emulátor segítségével tehetõk a programba töréspontok, de másmilyen típusú feltétel esetén megállítható a program futása, és szemléletes módon megtekinthetõ a stack vagy a zero-page tartalma, hasonlóképp a CPU és a többi periféria regisztereié is. A hardveres megszakítás-kéréseket szintén a szimuláció és a kiváltó okok ismeretében az emulátorban szoftveresen valósítottam meg.
+
+Az emulátor, a listing fájl, valamint papír és ceruza használatával sikerült visszakövetnem, hogy a kívánt állapot elérési láncában hol megy félre a program, és milyen értékek stack-re kerülésének köszönhetõ, hogy ez megtörténik.
+
+Kiderült, hogy a processzor verilog-moduljában hibás a szoftveres megszakítást jelzõ flag implementációja, ugyanis a specifikációtól eltérõ módon akkor is ugyanolyan értékkel kerül fel a stack-re ha hardveres megszakítás érkezik, mintha szoftveres. Fontos megjegyezni, hogy a státuszregiszterben nem változik meg sosem ennek a flag-nek az állapota, csak a megszakítás érvényre jutásakor kerül beállításra a státuszregiszter stack-re kerülõ másolatában.
+
+Miután megkerestem és javítottam a hibát a processzormag leírásában, a meghajtó sikeresen el tudta végezni a inicializációt a szimuláció szerint, és a valóságban is.
+
+\section{Tesztelés valódi környezetben}
+tesztelés a valóságban: valódi C64 hardverrel (+hibajel kiolvasó szkript) + digitális analizátor + speckó kábelek
+
+FDC chip select logika bug (nem kritikus)
+
 soros port hiba: órajel-forrás helyessége -> PLL
 drive nem ready -> hibás ucf fájl (dskchg és read láb megcserélve)
+
+parancsok basic-ben
