@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "MAB6H")(type "KiCad")(uri "${KIPRJMOD}/MAB6H")(options "")(descr "")(disabled))
+)
